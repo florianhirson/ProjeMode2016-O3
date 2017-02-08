@@ -11,5 +11,6 @@ public class Main {
 			System.out.println("What is love");
 			System.out.println("Baby");
 			System.out.println("Baby dont");
+			System.out.println("Tu t'amuse ?");
 		}
 }
