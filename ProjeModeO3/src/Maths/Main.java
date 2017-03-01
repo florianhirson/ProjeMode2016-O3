@@ -10,8 +10,9 @@ public class Main {
 			System.out.println("What is");
 			System.out.println("What is love");
 			System.out.println("Baby");
+			System.out.println("test");
 			System.out.println("Baby dont");
 			System.out.println("Tu t'amuses ?");
 			System.out.println("Yo les gars ça va ?");
-		}
+					}
 }
