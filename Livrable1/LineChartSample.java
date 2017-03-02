@@ -32,7 +32,8 @@ public class LineChartSample extends Application {
         //populating the series with data
         
         
-         
+        
+             
         try
         {
            String chemin = "C:/Users/florian/Desktop/Recherche/Java/ProjetS3/Test.csv";
@@ -40,22 +41,31 @@ public class LineChartSample extends Application {
            String chaine;
           
            ArrayList<String[]> tabChaine = new ArrayList<String[]>();
+           ArrayList<String[]> tabCh = new ArrayList<String[]>();
            
            int indice = 0;
            while((chaine = fichier_source.readLine())!= null)
            {
-            tabChaine.add(chaine.split(","));
+        	   
+        
+           tabChaine.add(chaine.split(";"));
+           
             indice++;
+            
            }
+           for(int i = 0; i < indice-2 ; i++)
+           for(int j = 0; j < tabChaine.get(i).length ; j++ )
+    	   {
+        	   tabCh.add(tabChaine.get(i)[j].split(","));
+    	   }
            fichier_source.close();
-             for(int i = 2; i < indice-2 ; i++)
+           // Test à la fonction carrée peut être amélioré
+           for(int i = 2; i < indice-3 ; i++)
            {
-        	   int a = i;
-        	   i = i+1;
-        	   for(int j = 0; j < tabChaine.get(i).length ; j++ )
-        	   {
-             	series.getData().add(new XYChart.Data(Integer.parseInt(tabChaine.get(a)[j]), Integer.parseInt(tabChaine.get(i)[j])));
-        	   }
+        		   int x = Integer.parseInt(tabCh.get(i)[0]);
+        		   int y = Integer.parseInt(tabCh.get(i)[1]);
+             	series.getData().add(new XYChart.Data(x, y));
+        	   
            }
         }
         catch (FileNotFoundException e)
