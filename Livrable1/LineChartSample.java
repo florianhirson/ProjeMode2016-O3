@@ -53,15 +53,17 @@ public class LineChartSample extends Application {
             indice++;
             
            }
-           for(int i = 0; i < indice-2 ; i++)
+          for(int i = 0; i < indice ; i++)
            for(int j = 0; j < tabChaine.get(i).length ; j++ )
     	   {
         	   tabCh.add(tabChaine.get(i)[j].split(","));
     	   }
            fichier_source.close();
-           // Test à la fonction carrée peut être amélioré
-           for(int i = 2; i < indice-3 ; i++)
+           
+           for(int i = 0; i < indice ; i++)
            {
+        	   
+        	   
         		   int x = Integer.parseInt(tabCh.get(i)[0]);
         		   int y = Integer.parseInt(tabCh.get(i)[1]);
              	series.getData().add(new XYChart.Data(x, y));
