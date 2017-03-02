@@ -38,7 +38,7 @@ public class LineChartSample extends Application {
 
 		try
 		{
-			String chemin = "C:/Users/florian/Desktop/Recherche/Java/ProjetS3/Test.csv";
+			String chemin = "Test.csv";
 			BufferedReader fichier_source = new BufferedReader(new FileReader(chemin));
 			String chaine;
 
