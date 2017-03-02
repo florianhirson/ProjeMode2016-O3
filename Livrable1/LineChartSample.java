@@ -48,9 +48,15 @@ public class LineChartSample extends Application {
             indice++;
            }
            fichier_source.close();
-           for(int i = 2; i < indice-1 ; i++)
+             for(int i = 2; i < indice-2 ; i++)
+           {
+        	   int a = i;
+        	   i = i+1;
         	   for(int j = 0; j < tabChaine.get(i).length ; j++ )
-             	series.getData().add(new XYChart.Data(Integer.parseInt(tabChaine.get(i)[j]), Integer.parseInt(tabChaine.get(i)[j])));
+        	   {
+             	series.getData().add(new XYChart.Data(Integer.parseInt(tabChaine.get(a)[j]), Integer.parseInt(tabChaine.get(i)[j])));
+        	   }
+           }
         }
         catch (FileNotFoundException e)
         {
