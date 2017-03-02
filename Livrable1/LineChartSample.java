@@ -16,19 +16,22 @@ public class LineChartSample extends Application {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void start(Stage stage) throws IOException {
-		stage.setTitle("Line Chart Sample");
+		stage.setTitle("Test d'exportation du fichier csv");
 		//defining the axes
 		final NumberAxis xAxis = new NumberAxis();
 		final NumberAxis yAxis = new NumberAxis();
-		xAxis.setLabel("Number of Month");
+		xAxis.setLabel("Abcisse");
+		yAxis.setLabel("Ordonnee");
 		//creating the chart
 		final LineChart<Number,Number> lineChart = 
 				new LineChart<Number,Number>(xAxis,yAxis);
 
-		lineChart.setTitle("Stock Monitoring, 2010");
+		lineChart.setTitle("Fonction f(x) 2");
+
 		//defining a series
 		XYChart.Series series = new XYChart.Series();
-		series.setName("My portfolio");
+		series.setName(" f(x) = x^2");
+
 		//populating the series with data
 
 
