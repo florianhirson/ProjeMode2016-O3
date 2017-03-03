@@ -57,8 +57,6 @@ public class CsvDownload {
     public static void main(String[] args)
     {
     	String url = "http://www.ibm.com/support/knowledgecenter/fr/SVU13_7.2.1/com.ibm.ismsaas.doc/reference/AssetsImportCompleteSample.csv";
-        
-
         getFile(url);
     }
 
