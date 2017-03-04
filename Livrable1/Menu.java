@@ -26,7 +26,7 @@ public class Menu {
 		System.out.println("##########  PROJET   ###########");
 		System.out.println("#                              #");
 		System.out.println("#     Voulez-vous importer     #");
-		System.out.println("#     une série de données ?   #");
+		System.out.println("#     une sÃ©rie de donnÃ©es ?   #");
 		System.out.println("#                              #");
 		System.out.println("################################");
 		System.out.println("#                              #");
@@ -40,7 +40,7 @@ public class Menu {
 
 		switch(choix){
 		case 1 : 
-			//méthode charger fichier CSV
+			//mÃ©thode charger fichier CSV
 		case 9 :
 			//menu quitter et sauvegarde
 		default:
@@ -64,9 +64,9 @@ public class Menu {
 		System.out.println("#                              #");	
 		System.out.println("#  2 : Une analyse             #");
 		System.out.println("#                              #");	
-		System.out.println("#  3 : une prévision           #");
+		System.out.println("#  3 : une prÃ©vision           #");
 		System.out.println("#                              #");	
-		System.out.println("#  0 : Retour menu précédent   #");
+		System.out.println("#  0 : Retour menu prÃ©cÃ©dent   #");
 		System.out.println("#                              #");	
 		System.out.println("#  9 : Quitter PROJET          #");		
 		System.out.println("#                              #");
@@ -80,7 +80,7 @@ public class Menu {
 		case 2 :
 			//menu choix analyse
 		case 3 :
-			//menu choix prévision
+			//menu choix prÃ©vision
 		case 0 :
 			menuLancement();
 		case 9 :
@@ -109,15 +109,15 @@ public class Menu {
 		System.out.println("#                                    #");	
 		System.out.println("#  4 : Moyenne mobile                #");
 		System.out.println("#                                    #");
-		System.out.println("#  5 : Moyenne mobile pondérée       #");
+		System.out.println("#  5 : Moyenne mobile pondÃ©rÃ©e       #");
 		System.out.println("#                                    #");
-		System.out.println("#  6 : Saisonnalité                  #");
+		System.out.println("#  6 : SaisonnalitÃ©                  #");
 		System.out.println("#                                    #");	
-		System.out.println("#  7 : Tendance linéaire             #");
+		System.out.println("#  7 : Tendance linaire             #");
 		System.out.println("#                                    #");
-		System.out.println("#  8 : Opérateur de différenciation  #");
+		System.out.println("#  8 : Oprateur de diffÃ©renciation  #");
 		System.out.println("#                                    #");
-		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#  0 : Retour menu prÃ©cÃ©dent         #");
 		System.out.println("#                                    #");
 		System.out.println("#  9 : Quitter PROJET                #");		
 		System.out.println("#                                    #");
@@ -127,21 +127,21 @@ public class Menu {
 		
 		switch(choix){
 		case 1 :
-			//méthode logarithme
+			//mÃ©thode logarithme
 		case 2 :
-			//méthode box-cox
+			//mÃ©thode box-cox
 		case 3 :
-			//méthode logistique
+			//mÃ©thode logistique
 		case 4 :
-			//méthode moyenne mobile
+			//mÃ©thode moyenne mobile
 		case 5 :
-			//méthode moyenne pondérée
+			//mÃ©thode moyenne pondre
 		case 6 :
-			//méthode saisonnalité
+			//mÃ©thode saisonnalit
 		case 7 :
-			//méthode tendance linéaire
+			//mÃ©thode tendance linaire
 		case 8 :
-			//méthode opérateur de différenciation
+			//mÃ©thode oprateur de diffrenciation
 		case 0 :
 			menuChoixActions();
 		case 9 :
@@ -157,7 +157,7 @@ public class Menu {
 		System.out.println();
 		System.out.println("##############   PROJET   ############");
 		System.out.println("#                                    #");
-		System.out.println("#     quelles prévisions voulez      #");
+		System.out.println("#     quelles prÃ©visions voulez      #");
 		System.out.println("#        vous effectuer ?            #");
 		System.out.println("#                                    #");
 		System.out.println("######################################");
@@ -168,7 +168,7 @@ public class Menu {
 		System.out.println("#                                    #");	
 		System.out.println("#  3 : Holt-Winters                  #");
 		System.out.println("#                                    #");
-		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#  0 : Retour menu prÃ©cÃ©dent         #");
 		System.out.println("#                                    #");
 		System.out.println("#  9 : Quitter PROJET                #");		
 		System.out.println("#                                    #");
@@ -178,11 +178,11 @@ public class Menu {
 		
 		switch(choix){
 		case 1:
-			//méthode lissage exponentiel simple
+			//mÃ©thode lissage exponentiel simple
 		case 2 :
-			//méthode lissage exponentiel double
+			//mÃ©thode lissage exponentiel double
 		case 3 :
-			//méthode holt-winters
+			//mÃ©thode holt-winters
 		case 0 :
 			menuChoixActions();
 		case 9 :
@@ -207,9 +207,9 @@ public class Menu {
 		System.out.println("#                                    #");	
 		System.out.println("#  2 : Lissage exponentiel double    #");
 		System.out.println("#                                    #");	
-		System.out.println("#  3 : Autocorrélations des résidus  #");
+		System.out.println("#  3 : AutocorrÃ©lations des rÃ©sidus  #");
 		System.out.println("#                                    #");
-		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#  0 : Retour menu prÃ©cÃ©dent         #");
 		System.out.println("#                                    #");
 		System.out.println("#  9 : Quitter PROJET                #");		
 		System.out.println("#                                    #");
@@ -219,11 +219,11 @@ public class Menu {
 		
 		switch(choix){
 		case 1:
-			//méthode lissage exponentiel simple
+			//mÃ©thode lissage exponentiel simple
 		case 2 :
-			//méthode lissage exponentiel double
+			//mÃ©thode lissage exponentiel double
 		case 3 :
-			//méthode autocorrélation
+			//mÃ©thode autocorrlation
 		case 0 :
 			menuChoixActions();
 		case 9 :
