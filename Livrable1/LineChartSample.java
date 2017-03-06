@@ -32,7 +32,7 @@ public class LineChartSample extends Application {
 		XYChart.Series series = new XYChart.Series();
 		series.setName(" f(x) = x^2");
 
-		//populating the series with data
+		
 
 
 
