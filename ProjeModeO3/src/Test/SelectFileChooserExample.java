@@ -18,12 +18,10 @@ import javafx.geometry.Insets;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.io.File;
-import java.util.List;
 
 public class SelectFileChooserExample extends Application {
 
 	private Text actionStatus;
-	private Stage savedStage;
 	private static final String titleTxt = "JavaFX File Chooser Example 1";
 
 	public static void main(String [] args) {
@@ -51,11 +49,6 @@ public class SelectFileChooserExample extends Application {
 		buttonHb1.setAlignment(Pos.CENTER);
 		buttonHb1.getChildren().addAll(btn1);
 
-		Button btn2 = new Button("Choisissez plusieurs fichiers PDF");
-		btn2.setOnAction(new MultipleFcButtonListener());
-		HBox buttonHb2 = new HBox(10);
-		buttonHb2.setAlignment(Pos.CENTER);
-		buttonHb2.getChildren().addAll(btn2);
 
 		// Status message text
 		actionStatus = new Text();
@@ -65,14 +58,14 @@ public class SelectFileChooserExample extends Application {
 		// Vbox
 		VBox vbox = new VBox(30);
 		vbox.setPadding(new Insets(25, 25, 25, 25));;
-		vbox.getChildren().addAll(labelHb, buttonHb1, buttonHb2, actionStatus);
+		vbox.getChildren().addAll(labelHb, buttonHb1, actionStatus);
 
 		// Scene
 		Scene scene = new Scene(vbox, 500, 300); // w x h
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		savedStage = primaryStage;
+
 	}
 
 	private class SingleFcButtonListener implements EventHandler<ActionEvent> {
@@ -87,7 +80,9 @@ public class SelectFileChooserExample extends Application {
 	private void showSingleFileChooser() {
 	
 		FileChooser fileChooser = new FileChooser();
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Fichiers CSV", "*.csv"));
 		File selectedFile = fileChooser.showOpenDialog(null);
+		
 
 		if (selectedFile != null) {
 
@@ -97,35 +92,6 @@ public class SelectFileChooserExample extends Application {
 		}
 		else {
 			actionStatus.setText("Selection de fichier annulee.");
-		}
-	}
-
-	private class MultipleFcButtonListener implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent e) {
-
-			showMultipleFileChooser();
-		}
-	}
-
-	private void showMultipleFileChooser() {
-
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Veuillez selectionner des fichiers PDF");
-		fileChooser.setInitialDirectory(new File("c:\\"));
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Fichiers CSV", "*.csv"));
-		List<File> selectedFiles = fileChooser.showOpenMultipleDialog(savedStage);
-
-		if (selectedFiles != null) {
-
-			actionStatus.setText("Fichiers PDF selectiones [" + selectedFiles.size() + "]: " +
-					selectedFiles.get(0).getName() + "..");
-			String chemin = selectedFiles.get(0).getAbsolutePath();
-			System.out.println(chemin);
-		}
-		else {
-			actionStatus.setText("Selection de fichier PDF annulee.");
 		}
 	}
 }

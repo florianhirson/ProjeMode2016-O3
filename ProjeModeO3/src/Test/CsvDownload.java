@@ -12,7 +12,8 @@ public class CsvDownload {
     {
         InputStream input = null;
         FileOutputStream writeFile = null;
-
+        System.setProperty("http.proxyPort", "3128");
+		System.setProperty("http.proxyHost", "proxy.univ-lille1.fr");
         try
         {
             URL url = new URL(host);
