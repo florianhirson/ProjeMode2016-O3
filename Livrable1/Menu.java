@@ -1,15 +1,11 @@
-package projet;
-
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
-
+	
 	Scanner sc = new Scanner(System.in);
-
-	private int choix;
-
+	
 	void erreurChoix() {
-
 		System.out.println();
 		System.out.println("##########   ERREUR   ##########");
 		System.out.println("#                              #");
@@ -18,11 +14,11 @@ public class Menu {
 		System.out.println("#                              #");
 		System.out.println("################################");
 	}
-
-
-	void menuLancement(){
-
-		System.out.println();
+	
+	void menuLancement()throws IOException{
+		
+		int choix;
+		
 		System.out.println("##########  PROJET   ###########");
 		System.out.println("#                              #");
 		System.out.println("#     Voulez-vous importer     #");
@@ -35,23 +31,23 @@ public class Menu {
 		System.out.println("#  9 : Quitter PROJET          #");		
 		System.out.println("#                              #");
 		System.out.println("################################");
-
 		choix = Integer.parseInt(sc.next());
-
 		switch(choix){
 		case 1 : 
 			//méthode charger fichier CSV
 		case 9 :
-			//menu quitter et sauvegarde
+			menuQuitter();
 		default:
 			erreurChoix();
 			System.out.println();
 			menuLancement();
 		}
 	}
-
-	void menuChoixActions(){
-
+	
+	void menuChoixActions()throws IOException{
+		
+		int choix;
+		
 		System.out.println();
 		System.out.println("##########  PROJET   ###########");
 		System.out.println("#                              #");
@@ -64,16 +60,14 @@ public class Menu {
 		System.out.println("#                              #");	
 		System.out.println("#  2 : Une analyse             #");
 		System.out.println("#                              #");	
-		System.out.println("#  3 : une prévision           #");
-		System.out.println("#                              #");	
+//		System.out.println("#  3 : une prévision           #");
+//		System.out.println("#                              #");	
 		System.out.println("#  0 : Retour menu précédent   #");
 		System.out.println("#                              #");	
 		System.out.println("#  9 : Quitter PROJET          #");		
 		System.out.println("#                              #");
 		System.out.println("################################");
-
 		choix = Integer.parseInt(sc.next());
-
 		switch(choix){
 		case 1 :
 			//menu choix transformations
@@ -84,14 +78,16 @@ public class Menu {
 		case 0 :
 			menuLancement();
 		case 9 :
-			//menu quitter et sauvegarde
+			menuQuitter();
 		default:
 			erreurChoix();
 			System.out.println();
 		}
 	}
 	
-	void menuChoixTransformation(){
+	void menuChoixTransformation()throws IOException{
+		
+		int choix;
 		
 		System.out.println();
 		System.out.println("##############   PROJET   ############");
@@ -102,20 +98,20 @@ public class Menu {
 		System.out.println("######################################");
 		System.out.println("#                                    #");
 		System.out.println("#  1 : Logarithme                    #");
-		System.out.println("#                                    #");	
-		System.out.println("#  2 : Box-Cox                       #");
-		System.out.println("#                                    #");	
-		System.out.println("#  3 : Logistique                    #");
+//		System.out.println("#                                    #");	
+//		System.out.println("#  2 : Box-Cox                       #");
+//		System.out.println("#                                    #");	
+//		System.out.println("#  3 : Logistique                    #");
 		System.out.println("#                                    #");	
 		System.out.println("#  4 : Moyenne mobile                #");
-		System.out.println("#                                    #");
-		System.out.println("#  5 : Moyenne mobile pondérée       #");
-		System.out.println("#                                    #");
-		System.out.println("#  6 : Saisonnalité                  #");
-		System.out.println("#                                    #");	
-		System.out.println("#  7 : Tendance linaire             #");
-		System.out.println("#                                    #");
-		System.out.println("#  8 : Oprateur de différenciation  #");
+//		System.out.println("#                                    #");
+//		System.out.println("#  5 : Moyenne mobile pondérée       #");
+//		System.out.println("#                                    #");
+//		System.out.println("#  6 : Saisonnalité                  #");
+//		System.out.println("#                                    #");	
+//		System.out.println("#  7 : Tendance linaire              #");
+//		System.out.println("#                                    #");
+//		System.out.println("#  8 : Oprateur de différenciation   #");
 		System.out.println("#                                    #");
 		System.out.println("#  0 : Retour menu précédent         #");
 		System.out.println("#                                    #");
@@ -145,14 +141,16 @@ public class Menu {
 		case 0 :
 			menuChoixActions();
 		case 9 :
-			//menu quitter et sauvegarde
+			menuQuitter();
 	    default :
 	    	erreurChoix();
 			System.out.println();
 		}
 	}
 	
-	void menuChoixPrevisions(){
+	void menuChoixPrevisions()throws IOException{
+		
+		int choix;
 		
 		System.out.println();
 		System.out.println("##############   PROJET   ############");
@@ -186,14 +184,16 @@ public class Menu {
 		case 0 :
 			menuChoixActions();
 		case 9 :
-			//menu quitter et sauvegarde
+			menuQuitter();
 		default :
 			erreurChoix();
 			System.out.println();
 		}
 	}
 	
-	void menuChoixAnalyse(){
+	void menuChoixAnalyse()throws IOException{
+		
+		int choix;
 		
 		System.out.println();
 		System.out.println("##############   PROJET   ############");
@@ -203,10 +203,10 @@ public class Menu {
 		System.out.println("#                                    #");
 		System.out.println("######################################");
 		System.out.println("#                                    #");
-		System.out.println("#  1 : Lissage exponentiel simple    #");
-		System.out.println("#                                    #");	
-		System.out.println("#  2 : Lissage exponentiel double    #");
-		System.out.println("#                                    #");	
+//		System.out.println("#  1 : Lissage exponentiel simple    #");
+//		System.out.println("#                                    #");	
+//		System.out.println("#  2 : Lissage exponentiel double    #");
+//		System.out.println("#                                    #");	
 		System.out.println("#  3 : Autocorrélations des résidus  #");
 		System.out.println("#                                    #");
 		System.out.println("#  0 : Retour menu précédent         #");
@@ -227,23 +227,46 @@ public class Menu {
 		case 0 :
 			menuChoixActions();
 		case 9 :
-			//menu quitter et sauvegarde
+			menuQuitter();
 		default :
 			erreurChoix();
 			System.out.println();
 		}
 	}
 	
-	
+	void menuQuitter()throws IOException{
+		
+		int choix;
+		
+		System.out.println();
+		System.out.println("#############  ASSOLOC  ###########");
+		System.out.println("#                                 #");
+		System.out.println("#      Etes vous sur de vouloir   #");
+		System.out.println("#              quitter ?          #");
+		System.out.println("#                                 #");
+		System.out.println("###################################");
+		System.out.println("#                                 #");
+		System.out.println("#  1 : Oui                        #");
+		System.out.println("#                                 #");
+		System.out.println("#  2 : Non                        #");
+		System.out.println("#                                 #");
+		System.out.println("#  3 : annuler                    #");
+		System.out.println("#                                 #");
+		System.out.println("###################################");
 
+		choix = Integer.parseInt(sc.next());
 
-
-
-
-
-
-
-
-
-
+		switch (choix) {
+		case 1 :
+			System.out.println("merci d'avoir utilisé ce programme ! au revoir !");
+			System.exit(0);
+		case 2 :
+			menuLancement();
+		case 3 :
+			menuLancement();	
+		default:
+			erreurChoix();
+			System.out.println("\nRetour au menu principal\n\n");
+		}
+	}
 }
