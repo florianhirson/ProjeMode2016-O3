@@ -10,7 +10,7 @@ public class CourbeController<X,Y> {
 	private CourbeVue<X,Y> view = null ;
 	private ModifieCourbe<X,Y> modcourbe = new ModifieCourbeLog<X,Y> ();
 
-	public CourbeController ( CourbeModel m) {
+	public CourbeController ( CourbeModel<X,Y> m) {
 		model = m;
 	}
 	
