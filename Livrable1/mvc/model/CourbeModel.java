@@ -74,23 +74,6 @@ public class CourbeModel<X,Y> extends Observable {
 
 	}
 
-	/**
-	 * @see CourbeModel#transfoLog4Double(Courbe)
-	 * @param c
-	 */
-	public void transfoLog4Integer(Courbe<Integer,Integer> c){
-		int taille = c.sizeOfData();
-
-		int dataX;
-		int dataY;
-
-		for(int i=0; i<taille; i++){
-			dataX = (int) Math.log((double)c.getX(i));
-			dataY = (int) Math.log((double)c.getY(i));
-
-			c.addXY(dataX,dataY);
-		}
-	}
 
 	/**
 	 * @see CourbeModel#transfoLog4Double(Courbe)
