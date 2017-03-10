@@ -109,5 +109,44 @@ public class CourbeModel<X,Y> extends Observable {
 			c.addXY(dataX+"",dataY+"");
 		}
 	}
+	
+	
+	/**
+	 * @see CourbeModel#transfoLog4Double(Courbe)
+	 * @param c
+	 */
+	public void transfoLog4Mois(Courbe<Double,Mois> c){
+		int taille = c.sizeOfData();
+		Mois y=null;
+		double dataX=0.0;
+		int dataY=0;
+
+		int test=0;
+		for(int i=0; i<taille; i++){
+			y = c.getY(i);
+			dataX=Math.log(c.getX(i));
+			dataY=(int) Math.log(c.getY(i).getData());
+			test = Integer.valueOf(dataY);
+			while(test>0){
+				switch(test){
+				case 1:y=Mois.JAN;test=0;break;
+				case 2:y=Mois.FEV;test=0;break;
+				case 3:y=Mois.MAR;test=0;break;
+				case 4:y=Mois.AVR;test=0;break;
+				case 5:y=Mois.MAI;test=0;break;
+				case 6:y=Mois.JUIN;test=0;break;
+				case 7:y=Mois.JUIL;test=0;break;
+				case 8:y=Mois.AOUT;test=0;break;
+				case 9:y=Mois.SEPT;test=0;break;
+				case 10:y=Mois.OCT;test=0;break;
+				case 11:y=Mois.NOV;test=0;break;
+				case 12:y=Mois.DEC;test=0;break;
+				default:test-=12;break;
+				}			
+			}
+		}
+
+		c.addXY(dataX,y);
+	}
 
 }
