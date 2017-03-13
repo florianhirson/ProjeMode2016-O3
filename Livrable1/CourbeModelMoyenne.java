@@ -45,12 +45,12 @@ public class CourbeModel<X,Y> extends Observable {
 	 **/
 
 	public double MoyenneMobile(Courbe<X,Y> c,int ordre){
-
+        double result[] = new double[c.sizeOfData()];
 		double tabX[]=new double[c.sizeOfData()];
 		double moyenne = 0;
 		for(int i=0; i<c.sizeOfData();++i){
 			while(i>=3){
-				double result[] = new double[c.sizeOfData()];
+				
 				tabX[i]=(double)c.getX(i);
 				if(ordre%2==0){
 					moyenne=(1/ordre)*(((tabX[i-2])/2)+tabX[i-1]+tabX[i]+tabX[i+1]+(tabX[i+2]/2));
