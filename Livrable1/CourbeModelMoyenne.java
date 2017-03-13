@@ -1,4 +1,3 @@
-
 import java.util.Observable;
 /**
  * Model du MVC sur la Courbe
@@ -64,7 +63,7 @@ public class CourbeModel<X,Y> extends Observable {
 
 		}
 
-		return moyenne;
+		return result;
 	}
 
 	public double residu(Courbe<X,Y> c,int ordre){
