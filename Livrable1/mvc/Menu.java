@@ -1,23 +1,24 @@
-package Test;
+package mvc;
 
-import javafx.stage.Stage;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
+import java.io.File;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.paint.Color;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
-import java.io.File;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
-public class SelectFileChooserView extends Stage{
-
+public class Menu extends Stage{
+	
 	private Text actionStatus;
 	private static final String titleTxt = "Selection d'un fichier CSV";
 	private Label label;
@@ -35,7 +36,7 @@ public class SelectFileChooserView extends Stage{
 	 *
 	 * 
 	 */
-	SelectFileChooserView() {
+	Menu() {
 		super();
 		primaryStage = new Stage();
 		primaryStage.setTitle(titleTxt);	
@@ -63,7 +64,7 @@ public class SelectFileChooserView extends Stage{
 
 		// Vbox
 		vbox = new VBox(30);
-		vbox.setPadding(new Insets(25, 25, 25, 25));;
+		vbox.setPadding(new Insets(25, 25, 25, 25));
 		vbox.getChildren().addAll(labelHb, buttonHb1, actionStatus);
 
 		// Scene
@@ -100,16 +101,12 @@ public class SelectFileChooserView extends Stage{
 	public String getChemin() {
 		return chemin;
 	}
-
-
-
+	
 	/**
 	 * @param chemin the chemin to set
 	 */
 	public void setChemin(String chemin) {
 		this.chemin = chemin;
 	}
-
-
 
 }
