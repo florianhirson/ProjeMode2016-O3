@@ -1,5 +1,4 @@
 
-
 import java.util.Observable;
 /**
  * Model du MVC sur la Courbe
