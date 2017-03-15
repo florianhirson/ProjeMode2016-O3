@@ -20,15 +20,21 @@ public class SelectFileChooserView extends Stage{
 
 	private Text actionStatus;
 	private static final String titleTxt = "JavaFX File Chooser Example 1";
-	Label label;
-	HBox labelHb;
-	Button btn1;
-	HBox buttonHb1;
-	VBox vbox;
-	Scene scene;
+	private Label label;
+	private HBox labelHb;
+	private Button btn1;
+	private HBox buttonHb1;
+	private VBox vbox;
+	private Scene scene;
 	public Stage primaryStage;
-	String chemin;
-
+	private String chemin;
+	
+	/**
+	 * Constructeur de la fenetre de selection de fichier CSV
+	 * @author Florian Hirson
+	 *
+	 * 
+	 */
 	SelectFileChooserView() {
 		super();
 		primaryStage = new Stage();
@@ -77,12 +83,31 @@ public class SelectFileChooserView extends Stage{
 
 		if (selectedFile != null) {
 			actionStatus.setText("Fichier choisis: " + selectedFile.getName());
-			chemin = selectedFile.getAbsolutePath();
+			setChemin(selectedFile.getAbsolutePath());
+			
 		}
 		else {
 			actionStatus.setText("Selection de fichier annulee.");
 		}
 		
+	}
+
+
+
+	/**
+	 * @return the chemin
+	 */
+	public String getChemin() {
+		return chemin;
+	}
+
+
+
+	/**
+	 * @param chemin the chemin to set
+	 */
+	public void setChemin(String chemin) {
+		this.chemin = chemin;
 	}
 
 

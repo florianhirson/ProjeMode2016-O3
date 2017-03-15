@@ -8,7 +8,7 @@ public class MainTest extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		SelectFileChooserView s = new SelectFileChooserView();
-		//System.out.println(s.chemin);
+		System.out.println(s.getChemin());
 	}
 	
 	public static void main(String [] args) {
