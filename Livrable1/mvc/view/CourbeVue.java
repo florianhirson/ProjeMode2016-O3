@@ -47,6 +47,13 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 	}
 
+    
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public  void  setDisplay(Courbe<X,Y> c) {
+		for(int i=0;i<c.sizeOfData();i++){
+			series.getData().add(new XYChart.Data(c.getX(i),c.getY(i)));
+		}
+	}
 
 	protected CourbeModel<X,Y> model (){
 		return model ;
