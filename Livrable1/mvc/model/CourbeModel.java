@@ -52,8 +52,30 @@ public class CourbeModel<X,Y> extends Observable {
 	 * TODO Methode de transformation de la courbe
 	 * 
 	 **/
+	 
+	 // methode moyennemobile par rayan 
+	 
+	/**
+	 * Moyenne desaisonnalisé
+	 * @author florian barbet
+	 * @param c
+	 */
+	public void MoyenneSansSaison(Courbe<Number,Number> c){
+		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
+		this.MoyenneMobile(cmm);
+		double moyennet = 0;
+		double xt = 0;
+		for(int i = 2; i < courbeData.sizeOfData()-2;i++){
+			
+			moyennet = (double) cmm.getY(i-2);
+			xt = (double)courbeData.getY(i);
+			c.addXY((double)courbeData.getX(i),xt-moyennet);
+			
+		}
+	}
 
-/**
+
+    /**
 	 * TransfoLog transformation sur la courbe avec la fonction log
 	 * @author Thomas
 	 * @param c
