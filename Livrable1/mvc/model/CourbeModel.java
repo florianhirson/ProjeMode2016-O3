@@ -53,22 +53,30 @@ public class CourbeModel<X,Y> extends Observable {
 	 * 
 	 **/
 
-	/**
+/**
 	 * TransfoLog transformation sur la courbe avec la fonction log
 	 * @author Thomas
 	 * @param c
 	 */
-	public void transfoLog4Double(Courbe<Double,Double> c){
-		int taille = c.sizeOfData();
+	public void transfoLog4Num(Courbe<Number,Number> c){
+		int taille = courbeData.sizeOfData();
 
 		double dataX;
 		double dataY;
 
 		for(int i=0; i<taille; i++){
-			dataX = Math.log((double)c.getX(i));
-			dataY = Math.log((double)c.getY(i));
 
-			c.addXY(dataX,dataY);
+
+			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0.0){
+
+			}
+			else{
+				dataX = (double)courbeData.getX(i);
+				dataY = Math.log((double)courbeData.getY(i));
+				c.addXY(dataX,dataY);
+			} 
+
+
 		}
 
 
@@ -76,28 +84,53 @@ public class CourbeModel<X,Y> extends Observable {
 
 
 	/**
-	 * @see CourbeModel#transfoLog4Double(Courbe)
+	 * @see CourbeModel#transfoLog4Num(Courbe)
 	 * @param c
 	 */
-	public void transfoLog4String(Courbe<String,String> c){
+	public void transfoLog4Cat(Courbe<String,String> c){
 		int taille = c.sizeOfData();
 
 		double dataX;
 		double dataY;
 
 		for(int i=0; i<taille; i++){
-			dataX=Math.log(Double.parseDouble(c.getX(i)));
-			dataY=Math.log(Double.parseDouble(c.getY(i)));
+			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0.0){
 
-			c.addXY(dataX+"",dataY+"");
+			}else{
+				dataX=Math.log(Double.parseDouble(c.getX(i)));
+				dataY=Math.log(Double.parseDouble(c.getY(i)));
+
+				c.addXY(dataX+"",dataY+"");
+			}
 		}
 	}
-	
-	
+
 	/**
-	 * @see CourbeModel#transfoLog4Double(Courbe)
+	 * @see CourbeModel#transfoLog4Num(Courbe)
 	 * @param c
 	 */
+	public void transfoLog4CatNum(Courbe<Number,String> c){
+		int taille = c.sizeOfData();
+
+		double dataX;
+		double dataY;
+
+		for(int i=0; i<taille; i++){
+			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0.0){
+
+			}else{
+				dataX=Math.log((double)c.getX(i));
+				dataY=Math.log(Double.parseDouble(c.getY(i)));
+
+				c.addXY(dataX,dataY+"");
+			}
+		}
+	}
+
+/*	/**
+	 * @see CourbeModel#transfoLog4Num(Courbe)
+	 * @param c
+	 *//*
 	public void transfoLog4Mois(Courbe<Double,Mois> c){
 		int taille = c.sizeOfData();
 		Mois y=null;
@@ -130,6 +163,5 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 
 		c.addXY(dataX,y);
-	}
-
+	}*/
 }
