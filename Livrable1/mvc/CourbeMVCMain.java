@@ -25,6 +25,9 @@ public class CourbeMVCMain extends Application{
 	public void start(Stage stage) throws Exception {
 		
 		Courbe<Number,Number> log = new Courbe<Number,Number>();
+		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
+		Courbe<Number,Number> cmd = new Courbe<Number,Number>();
+
 		try
 		{
 			String chemin = "data/Test.csv";
@@ -75,15 +78,20 @@ public class CourbeMVCMain extends Application{
 		control.addView(vue);
 		
 		model.transfoLog4Num(log);
-		CourbeModel<Number,Number> modellog = new CourbeModel<Number,Number>();
-		modellog.setCourbe(log);
-		CourbeController<Number,Number> controllog = new CourbeController<Number,Number>(modellog);
-		CourbeVue<Number,Number> vuelog = new CourbeVueConcret<Number,Number>(modellog,controllog,new NumberAxis(),new NumberAxis(),"Test Log");
-		controllog.addView(vuelog);
+		model.MoyenneMobile(cmm);
+		model.Desaisonaliser(cmd);
 		
-		CourbeVue<Number,Number> vueFusion = new CourbeVueConcret<Number,Number>(modellog,controllog,new NumberAxis(),new NumberAxis(),"Test Fusion");
-
-		vueFusion.addSeries(model, "test");
+	
+		CourbeModel<Number,Number> modelFusion = new CourbeModel<Number,Number>();
+		modelFusion.setCourbe(c);
+		CourbeController<Number,Number> controlF = new CourbeController<Number,Number>(modelFusion);
+		CourbeVue<Number,Number> vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),"Test Fusion");
+		
+		controlF.addView(vueF);
+		vueF.addSeries(cmd, "St");
+		vueF.addSeries(cmm, "Mt");
+		vueF.addSeries(log, "logt");
+		
 	}
 	
 }	
