@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import javafx.application.Application;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart.NumberAxis;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
@@ -17,16 +16,18 @@ import mvc.view.CourbeVue;
 import mvc.view.CourbeVueConcret;
 
 public class CourbeMVCMain extends Application{
-	Courbe<Double,Double> c = new Courbe<Double,Double>();
+	Courbe<Number,Number> c = new Courbe<Number,Number>();
 	public  static  void  main(String  args []) {
 		launch(args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		
+		Courbe<Number,Number> log = new Courbe<Number,Number>();
 		try
 		{
-			String chemin = "/home/infoetu/barbetf/Documents/workspace/Livrable1/src/data/Test.csv";
+			String chemin = "data/Test.csv";
 			File fr = new File(chemin);
 			System.out.println(fr.getAbsolutePath());
 			BufferedReader fichier_source = new BufferedReader(new FileReader(chemin));
@@ -59,17 +60,26 @@ public class CourbeMVCMain extends Application{
 				c.addXY(x, y);
 
 			}
+			
+			
 		}
 		catch (FileNotFoundException e)
 		{
 			System.out.println("Le fichier est introuvable !");
 		}
 		
-		CourbeModel<Double,Double> model = new CourbeModel<Double,Double>();
+		CourbeModel<Number,Number> model = new CourbeModel<Number,Number>();
 		model.setCourbe(c);
-		CourbeController<Double,Double> control = new CourbeController<Double,Double>(model);
-		CourbeVue<Double,Double> vue = new CourbeVueConcret<Double,Double>(model,control,new NumberAxis(),new NumberAxis(),"Test MVC");
+		CourbeController<Number,Number> control = new CourbeController<Number,Number>(model);
+		CourbeVue<Number,Number> vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),"Test MVC");
 		control.addView(vue);
+		
+		model.transfoLog4Num(log);
+		CourbeModel<Number,Number> modellog = new CourbeModel<Number,Number>();
+		modellog.setCourbe(log);
+		CourbeController<Number,Number> controllog = new CourbeController<Number,Number>(modellog);
+		CourbeVue<Number,Number> vuelog = new CourbeVueConcret<Number,Number>(modellog,controllog,new NumberAxis(),new NumberAxis(),"Test Log");
+		controllog.addView(vuelog);
 		
 	}
 	
