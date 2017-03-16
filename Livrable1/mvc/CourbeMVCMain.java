@@ -81,6 +81,9 @@ public class CourbeMVCMain extends Application{
 		CourbeVue<Number,Number> vuelog = new CourbeVueConcret<Number,Number>(modellog,controllog,new NumberAxis(),new NumberAxis(),"Test Log");
 		controllog.addView(vuelog);
 		
+		CourbeVue<Number,Number> vueFusion = new CourbeVueConcret<Number,Number>(modellog,controllog,new NumberAxis(),new NumberAxis(),"Test Fusion");
+
+		vueFusion.addSeries(model, "test");
 	}
 	
 }	
