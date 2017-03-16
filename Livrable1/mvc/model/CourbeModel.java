@@ -5,7 +5,7 @@ import java.util.Observable;
  * Model du MVC sur la Courbe
  * @author Florian Barbet
  * @author Thomas Mastalerz
- *
+ * @author Rayan Haddad
  * @param <X>
  * @param <Y>
  */
@@ -134,6 +134,23 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 		
 		
+	}
+
+    /**
+	 * @author florian barbet
+	 * @param c
+	 */
+	public void Desaisonaliser(Courbe<Number,Number> c){
+		Courbe<Number,Number> st = new Courbe<Number,Number>();
+		this.Saison(st);
+		double des = 0;
+		for(int i = 0; i < courbeData.sizeOfData();i++){
+			
+			des =(double)courbeData.getY(i);
+			des-=(double)st.getY(i);
+			System.out.println("Xt-St : "+des);
+			c.addXY((double)courbeData.getX(i), des);
+		}
 	}
 
 
