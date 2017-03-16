@@ -60,7 +60,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void MoyenneSansSaison(Courbe<Number,Number> c){
+	public void SaisonResidu(Courbe<Number,Number> c){
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		this.MoyenneMobile(cmm);
 		double moyennet = 0;
@@ -72,6 +72,68 @@ public class CourbeModel<X,Y> extends Observable {
 			c.addXY((double)courbeData.getX(i),xt-moyennet);
 			
 		}
+	}
+	
+	
+	/**
+	 * @author florian barbet
+	 * @param c
+	 */
+	public void Saison(Courbe<Number,Number> c){
+		Courbe<Number, Number> cmd = new Courbe<Number,Number>();
+		this.SaisonResidu(cmd);
+		double s1 = 0;
+		double s2=0;
+		double s3=0;
+		double s4=0;
+		int tourS1 =0;
+		int tourS2 =0;
+		int tourS3 =0;
+		int tourS4 =0;
+		for(int i = 0;i<cmd.sizeOfData();i++){
+			if((double)cmd.getX(i)%4==0){
+				s4+=(double)cmd.getY(i);
+				tourS4++;
+			}else if((double)cmd.getX(i)%2==0){
+				s2+=(double)cmd.getY(i);
+				tourS2++;
+			}else if((double)cmd.getX(i+1)%4==0){
+				s3+=(double)cmd.getY(i);
+				tourS3++;
+			}else{
+				s1+=(double)cmd.getY(i);
+				tourS1++;
+				System.out.println("fr : s1: "+s1+" ajout : "+(double)cmd.getY(i));
+			}
+			
+		}
+		s1=s1/tourS1;
+		s2=s2/tourS2;
+		s3=s3/tourS3;
+		s4=s4/tourS4;
+		System.out.println(">>s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4);
+		
+		if(s1+s2+s3+s4!=0){
+			double surplus = s1+s2+s3+s4;
+			s1-=surplus/4;
+			s2-=surplus/4;
+			s3-=surplus/4;
+			s4-=surplus/4;
+		}
+		System.out.println("s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4);
+		for(int i=0;i<courbeData.sizeOfData();i++){
+			if((double)courbeData.getX(i)%4==0){
+				c.addXY((double)courbeData.getX(i), s4);
+			}else if((double)courbeData.getX(i)%3==0){
+				c.addXY((double)courbeData.getX(i), s3);
+			}else if((double)courbeData.getX(i)%2==0){
+				c.addXY((double)courbeData.getX(i), s2);
+			}else{
+				c.addXY((double)courbeData.getX(i), s1);
+			}
+		}
+		
+		
 	}
 
 
