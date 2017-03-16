@@ -56,7 +56,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 // methode moyennemobile par rayan 
 	 
 	/**
-	 * Moyenne desaisonnalisé
+	 * Xt-Mht soit St+Residu
 	 * @author florian barbet
 	 * @param c
 	 */
@@ -76,6 +76,7 @@ public class CourbeModel<X,Y> extends Observable {
 	
 	
 	/**
+	 * Calcul de St
 	 * @author florian barbet
 	 * @param c
 	 */
@@ -137,6 +138,7 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
     /**
+     * Xt-St soit desaisonnalisation
 	 * @author florian barbet
 	 * @param c
 	 */
