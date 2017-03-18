@@ -15,7 +15,8 @@ public class CourbeModel<X,Y> extends Observable {
 	 * Courbe<X,Y> courbe sur laquelle toute transformation passera
 	 */
 	private Courbe<X,Y> courbeData = new Courbe<X,Y>();
-
+	Scanner sc = new Scanner(System.in);
+	private int ordre=0;
 	/**
 	 * Renvoie la courbe accession
 	 * @return courbeData
@@ -33,6 +34,11 @@ public class CourbeModel<X,Y> extends Observable {
 		courbeData = c;
 		setChanged();
 		notifyObservers();
+	}
+	
+	private void setOrdre(){
+		System.out.print("Ordre : ");
+		ordre = sc.nextInt();
 	}
 
 
