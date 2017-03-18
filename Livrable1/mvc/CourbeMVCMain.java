@@ -78,8 +78,8 @@ public class CourbeMVCMain extends Application{
 		control.addView(vue);
 		
 		model.transfoLog4Num(log);
-		model.MoyenneMobile(cmm);
-		model.Desaisonaliser(cmd);
+		model.moyenneMobile(cmm);
+		model.desaisonaliser(cmd);
 		
 	
 		CourbeModel<Number,Number> modelFusion = new CourbeModel<Number,Number>();
