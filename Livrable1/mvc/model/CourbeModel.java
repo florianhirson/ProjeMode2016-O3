@@ -60,9 +60,9 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void SaisonResidu(Courbe<Number,Number> c){
+	public void saisonResidu(Courbe<Number,Number> c){
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
-		this.MoyenneMobile(cmm);
+		this.moyenneMobile(cmm);
 		double moyennet = 0;
 		double xt = 0;
 		for(int i = 2; i < courbeData.sizeOfData()-2;i++){
@@ -80,9 +80,9 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void Saison(Courbe<Number,Number> c){
+	public void saison(Courbe<Number,Number> c){
 		Courbe<Number, Number> cmd = new Courbe<Number,Number>();
-		this.SaisonResidu(cmd);
+		this.saisonResidu(cmd);
 		double s1 = 0;
 		double s2=0;
 		double s3=0;
@@ -142,7 +142,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void Desaisonaliser(Courbe<Number,Number> c){
+	public void desaisonaliser(Courbe<Number,Number> c){
 		Courbe<Number,Number> st = new Courbe<Number,Number>();
 		this.Saison(st);
 		double des = 0;
