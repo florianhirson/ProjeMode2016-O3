@@ -60,9 +60,9 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void saisonResidu(Courbe<Number,Number> c){
+	public void saisonResidu(Courbe<Number,Number> c, int a){
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
-		this.moyenneMobile(cmm);
+		this.moyenneMobile(cmm,0);
 		double moyennet = 0;
 		double xt = 0;
 		for(int i = 2; i < courbeData.sizeOfData()-2;i++){
@@ -70,19 +70,18 @@ public class CourbeModel<X,Y> extends Observable {
 			moyennet = (double) cmm.getY(i-2);
 			xt = (double)courbeData.getY(i);
 			c.addXY((double)courbeData.getX(i),xt-moyennet);
-			
+			if(a==1)System.out.println("Xt-MhT : "+Double.valueOf(xt-moyennet));
 		}
 	}
 	
-	
 	/**
-	 * Calcul de St
+	 * St calcul de la saisonalitee
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void saison(Courbe<Number,Number> c){
+	public void saison(Courbe<Number,Number> c, int a){
 		Courbe<Number, Number> cmd = new Courbe<Number,Number>();
-		this.saisonResidu(cmd);
+		this.saisonResidu(cmd,0);
 		double s1 = 0;
 		double s2=0;
 		double s3=0;
@@ -104,7 +103,7 @@ public class CourbeModel<X,Y> extends Observable {
 			}else{
 				s1+=(double)cmd.getY(i);
 				tourS1++;
-				System.out.println("fr : s1: "+s1+" ajout : "+(double)cmd.getY(i));
+				
 			}
 			
 		}
@@ -112,7 +111,7 @@ public class CourbeModel<X,Y> extends Observable {
 		s2=s2/tourS2;
 		s3=s3/tourS3;
 		s4=s4/tourS4;
-		System.out.println(">>s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4);
+	
 		
 		if(s1+s2+s3+s4!=0){
 			double surplus = s1+s2+s3+s4;
@@ -121,11 +120,11 @@ public class CourbeModel<X,Y> extends Observable {
 			s3-=surplus/4;
 			s4-=surplus/4;
 		}
-		System.out.println("s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4);
+		if(a==1)System.out.println("St : s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4);
 		for(int i=0;i<courbeData.sizeOfData();i++){
 			if((double)courbeData.getX(i)%4==0){
 				c.addXY((double)courbeData.getX(i), s4);
-			}else if((double)courbeData.getX(i)%3==0){
+			}else if((double)courbeData.getX(i+1)%4==0){
 				c.addXY((double)courbeData.getX(i), s3);
 			}else if((double)courbeData.getX(i)%2==0){
 				c.addXY((double)courbeData.getX(i), s2);
@@ -136,31 +135,31 @@ public class CourbeModel<X,Y> extends Observable {
 		
 		
 	}
-
-    /**
-     * Xt-St soit desaisonnalisation
+	
+	/**
+	 * Moyenne desaisonnalise
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void desaisonaliser(Courbe<Number,Number> c){
+	public void desaisonaliser(Courbe<Number,Number> c,int a){
 		Courbe<Number,Number> st = new Courbe<Number,Number>();
-		this.Saison(st);
+		this.saison(st,0);
 		double des = 0;
 		for(int i = 0; i < courbeData.sizeOfData();i++){
 			
 			des =(double)courbeData.getY(i);
 			des-=(double)st.getY(i);
-			System.out.println("Xt-St : "+des);
+			if(a==1)System.out.println("Xt-St : "+des);
 			c.addXY((double)courbeData.getX(i), des);
 		}
 	}
-
-
+	
+	
 	/**
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void logistique(Courbe<Number,Number> c){
+	public void logistique(Courbe<Number,Number> c, int a){
 		int taille = courbeData.sizeOfData();
 
 		double dataX;
@@ -177,20 +176,20 @@ public class CourbeModel<X,Y> extends Observable {
 				dataX = tmpX;
 				dataY = Math.log(tmpForm);
 				c.addXY(dataX,dataY);
-				System.out.println("Yt : "+dataY);
+				if(a==1)System.out.println("Yt2 : "+dataY);
 			}
 			
 
 
 		}
 	}
-
-    /**
+	
+	/**
 	 * TransfoLog transformation sur la courbe avec la fonction log
 	 * @author Thomas
 	 * @param c
 	 */
-	public void transfoLog4Num(Courbe<Number,Number> c){
+	public void transfoLog4Num(Courbe<Number,Number> c, int a){
 		int taille = courbeData.sizeOfData();
 
 		double dataX;
@@ -206,6 +205,8 @@ public class CourbeModel<X,Y> extends Observable {
 				dataX = (double)courbeData.getX(i);
 				dataY = Math.log((double)courbeData.getY(i));
 				c.addXY(dataX,dataY);
+				if(a==1)System.out.println("Yt1 : "+dataY);
+
 			} 
 
 
