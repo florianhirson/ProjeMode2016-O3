@@ -156,6 +156,35 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 
+	/**
+	 * @author florian barbet
+	 * @param c
+	 */
+	public void logistique(Courbe<Number,Number> c){
+		int taille = courbeData.sizeOfData();
+
+		double dataX;
+		double dataY;
+		double tmpY = 0;
+		double tmpX = 0;
+		double tmpForm = 0;
+		for(int i=0; i<taille; i++){
+
+			tmpY = (double)courbeData.getY(i);
+			tmpX = (double)courbeData.getX(i);
+			tmpForm = tmpY/(1-tmpY);
+			if((tmpY > 0&&  tmpY<1)){
+				dataX = tmpX;
+				dataY = Math.log(tmpForm);
+				c.addXY(dataX,dataY);
+				System.out.println("Yt : "+dataY);
+			}
+			
+
+
+		}
+	}
+
     /**
 	 * TransfoLog transformation sur la courbe avec la fonction log
 	 * @author Thomas
