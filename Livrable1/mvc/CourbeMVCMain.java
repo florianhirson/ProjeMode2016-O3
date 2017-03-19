@@ -18,7 +18,6 @@ import mvc.view.CourbeVueConcret;
 
 public class CourbeMVCMain extends Application{
 	Courbe<Number,Number> c = new Courbe<Number,Number>();
-	Courbe<Number,Number> logis = new Courbe<Number,Number>();
 	Scanner sc = new Scanner(System.in);
 	public  static  void  main(String  args []) {
 		launch(args);
@@ -32,6 +31,8 @@ public class CourbeMVCMain extends Application{
 		Courbe<Number,Number> csr = new Courbe<Number,Number>();
 		Courbe<Number,Number> cs = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmd = new Courbe<Number,Number>();
+		Courbe<Number,Number> logis = new Courbe<Number,Number>();
+
 		System.out.println("Inserez le fichier de donnee a utiliser  : ");
 		String data = sc.nextLine();
 		try
@@ -91,18 +92,13 @@ public class CourbeMVCMain extends Application{
 
 
 
-		CourbeModel<Number,Number> modelFusion = new CourbeModel<Number,Number>();
-		modelFusion.setCourbe(c);
-		CourbeController<Number,Number> controlF = new CourbeController<Number,Number>(modelFusion);
-		CourbeVue<Number,Number> vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),"Fusion : "+data);
-
-		controlF.addView(vueF);
+	
 
 		int condition = 0;
 		int scan = 0;
 		ArrayList<Integer> choice = new ArrayList<Integer>();
 
-		System.out.println("Voir resultat pour : ");
+		System.out.println("Voir resultat pour (number only): ");
 		System.out.println("-> 1 : Moyenne Mobile (Mt) ");
 		System.out.println("-> 2 : Xt-Mt ");
 		System.out.println("-> 3 : St : saison");
@@ -162,6 +158,12 @@ public class CourbeMVCMain extends Application{
 		if(Integer.valueOf(choix)==1)
 		{
 
+			CourbeModel<Number,Number> modelFusion = new CourbeModel<Number,Number>();
+			modelFusion.setCourbe(c);
+			CourbeController<Number,Number> controlF = new CourbeController<Number,Number>(modelFusion);
+			CourbeVue<Number,Number> vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),"Fusion : "+data);
+
+			controlF.addView(vueF);
 
 			for(int i = 0; i < choice.size();i++){
 				switch(choice.get(i)){
