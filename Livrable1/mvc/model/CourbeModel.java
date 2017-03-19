@@ -1,6 +1,7 @@
 package mvc.model;
 
 import java.util.Observable;
+import java.util.Scanner;
 /**
  * Model du MVC sur la Courbe
  * @author Florian Barbet
@@ -256,14 +257,15 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 * @param lambda
 	 */
-	public void transfoBoxCox(Courbe<Double,Double> c, double lambda) {
+	public void transfoBoxCox(Courbe<Number,Number> c, double lambda) {
 		int taille = c.sizeOfData();
 
 		double dataX;
 		double dataY;
 		
 		if (lambda == 0.0) {
-			transfoLog4Double(c);
+			
+			transfoLog4Num(c);
 		}
 
 		if( lambda > 0.0) {
