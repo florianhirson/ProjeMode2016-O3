@@ -73,6 +73,32 @@ public class CourbeModel<X,Y> extends Observable {
 
 
 	}
+	
+	/**
+	 * TransfoBoxCox transformation sur la courbe avec la fonction box cox
+	 * @author Florian Hirson
+	 * @param c
+	 * @param lambda
+	 */
+	public void transfoBoxCox(Courbe<Double,Double> c, double lambda) {
+		int taille = c.sizeOfData();
+
+		double dataX;
+		double dataY;
+		
+		if (lambda == 0.0) {
+			transfoLog4Double(c);
+		}
+
+		if( lambda > 0.0) {
+			for(int i=0; i<taille; i++){
+				dataX = (Math.pow((double)c.getX(i), lambda)-1)/lambda;
+				dataY = (Math.pow((double)c.getY(i), lambda)-1)/lambda;
+
+				c.addXY(dataX,dataY);
+			}
+		}
+	}
 
 
 	/**
