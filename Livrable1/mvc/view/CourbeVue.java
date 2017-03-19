@@ -4,10 +4,12 @@ import java.util.Observer;
 
 import javafx.scene.Scene;
 import javafx.scene.chart.Axis;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
+import mvc.model.Courbe;
 import mvc.model.CourbeModel;
 
 public abstract class CourbeVue<X,Y> extends Stage implements Observer {
@@ -42,11 +44,42 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 		Scene scene  = new Scene(lineChart,800,600);
 		lineChart.getData().add(series);
-
+		model.addObserver(this);
 		this.setScene(scene);
+		this.show();
+		
+		 
 
 	}
+	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void addSeries( CourbeModel<X,Y> c, String title){
+		XYChart.Series nSeries = new XYChart.Series();
+		nSeries.setName(title);
+		for(int i = 0; i < c.sizeOfCourbe();i++){
+			nSeries.getData().add(new XYChart.Data(c.getDataX(i), c.getDataY(i)));
+		}
+		lineChart.getData().add(nSeries);
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void addSeries( Courbe<X,Y> c, String title){
+		XYChart.Series nSeries = new XYChart.Series();
+		nSeries.setName(title);
+		for(int i = 0; i < c.sizeOfData();i++){
+			nSeries.getData().add(new XYChart.Data(c.getX(i), c.getY(i)));
+		}
+		lineChart.getData().add(nSeries);
+	}
 
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public  void  setDisplay(Courbe<X,Y> c) {
+		for(int i=0;i<c.sizeOfData();i++){
+			series.getData().add(new XYChart.Data(c.getX(i),c.getY(i)));
+		}
+	}
 
 	protected CourbeModel<X,Y> model (){
 		return model ;
