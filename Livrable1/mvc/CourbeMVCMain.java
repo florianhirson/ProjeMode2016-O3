@@ -46,6 +46,7 @@ public class CourbeMVCMain extends Application{
 			ArrayList<String[]> tabChaine = new ArrayList<String[]>();
 			ArrayList<String[]> tabCh = new ArrayList<String[]>();
 
+			
 			int indice = 0;
 			while((chaine = fichier_source.readLine())!= null)
 			{
@@ -137,7 +138,7 @@ public class CourbeMVCMain extends Application{
 		System.out.println("Voir resultat Log(Xt) >> Yt1 : Yes = 1 No = 0");
 		couAff=sc.nextInt();
 		if(Integer.valueOf(couAff)==1){
-			model.transfoLog4Num(log,couAff);
+			model.transfoLog(log,couAff);
 			vueF.addSeries(log, "Yt1");
 		}
 		
