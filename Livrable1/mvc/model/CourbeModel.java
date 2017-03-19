@@ -60,6 +60,35 @@ public class CourbeModel<X,Y> extends Observable {
 	 **/
 	 
 	 // methode moyennemobile par rayan 
+	/**
+	 * @author Rayan
+	 * @param c, a pour afficher
+	 */
+	public void moyenneMobile(Courbe<Number,Number> c,int a){
+		
+		if(this.ordre == 0)setOrdre();
+		
+		double tabX[]=new double[courbeData.sizeOfData()];
+		double moyenne = 0;
+		
+		for(int i=2; i<courbeData.sizeOfData()-2;++i){
+			
+				tabX[i]=(double)courbeData.getX(i);
+				if(ordre%2==0){
+					moyenne=((0.5*(double)courbeData.getY(i-2))+(double)courbeData.getY(i-1)+(double)courbeData.getY(i)+(double)courbeData.getY(i+1)+((double)courbeData.getY(i+2)*0.5));
+					moyenne = moyenne/ordre;
+					
+				}
+				else{
+					moyenne=((double)courbeData.getY(i-1)+(double)courbeData.getY(i)+(double)courbeData.getY(i+1));
+					moyenne = moyenne/ordre;
+				}
+				if(a==1)System.out.println("Mht: "+Double.valueOf(moyenne));
+				c.addXY(tabX[i],moyenne);
+			
+		}
+		
+	}
 	 
 	/**
 	 * Xt-Mht soit St+Residu
