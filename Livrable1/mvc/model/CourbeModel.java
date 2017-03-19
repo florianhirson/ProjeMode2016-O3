@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Model du MVC sur la Courbe
  * @author Florian Barbet
  * @author Thomas Mastalerz
- * @author Rayan Haddad
+ *
  * @param <X>
  * @param <Y>
  */
@@ -18,6 +18,7 @@ public class CourbeModel<X,Y> extends Observable {
 	private Courbe<X,Y> courbeData = new Courbe<X,Y>();
 	Scanner sc = new Scanner(System.in);
 	private int ordre=0;
+
 	/**
 	 * Renvoie la courbe accession
 	 * @return courbeData
@@ -54,16 +55,17 @@ public class CourbeModel<X,Y> extends Observable {
 	public Y getDataY(int i){
 		return courbeData.getY(i);
 	}
+	
+
 	/**
 	 * 
 	 * TODO Methode de transformation de la courbe
 	 * 
 	 **/
-	 
-	 // methode moyennemobile par rayan 
+
 	/**
 	 * @author Rayan
-	 * @param c, a pour afficher
+	 * @param c
 	 */
 	public void moyenneMobile(Courbe<Number,Number> c,int a){
 		
@@ -90,7 +92,7 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 		
 	}
-	 
+	
 	/**
 	 * Xt-Mht soit St+Residu
 	 * @author florian barbet
@@ -126,6 +128,7 @@ public class CourbeModel<X,Y> extends Observable {
 		int tourS2 =0;
 		int tourS3 =0;
 		int tourS4 =0;
+		double surplus=0.0;
 		for(int i = 0;i<cmd.sizeOfData();i++){
 			if((double)cmd.getX(i)%4==0){
 				s4+=(double)cmd.getY(i);
@@ -133,7 +136,7 @@ public class CourbeModel<X,Y> extends Observable {
 			}else if((double)cmd.getX(i)%2==0){
 				s2+=(double)cmd.getY(i);
 				tourS2++;
-			}else if((double)cmd.getX(i+1)%4==0){
+			}else if((double)cmd.getX(i-1)%2==0){
 				s3+=(double)cmd.getY(i);
 				tourS3++;
 			}else{
@@ -150,17 +153,17 @@ public class CourbeModel<X,Y> extends Observable {
 	
 		
 		if(s1+s2+s3+s4!=0){
-			double surplus = s1+s2+s3+s4;
+			surplus = s1+s2+s3+s4;
 			s1-=surplus/4;
 			s2-=surplus/4;
 			s3-=surplus/4;
 			s4-=surplus/4;
 		}
-		if(a==1)System.out.println("St : s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4);
+		if(a==1)System.out.println("St : s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4+"\n Surplus :"+surplus);
 		for(int i=0;i<courbeData.sizeOfData();i++){
 			if((double)courbeData.getX(i)%4==0){
 				c.addXY((double)courbeData.getX(i), s4);
-			}else if((double)courbeData.getX(i+1)%4==0){
+			}else if((double)courbeData.getX(i-1)%2==0){
 				c.addXY((double)courbeData.getX(i), s3);
 			}else if((double)courbeData.getX(i)%2==0){
 				c.addXY((double)courbeData.getX(i), s2);
@@ -195,18 +198,18 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @author florian barbet
 	 * @param c
 	 */
-	public void logistique(Courbe<Number,Number> c, int a){
+	public void logistique(Courbe<X,Number> c, int a){
 		int taille = courbeData.sizeOfData();
 
-		double dataX;
+		X dataX;
 		double dataY;
 		double tmpY = 0;
-		double tmpX = 0;
+		X tmpX;
 		double tmpForm = 0;
 		for(int i=0; i<taille; i++){
 
 			tmpY = (double)courbeData.getY(i);
-			tmpX = (double)courbeData.getX(i);
+			tmpX = courbeData.getX(i);
 			tmpForm = tmpY/(1-tmpY);
 			if((tmpY > 0&&  tmpY<1)){
 				dataX = tmpX;
@@ -220,25 +223,27 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 	}
 	
+	
+	
 	/**
 	 * TransfoLog transformation sur la courbe avec la fonction log
 	 * @author Thomas
 	 * @param c
 	 */
-	public void transfoLog4Num(Courbe<Number,Number> c, int a){
+	public void transfoLog(Courbe<X,Number> c, int a){
 		int taille = courbeData.sizeOfData();
 
-		double dataX;
+		X dataX;
 		double dataY;
 
 		for(int i=0; i<taille; i++){
 
 
-			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0.0){
+			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0){
 
 			}
 			else{
-				dataX = (double)courbeData.getX(i);
+				dataX = courbeData.getX(i);
 				dataY = Math.log((double)courbeData.getY(i));
 				c.addXY(dataX,dataY);
 				if(a==1)System.out.println("Yt1 : "+dataY);
@@ -251,113 +256,6 @@ public class CourbeModel<X,Y> extends Observable {
 
 	}
 	
-	/**
-	 * TransfoBoxCox transformation sur la courbe avec la fonction box cox
-	 * @author Florian Hirson
-	 * @param c
-	 * @param lambda
-	 */
-	public void transfoBoxCox(Courbe<Number,Number> c, double lambda) {
-		int taille = c.sizeOfData();
-
-		double dataX;
-		double dataY;
-		
-		if (lambda == 0.0) {
-			
-			transfoLog4Num(c);
-		}
-
-		if( lambda > 0.0) {
-			for(int i=0; i<taille; i++){
-				dataX = (Math.pow((double)c.getX(i), lambda)-1)/lambda;
-				dataY = (Math.pow((double)c.getY(i), lambda)-1)/lambda;
-
-				c.addXY(dataX,dataY);
-			}
-		}
-	}
-
-
-	/**
-	 * @see CourbeModel#transfoLog4Num(Courbe)
-	 * @param c
-	 */
-	public void transfoLog4Cat(Courbe<String,String> c){
-		int taille = c.sizeOfData();
-
-		double dataX;
-		double dataY;
-
-		for(int i=0; i<taille; i++){
-			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0.0){
-
-			}else{
-				dataX=Math.log(Double.parseDouble(c.getX(i)));
-				dataY=Math.log(Double.parseDouble(c.getY(i)));
-
-				c.addXY(dataX+"",dataY+"");
-			}
-		}
-	}
-
-	/**
-	 * @see CourbeModel#transfoLog4Num(Courbe)
-	 * @param c
-	 */
-	public void transfoLog4CatNum(Courbe<Number,String> c){
-		int taille = c.sizeOfData();
-
-		double dataX;
-		double dataY;
-
-		for(int i=0; i<taille; i++){
-			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0.0){
-
-			}else{
-				dataX=Math.log((double)c.getX(i));
-				dataY=Math.log(Double.parseDouble(c.getY(i)));
-
-				c.addXY(dataX,dataY+"");
-			}
-		}
-	}
-
-/*	/**
-	 * @see CourbeModel#transfoLog4Num(Courbe)
-	 * @param c
-	 *//*
-	public void transfoLog4Mois(Courbe<Double,Mois> c){
-		int taille = c.sizeOfData();
-		Mois y=null;
-		double dataX=0.0;
-		int dataY=0;
-
-		int test=0;
-		for(int i=0; i<taille; i++){
-			y = c.getY(i);
-			dataX=Math.log(c.getX(i));
-			dataY=(int) Math.log(c.getY(i).getData());
-			test = Integer.valueOf(dataY);
-			while(test>0){
-				switch(test){
-				case 1:y=Mois.JAN;test=0;break;
-				case 2:y=Mois.FEV;test=0;break;
-				case 3:y=Mois.MAR;test=0;break;
-				case 4:y=Mois.AVR;test=0;break;
-				case 5:y=Mois.MAI;test=0;break;
-				case 6:y=Mois.JUIN;test=0;break;
-				case 7:y=Mois.JUIL;test=0;break;
-				case 8:y=Mois.AOUT;test=0;break;
-				case 9:y=Mois.SEPT;test=0;break;
-				case 10:y=Mois.OCT;test=0;break;
-				case 11:y=Mois.NOV;test=0;break;
-				case 12:y=Mois.DEC;test=0;break;
-				default:test-=12;break;
-				}			
-			}
-		}
-
-		c.addXY(dataX,y);
-	}*/
 }
+
+
