@@ -68,7 +68,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void moyenneMobile(Courbe<Number,Number> c,int a){
-		
+		if(a==1)System.out.println("Moyenne Mobile : Mht");
 		if(this.ordre == 0)setOrdre();
 		
 		double tabX[]=new double[courbeData.sizeOfData()];
@@ -99,6 +99,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void saisonResidu(Courbe<Number,Number> c, int a){
+		if(a==1)System.out.println("Saison + Residu : Xt-Mht");
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		this.moyenneMobile(cmm,0);
 		double moyennet = 0;
@@ -118,6 +119,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void saison(Courbe<Number,Number> c, int a){
+		if(a==1)System.out.println("Saison : St");
 		Courbe<Number, Number> cmd = new Courbe<Number,Number>();
 		this.saisonResidu(cmd,0);
 		double s1 = 0;
@@ -136,7 +138,7 @@ public class CourbeModel<X,Y> extends Observable {
 			}else if((double)cmd.getX(i)%2==0){
 				s2+=(double)cmd.getY(i);
 				tourS2++;
-			}else if((double)cmd.getX(i-1)%2==0){
+			}else if((double)cmd.getX(i+1)%4==0){
 				s3+=(double)cmd.getY(i);
 				tourS3++;
 			}else{
@@ -163,7 +165,7 @@ public class CourbeModel<X,Y> extends Observable {
 		for(int i=0;i<courbeData.sizeOfData();i++){
 			if((double)courbeData.getX(i)%4==0){
 				c.addXY((double)courbeData.getX(i), s4);
-			}else if((double)courbeData.getX(i-1)%2==0){
+			}else if((double)courbeData.getX(i+1)%4==0){
 				c.addXY((double)courbeData.getX(i), s3);
 			}else if((double)courbeData.getX(i)%2==0){
 				c.addXY((double)courbeData.getX(i), s2);
@@ -181,6 +183,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void desaisonaliser(Courbe<Number,Number> c,int a){
+		if(a==1)System.out.println("Desaisonnalisation : Xt-St");
 		Courbe<Number,Number> st = new Courbe<Number,Number>();
 		this.saison(st,0);
 		double des = 0;
@@ -199,6 +202,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void logistique(Courbe<X,Number> c, int a){
+		if(a==1)System.out.println("Logistique : Yt2");
 		int taille = courbeData.sizeOfData();
 
 		X dataX;
@@ -231,6 +235,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void transfoLog(Courbe<X,Number> c, int a){
+		if(a==1)System.out.println("Logarithme : Yt1");
 		int taille = courbeData.sizeOfData();
 
 		X dataX;
