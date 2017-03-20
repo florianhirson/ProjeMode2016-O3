@@ -108,7 +108,7 @@ public class CourbeMVCMain extends Application{
 		System.out.println("-> 0 : Fin");
 
 		while(condition==0){
-			System.out.println(":>>");
+			System.out.println("Votre choix[0 = Fin]:>>");
 			scan = sc.nextInt();
 
 			for(int i = 0; i < choice.size();i++){
@@ -126,6 +126,7 @@ public class CourbeMVCMain extends Application{
 				switch(scan){
 				case 1 :
 					model.moyenneMobile(cmm,1);
+					System.out.println("Quelles transformation voulez-vous ?");
 					break;
 				case 2 : 
 					model.saisonResidu(csr,1);
