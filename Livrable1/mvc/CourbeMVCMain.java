@@ -126,7 +126,6 @@ public class CourbeMVCMain extends Application{
 				switch(scan){
 				case 1 :
 					model.moyenneMobile(cmm,1);
-					System.out.println("Quelles transformation voulez-vous ?");
 					break;
 				case 2 : 
 					model.saisonResidu(csr,1);
