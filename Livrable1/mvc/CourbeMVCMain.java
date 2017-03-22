@@ -35,12 +35,15 @@ public class CourbeMVCMain extends Application{
 
 		BufferedReader fichier_source;
 
-		Courbe<Number,Number> log = new Courbe<Number,Number>();
+
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		Courbe<Number,Number> csr = new Courbe<Number,Number>();
 		Courbe<Number,Number> cs = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmd = new Courbe<Number,Number>();
+
 		Courbe<Number,Number> logis = new Courbe<Number,Number>();
+		Courbe<Number,Number> log = new Courbe<Number,Number>();
+		Courbe<Number,Number> bc = new Courbe<Number,Number>();
 
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visée
 		ArrayList<Integer> choice = new ArrayList<Integer>();
@@ -113,12 +116,14 @@ public class CourbeMVCMain extends Application{
 				System.out.println("-> 4 : Xt-St desaisonnalisation ");
 				System.out.println("-> 0 : Fin");
 			}else{
-				System.out.println("Voir resultat pour (number only): ");
+				System.out.println("Voir resultat pour (un seul choix): ");
 				System.out.println("-> 1 : Logarithme Yt1 ");
 				System.out.println("-> 2 : Logistique Yt2 ");
+				System.out.println("-> 3 : BoxCox BC ");
 				System.out.println("-> 0 : Fin");
 			}
 			while(condition==0){
+				if((choixaction == 0 && listCourbe.size() > 0))condition++;
 				System.out.println("0 = END :>>");
 				scan = sc.nextInt();
 				for( i = 0; i < choice.size();i++){
@@ -126,7 +131,7 @@ public class CourbeMVCMain extends Application{
 						scan=-1;	
 					}
 				}
-				if(scan == 0)condition++;
+				if(scan == 0 )condition++;
 				else if(scan == -1)
 					System.out.println("Option déjà saisie");
 				else{
@@ -154,7 +159,10 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.saison(cs,1);
 							listCourbe.add(cs);
-						}else{System.out.println("Option inexistante: "+scan);}
+						}else{
+							model.transfoBoxCox(bc,1);
+							listCourbe.add(bc);
+						}
 						break;
 					case 4 :
 						if(choixaction == 1){
@@ -181,7 +189,7 @@ public class CourbeMVCMain extends Application{
 			modelFusion = new CourbeModel<Number,Number>();
 			modelFusion.setCourbe(c);
 			controlF = new CourbeController<Number,Number>(modelFusion);
-			vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),"Fusion : "+data);
+			vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),data);
 
 			controlF.addView(vueF);
 
@@ -196,7 +204,8 @@ public class CourbeMVCMain extends Application{
 					if(choixaction == 0)vueF.addSeries(logis, "Yt2");
 					break;
 				case 3 :
-					vueF.addSeries(cs, "St");
+					if(choixaction == 1)vueF.addSeries(cs, "St");
+					if(choixaction == 0)vueF.addSeries(bc, "BC");
 					break;
 				case 4 :
 					vueF.addSeries(cmd, "Xt-St");
@@ -212,7 +221,7 @@ public class CourbeMVCMain extends Application{
 			vueF.show();
 		}
 	}
-	
+
 	public  static  void  main(String  args []) {
 		launch(args);
 	}
