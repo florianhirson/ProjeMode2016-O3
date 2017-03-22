@@ -1,7 +1,6 @@
 package mvc;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -19,14 +18,23 @@ import mvc.view.CourbeVueConcret;
 public class CourbeMVCMain extends Application{
 	Courbe<Number,Number> c = new Courbe<Number,Number>();
 	Scanner sc = new Scanner(System.in);
-	public  static  void  main(String  args []) {
-		launch(args);
-	}
-
 	@Override
 	public void start(Stage stage) throws Exception {
 
-		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visée
+
+		String data = "";
+		String chemin = "";
+		String chaine = "";
+		int condition = 0;
+		int scan = 0;
+		int choixaction = -1;
+		int indice = 0;
+		int choix = 0;
+		int i,j,k;
+		Double x,y;
+
+		BufferedReader fichier_source;
+
 		Courbe<Number,Number> log = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		Courbe<Number,Number> csr = new Courbe<Number,Number>();
@@ -34,65 +42,59 @@ public class CourbeMVCMain extends Application{
 		Courbe<Number,Number> cmd = new Courbe<Number,Number>();
 		Courbe<Number,Number> logis = new Courbe<Number,Number>();
 
-		int condition = 0;
-		int scan = 0;
-		int choixaction = -1;
+		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visée
 		ArrayList<Integer> choice = new ArrayList<Integer>();
+		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
+		ArrayList<String[]> tabCh = new ArrayList<String[]>();
+
+
+		CourbeModel<Number,Number> model; 				//	Modele MVC
+		CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
+		CourbeController<Number,Number> control;        // structure OK
+
+		CourbeModel<Number,Number> modelFusion;
+		CourbeVue<Number,Number> vueF;
+		CourbeController<Number,Number> controlF;
+
 
 
 
 		System.out.println("Inserez le fichier de donnee a utiliser  : ");
-		String data = sc.nextLine();
+		data = sc.nextLine();
 		try
 		{
-
-
-			String chemin = "data/"+data;
-			File fr = new File(chemin);
-			System.out.println(fr.getAbsolutePath());
-			BufferedReader fichier_source = new BufferedReader(new FileReader(chemin));
-			String chaine;
-
-			ArrayList<String[]> tabChaine = new ArrayList<String[]>();
-			ArrayList<String[]> tabCh = new ArrayList<String[]>();
-
-
-			int indice = 0;
+			chemin = "data/"+data;
+			fichier_source = new BufferedReader(new FileReader(chemin));
 			while((chaine = fichier_source.readLine())!= null)
 			{
-
-
 				tabChaine.add(chaine.split(";"));
-
 				indice++;
-
 			}
-			for(int i = 0; i < indice ; i++)
-				for(int j = 0; j < tabChaine.get(i).length ; j++ )
+
+			for( i = 0; i < indice ; i++)
+				for( j = 0; j < tabChaine.get(i).length ; j++ )
 				{
 					tabCh.add(tabChaine.get(i)[j].split(","));
 				}
 			fichier_source.close();
 
-			for(int i = 0; i < indice ; i++)
+			for(i = 0; i < indice ; i++)
 			{
-				Double x = Double.parseDouble(tabCh.get(i)[0]);
-				Double y = Double.parseDouble(tabCh.get(i)[1]);
+				x = Double.parseDouble(tabCh.get(i)[0]);
+				y = Double.parseDouble(tabCh.get(i)[1]);
 				c.addXY(x, y);
 
 			}
-
-
 		}
 		catch (FileNotFoundException e)
 		{
 			System.out.println("Le fichier est introuvable !");
 		}
 
-		CourbeModel<Number,Number> model = new CourbeModel<Number,Number>();
+		model = new CourbeModel<Number,Number>();
 		model.setCourbe(c);
-		CourbeController<Number,Number> control = new CourbeController<Number,Number>(model);
-		CourbeVue<Number,Number> vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data);
+		control = new CourbeController<Number,Number>(model);
+		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data);
 		control.addView(vue);
 
 
@@ -103,7 +105,6 @@ public class CourbeMVCMain extends Application{
 		choixaction = sc.nextInt();
 
 		if(choixaction == 1 || choixaction == 0){
-
 			if(choixaction == 1){
 				System.out.println("Voir resultat pour (number only): ");
 				System.out.println("-> 1 : Moyenne Mobile (Mt) ");
@@ -117,18 +118,14 @@ public class CourbeMVCMain extends Application{
 				System.out.println("-> 2 : Logistique Yt2 ");
 				System.out.println("-> 0 : Fin");
 			}
-
 			while(condition==0){
 				System.out.println("0 = END :>>");
 				scan = sc.nextInt();
-
-				for(int i = 0; i < choice.size();i++){
+				for( i = 0; i < choice.size();i++){
 					if(choice.get(i)==scan){
 						scan=-1;	
 					}
-
 				}
-
 				if(scan == 0)condition++;
 				else if(scan == -1)
 					System.out.println("Option déjà saisie");
@@ -143,7 +140,6 @@ public class CourbeMVCMain extends Application{
 							model.transfoLog(log,1);
 							listCourbe.add(log);
 						}
-
 						break;
 					case 2 : 
 						if(choixaction == 1){
@@ -153,53 +149,43 @@ public class CourbeMVCMain extends Application{
 							model.logistique(logis,1);
 							listCourbe.add(logis);
 						}
-
 						break;
 					case 3 :
 						if(choixaction == 1){
 							model.saison(cs,1);
 							listCourbe.add(cs);
 						}else{System.out.println("Option inexistante: "+scan);}
-
 						break;
 					case 4 :
 						if(choixaction == 1){
 							model.desaisonaliser(cmd,1);
 							listCourbe.add(cmd);
 						}else{System.out.println("Option inexistante: "+scan);}
-
 						break;
 					default : System.out.println("Option inexistante: "+scan);break;
 					}
 				}
-
-
-
 			}
-
-
 		}else{
-
 			System.out.println("Ni analyse, ni transformation Affichage de la courbe de base !");
 			vue.show();
-
 		}
 
 
-		int choix = 0;
+
 		System.out.println("Afficher  ? Yes = 1 No = 0");
 		choix = sc.nextInt();
 		if(Integer.valueOf(choix)==1)
 		{
 
-			CourbeModel<Number,Number> modelFusion = new CourbeModel<Number,Number>();
+			modelFusion = new CourbeModel<Number,Number>();
 			modelFusion.setCourbe(c);
-			CourbeController<Number,Number> controlF = new CourbeController<Number,Number>(modelFusion);
-			CourbeVue<Number,Number> vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),"Fusion : "+data);
+			controlF = new CourbeController<Number,Number>(modelFusion);
+			vueF = new CourbeVueConcret<Number,Number>(modelFusion,controlF,new NumberAxis(),new NumberAxis(),"Fusion : "+data);
 
 			controlF.addView(vueF);
 
-			for(int i = 0; i < choice.size();i++){
+			for(i = 0; i < choice.size();i++){
 				switch(choice.get(i)){
 				case 1 :
 					if(choixaction == 1)vueF.addSeries(cmm, "Mt");
@@ -219,16 +205,17 @@ public class CourbeMVCMain extends Application{
 			}
 			if(choixaction == 0){
 				vueF.setColorSeries(c, listCourbe.indexOf(c), "blue");
-				for(int k = 1 ; k < listCourbe.size();k++){
+				for(k = 1 ; k < listCourbe.size();k++){
 					vueF.setColorSeries(listCourbe.get(k), listCourbe.indexOf(listCourbe.get(k)) , "red");
 				}
 			}
 			vueF.show();
 		}
-
-
-
-
 	}
+	
+	public  static  void  main(String  args []) {
+		launch(args);
+	}
+
 
 }	
