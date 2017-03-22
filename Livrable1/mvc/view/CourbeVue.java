@@ -73,6 +73,34 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		lineChart.getData().add(nSeries);
 	}
 
+
+	public void setColorSeries( Courbe<X,Y> c,int nbCourbe, String color){
+		this.show();
+		String backgroundStyle = "-fx-background-color: "+color+",white";
+		String strokeStyle = "-fx-stroke:"+color+";";
+		final ObservableList<Series<X,Y>> chart = lineChart.getData();
+		final Series<X, Y> series1;
+		final Set<Node> nodes;
+
+		if(lineChart.getData().size()!=0 ){
+			 series1 = chart.get(nbCourbe);
+
+		}else{
+			series1 = null;
+		}
+
+		for (final Data<X, Y> data : series1.getData()) {
+			data.getNode().setStyle(backgroundStyle);
+		}
+
+		series.getNode().setStyle(strokeStyle);
+		nodes = lineChart.lookupAll(".chart-legend-item-symbol.default-color" + nbCourbe);
+		for (final Node n : nodes) {
+			n.setStyle(backgroundStyle);
+		}
+
+		this.close();
+	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public  void  setDisplay(Courbe<X,Y> c) {
