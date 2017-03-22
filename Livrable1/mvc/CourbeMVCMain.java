@@ -26,6 +26,7 @@ public class CourbeMVCMain extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 
+		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visée
 		Courbe<Number,Number> log = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		Courbe<Number,Number> csr = new Courbe<Number,Number>();
@@ -33,12 +34,19 @@ public class CourbeMVCMain extends Application{
 		Courbe<Number,Number> cmd = new Courbe<Number,Number>();
 		Courbe<Number,Number> logis = new Courbe<Number,Number>();
 
+		int condition = 0;
+		int scan = 0;
+		int choixaction = -1;
+		ArrayList<Integer> choice = new ArrayList<Integer>();
+
+
+
 		System.out.println("Inserez le fichier de donnee a utiliser  : ");
 		String data = sc.nextLine();
 		try
 		{
 
-			
+
 			String chemin = "data/"+data;
 			File fr = new File(chemin);
 			System.out.println(fr.getAbsolutePath());
@@ -89,67 +97,93 @@ public class CourbeMVCMain extends Application{
 
 
 
+		listCourbe.add(c);
+		System.out.println("Action : Analyse  = 1 Transformation = 0 ?"); 
+		System.out.println(":>>");
+		choixaction = sc.nextInt();
 
+		if(choixaction == 1 || choixaction == 0){
 
+			if(choixaction == 1){
+				System.out.println("Voir resultat pour (number only): ");
+				System.out.println("-> 1 : Moyenne Mobile (Mt) ");
+				System.out.println("-> 2 : Xt-Mt ");
+				System.out.println("-> 3 : St : saison");
+				System.out.println("-> 4 : Xt-St desaisonnalisation ");
+				System.out.println("-> 0 : Fin");
+			}else{
+				System.out.println("Voir resultat pour (number only): ");
+				System.out.println("-> 1 : Logarithme Yt1 ");
+				System.out.println("-> 2 : Logistique Yt2 ");
+				System.out.println("-> 0 : Fin");
+			}
 
-	
+			while(condition==0){
+				System.out.println("0 = END :>>");
+				scan = sc.nextInt();
 
-		int condition = 0;
-		int scan = 0;
-		ArrayList<Integer> choice = new ArrayList<Integer>();
+				for(int i = 0; i < choice.size();i++){
+					if(choice.get(i)==scan){
+						scan=-1;	
+					}
 
-		System.out.println("Voir resultat pour (number only): ");
-		System.out.println("-> 1 : Moyenne Mobile (Mt) ");
-		System.out.println("-> 2 : Xt-Mt ");
-		System.out.println("-> 3 : St : saison");
-		System.out.println("-> 4 : Xt-St desaisonnalisation ");
-		System.out.println("-> 5 : Logarithme Yt1 ");
-		System.out.println("-> 6 : Logistique Yt2 ");
-		System.out.println("-> 0 : Fin");
-
-		while(condition==0){
-			System.out.println("Votre choix[0 = Fin]:>>");
-			scan = sc.nextInt();
-
-			for(int i = 0; i < choice.size();i++){
-				if(choice.get(i)==scan){
-					scan=-1;	
 				}
+
+				if(scan == 0)condition++;
+				else if(scan == -1)
+					System.out.println("Option déjà saisie");
+				else{
+					choice.add(scan);
+					switch(scan){
+					case 1 :
+						if(choixaction == 1){
+							model.moyenneMobile(cmm,1);
+							listCourbe.add(cmm);
+						}else{
+							model.transfoLog(log,1);
+							listCourbe.add(log);
+						}
+
+						break;
+					case 2 : 
+						if(choixaction == 1){
+							model.saisonResidu(csr,1);
+							listCourbe.add(csr);
+						}else{
+							model.logistique(logis,1);
+							listCourbe.add(logis);
+						}
+
+						break;
+					case 3 :
+						if(choixaction == 1){
+							model.saison(cs,1);
+							listCourbe.add(cs);
+						}else{System.out.println("Option inexistante: "+scan);}
+
+						break;
+					case 4 :
+						if(choixaction == 1){
+							model.desaisonaliser(cmd,1);
+							listCourbe.add(cmd);
+						}else{System.out.println("Option inexistante: "+scan);}
+
+						break;
+					default : System.out.println("Option inexistante: "+scan);break;
+					}
+				}
+
+
 
 			}
 
-			if(scan == 0)condition++;
-			else if(scan == -1)
-				System.out.println("Option déjà saisie");
-			else{
-				choice.add(scan);
-				switch(scan){
-				case 1 :
-					model.moyenneMobile(cmm,1);
-					break;
-				case 2 : 
-					model.saisonResidu(csr,1);
-					break;
-				case 3 :
-					model.saison(cs,1);
-					break;
-				case 4 :
-					model.desaisonaliser(cmd,1);
-					break;
-				case 5 :
-					model.transfoLog(log,1);
-					break;
-				case 6 : 
-					model.logistique(logis,1);
-					break;
-				default : System.out.println("Option inexistante: "+scan);break;
-				}
-			}
-			
 
+		}else{
+
+			System.out.println("Ni analyse, ni transformation Affichage de la courbe de base !");
+			vue.show();
 
 		}
-
 
 
 		int choix = 0;
@@ -168,10 +202,12 @@ public class CourbeMVCMain extends Application{
 			for(int i = 0; i < choice.size();i++){
 				switch(choice.get(i)){
 				case 1 :
-					vueF.addSeries(cmm, "Mt");
+					if(choixaction == 1)vueF.addSeries(cmm, "Mt");
+					if(choixaction == 0)vueF.addSeries(log, "Yt1");
 					break;
 				case 2 : 
-					vueF.addSeries(csr, "Xt-Mt");
+					if(choixaction == 1)vueF.addSeries(csr, "Xt-Mt");
+					if(choixaction == 0)vueF.addSeries(logis, "Yt2");
 					break;
 				case 3 :
 					vueF.addSeries(cs, "St");
@@ -179,16 +215,14 @@ public class CourbeMVCMain extends Application{
 				case 4 :
 					vueF.addSeries(cmd, "Xt-St");
 					break;
-				case 5 :
-					vueF.addSeries(log, "Yt1");
-					break;
-				case 6 : 
-					vueF.addSeries(logis, "Yt2");
-					break;
-
 				}
 			}
-			vue.show();
+			if(choixaction == 0){
+				vueF.setColorSeries(c, listCourbe.indexOf(c), "blue");
+				for(int k = 1 ; k < listCourbe.size();k++){
+					vueF.setColorSeries(listCourbe.get(k), listCourbe.indexOf(listCourbe.get(k)) , "red");
+				}
+			}
 			vueF.show();
 		}
 
