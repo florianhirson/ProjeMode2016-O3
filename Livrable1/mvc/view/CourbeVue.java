@@ -3,6 +3,8 @@ package mvc.view;
 import java.util.Observer;
 import java.util.Set;
 
+import com.sun.javafx.geom.Rectangle;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,6 +13,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
 import mvc.model.Courbe;
@@ -24,6 +29,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected final LineChart<X,Y> lineChart;
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
+	TabPane tabPane = new TabPane();
 
 
 	@SuppressWarnings({"unchecked", "rawtypes" })
@@ -49,11 +55,15 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			series.getData().add(new XYChart.Data(model.getDataX(i), model.getDataY(i)));
 		}
 
-
-		Scene scene  = new Scene(lineChart,800,600);
-
+		lineChart.getData().add(series);
+		
+		
+		Tab tab = new Tab();
+		tab.setText(t);
+		tab.setContent(lineChart);
+		tabPane.getTabs().add(tab);
 		model.addObserver(this);
-
+		Scene scene  = new Scene(tabPane,800,600);
 		this.setScene(scene);
 	}
 
@@ -68,6 +78,10 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			nSeries.getData().add(new XYChart.Data(c.getDataX(i), c.getDataY(i)));
 		}
 		lineChart.getData().add(nSeries);
+		Tab tab = new Tab();
+		tab.setText(title);
+		tab.setContent(lineChart);
+		tabPane.getTabs().add(tab);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -80,6 +94,11 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			nSeries.getData().add(new XYChart.Data(c.getX(i), c.getY(i)));
 		}
 		lineChart.getData().add(nSeries);
+		lineChart.getData().add(nSeries);
+		Tab tab = new Tab();
+		tab.setText(title);
+		tab.setContent(lineChart);
+		tabPane.getTabs().add(tab);
 	}
 
 
@@ -93,7 +112,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		final Series<X, Y> series1;
 		final Set<Node> nodes;
 
-		if(lineChart.getData().size()!=0 ){
+		if(chart.size()!=0 ){
 			 series1 = chart.get(nbCourbe);
 
 		}else{

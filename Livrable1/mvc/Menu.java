@@ -1,4 +1,4 @@
-package projet;
+package mvc;
 
 import java.util.Scanner;
 
@@ -26,7 +26,7 @@ public class Menu {
 		System.out.println("##########  PROJET   ###########");
 		System.out.println("#                              #");
 		System.out.println("#     Voulez-vous importer     #");
-		System.out.println("#     une série de données ?   #");
+		System.out.println("#     une sï¿½rie de donnï¿½es ?   #");
 		System.out.println("#                              #");
 		System.out.println("################################");
 		System.out.println("#                              #");
@@ -40,7 +40,7 @@ public class Menu {
 
 		switch(choix){
 		case 1 : 
-			//méthode charger fichier CSV
+			//mï¿½thode charger fichier CSV
 		case 9 :
 			//menu quitter et sauvegarde
 		default:
@@ -64,9 +64,9 @@ public class Menu {
 		System.out.println("#                              #");	
 		System.out.println("#  2 : Une analyse             #");
 		System.out.println("#                              #");	
-		System.out.println("#  3 : une prévision           #");
+		System.out.println("#  3 : une prï¿½vision           #");
 		System.out.println("#                              #");	
-		System.out.println("#  0 : Retour menu précédent   #");
+		System.out.println("#  0 : Retour menu prï¿½cï¿½dent   #");
 		System.out.println("#                              #");	
 		System.out.println("#  9 : Quitter PROJET          #");		
 		System.out.println("#                              #");
@@ -80,7 +80,7 @@ public class Menu {
 		case 2 :
 			//menu choix analyse
 		case 3 :
-			//menu choix prévision
+			//menu choix prï¿½vision
 		case 0 :
 			menuLancement();
 		case 9 :
@@ -109,15 +109,15 @@ public class Menu {
 		System.out.println("#                                    #");	
 		System.out.println("#  4 : Moyenne mobile                #");
 		System.out.println("#                                    #");
-		System.out.println("#  5 : Moyenne mobile pondérée       #");
+		System.out.println("#  5 : Moyenne mobile pondï¿½rï¿½e       #");
 		System.out.println("#                                    #");
-		System.out.println("#  6 : Saisonnalité                  #");
+		System.out.println("#  6 : Saisonnalitï¿½                  #");
 		System.out.println("#                                    #");	
-		System.out.println("#  7 : Tendance linéaire             #");
+		System.out.println("#  7 : Tendance linï¿½aire             #");
 		System.out.println("#                                    #");
-		System.out.println("#  8 : Opérateur de différenciation  #");
+		System.out.println("#  8 : Opï¿½rateur de diffï¿½renciation  #");
 		System.out.println("#                                    #");
-		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#  0 : Retour menu prï¿½cï¿½dent         #");
 		System.out.println("#                                    #");
 		System.out.println("#  9 : Quitter PROJET                #");		
 		System.out.println("#                                    #");
@@ -127,21 +127,21 @@ public class Menu {
 		
 		switch(choix){
 		case 1 :
-			//méthode logarithme
+			//mï¿½thode logarithme
 		case 2 :
-			//méthode box-cox
+			//mï¿½thode box-cox
 		case 3 :
-			//méthode logistique
+			//mï¿½thode logistique
 		case 4 :
-			//méthode moyenne mobile
+			//mï¿½thode moyenne mobile
 		case 5 :
-			//méthode moyenne pondérée
+			//mï¿½thode moyenne pondï¿½rï¿½e
 		case 6 :
-			//méthode saisonnalité
+			//mï¿½thode saisonnalitï¿½
 		case 7 :
-			//méthode tendance linéaire
+			//mï¿½thode tendance linï¿½aire
 		case 8 :
-			//méthode opérateur de différenciation
+			//mï¿½thode opï¿½rateur de diffï¿½renciation
 		case 0 :
 			menuChoixActions();
 		case 9 :
@@ -157,7 +157,7 @@ public class Menu {
 		System.out.println();
 		System.out.println("##############   PROJET   ############");
 		System.out.println("#                                    #");
-		System.out.println("#     quelles prévisions voulez      #");
+		System.out.println("#     quelles prï¿½visions voulez      #");
 		System.out.println("#        vous effectuer ?            #");
 		System.out.println("#                                    #");
 		System.out.println("######################################");
@@ -168,7 +168,7 @@ public class Menu {
 		System.out.println("#                                    #");	
 		System.out.println("#  3 : Holt-Winters                  #");
 		System.out.println("#                                    #");
-		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#  0 : Retour menu prï¿½cï¿½dent         #");
 		System.out.println("#                                    #");
 		System.out.println("#  9 : Quitter PROJET                #");		
 		System.out.println("#                                    #");
@@ -178,11 +178,11 @@ public class Menu {
 		
 		switch(choix){
 		case 1:
-			//méthode lissage exponentiel simple
+			//mï¿½thode lissage exponentiel simple
 		case 2 :
-			//méthode lissage exponentiel double
+			//mï¿½thode lissage exponentiel double
 		case 3 :
-			//méthode holt-winters
+			//mï¿½thode holt-winters
 		case 0 :
 			menuChoixActions();
 		case 9 :
@@ -207,9 +207,9 @@ public class Menu {
 		System.out.println("#                                    #");	
 		System.out.println("#  2 : Lissage exponentiel double    #");
 		System.out.println("#                                    #");	
-		System.out.println("#  3 : Autocorrélations des résidus  #");
+		System.out.println("#  3 : Autocorrï¿½lations des rï¿½sidus  #");
 		System.out.println("#                                    #");
-		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#  0 : Retour menu prï¿½cï¿½dent         #");
 		System.out.println("#                                    #");
 		System.out.println("#  9 : Quitter PROJET                #");		
 		System.out.println("#                                    #");
@@ -219,11 +219,11 @@ public class Menu {
 		
 		switch(choix){
 		case 1:
-			//méthode lissage exponentiel simple
+			//mï¿½thode lissage exponentiel simple
 		case 2 :
-			//méthode lissage exponentiel double
+			//mï¿½thode lissage exponentiel double
 		case 3 :
-			//méthode autocorrélation
+			//mï¿½thode autocorrï¿½lation
 		case 0 :
 			menuChoixActions();
 		case 9 :

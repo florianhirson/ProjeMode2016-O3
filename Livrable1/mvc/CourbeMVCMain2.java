@@ -15,7 +15,7 @@ import mvc.model.CourbeModel;
 import mvc.view.CourbeVue;
 import mvc.view.CourbeVueConcret;
 
-public class CourbeMVCMain extends Application{
+public class CourbeMVCMain2 extends Application{
 	Courbe<Number,Number> c = new Courbe<Number,Number>();
 	Scanner sc = new Scanner(System.in);
 
