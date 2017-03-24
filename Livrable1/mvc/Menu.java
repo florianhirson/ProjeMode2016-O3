@@ -1,112 +1,249 @@
-package mvc;
+package projet;
 
-import java.io.File;
+import java.util.Scanner;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
+public class Menu {
 
-public class Menu extends Stage{
-	
-	private Text actionStatus;
-	private static final String titleTxt = "Selection d'un fichier CSV";
-	private Label label;
-	private HBox labelHb;
-	private Button btn1;
-	private HBox buttonHb1;
-	private VBox vbox;
-	private Scene scene;
-	public Stage primaryStage;
-	private String chemin;
-	
-	/**
-	 * Constructeur de la fenetre de selection de fichier CSV
-	 * @author Florian Hirson
-	 *
-	 * 
-	 */
-	Menu() {
-		super();
-		primaryStage = new Stage();
-		primaryStage.setTitle(titleTxt);	
+	Scanner sc = new Scanner(System.in);
 
-		// Window label
-		label = new Label("Select File Choosers");
-		label.setTextFill(Color.DARKBLUE);
-		label.setFont(Font.font("Calibri", FontWeight.BOLD, 36));
-		labelHb = new HBox();
-		labelHb.setAlignment(Pos.CENTER);
-		labelHb.getChildren().add(label);
+	private int choix;
 
-		// Buttons
-		btn1 = new Button("Choisissez un fichier...");
-		btn1.setOnAction(e-> showSingleFileChooser());
-		buttonHb1 = new HBox(10);
-		buttonHb1.setAlignment(Pos.CENTER);
-		buttonHb1.getChildren().addAll(btn1);
+	void erreurChoix() {
 
-
-		// Status message text
-		actionStatus = new Text();
-		actionStatus.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
-		actionStatus.setFill(Color.FIREBRICK);
-
-		// Vbox
-		vbox = new VBox(30);
-		vbox.setPadding(new Insets(25, 25, 25, 25));
-		vbox.getChildren().addAll(labelHb, buttonHb1, actionStatus);
-
-		// Scene
-		scene = new Scene(vbox, 500, 300); // w x h
-		primaryStage.setScene(scene);
-		primaryStage.show();
-
-
+		System.out.println();
+		System.out.println("##########   ERREUR   ##########");
+		System.out.println("#                              #");
+		System.out.println("#           Ce choix           #");
+		System.out.println("#         n'existe pas         #");
+		System.out.println("#                              #");
+		System.out.println("################################");
 	}
 
 
+	void menuLancement(){
 
-	private void showSingleFileChooser() {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Fichiers CSV", "*.csv"));
-		File selectedFile = fileChooser.showOpenDialog(null);
+		System.out.println();
+		System.out.println("##########  PROJET   ###########");
+		System.out.println("#                              #");
+		System.out.println("#     Voulez-vous importer     #");
+		System.out.println("#     une série de données ?   #");
+		System.out.println("#                              #");
+		System.out.println("################################");
+		System.out.println("#                              #");
+		System.out.println("#  1 : Charger fichier CSV     #");
+		System.out.println("#                              #");					
+		System.out.println("#  9 : Quitter PROJET          #");		
+		System.out.println("#                              #");
+		System.out.println("################################");
 
-		if (selectedFile != null) {
-			actionStatus.setText("Fichier choisis: " + selectedFile.getName());
-			setChemin(selectedFile.getAbsolutePath());
-			
+		choix = Integer.parseInt(sc.next());
+
+		switch(choix){
+		case 1 : 
+			//méthode charger fichier CSV
+		case 9 :
+			//menu quitter et sauvegarde
+		default:
+			erreurChoix();
+			System.out.println();
+			menuLancement();
 		}
-		else {
-			actionStatus.setText("Selection de fichier annulee.");
+	}
+
+	void menuChoixActions(){
+
+		System.out.println();
+		System.out.println("##########  PROJET   ###########");
+		System.out.println("#                              #");
+		System.out.println("#     quelles actions voulez   #");
+		System.out.println("#        vous effectuer        #");
+		System.out.println("#                              #");
+		System.out.println("################################");
+		System.out.println("#                              #");
+		System.out.println("#  1 : Une transformation      #");
+		System.out.println("#                              #");	
+		System.out.println("#  2 : Une analyse             #");
+		System.out.println("#                              #");	
+		System.out.println("#  3 : une prévision           #");
+		System.out.println("#                              #");	
+		System.out.println("#  0 : Retour menu précédent   #");
+		System.out.println("#                              #");	
+		System.out.println("#  9 : Quitter PROJET          #");		
+		System.out.println("#                              #");
+		System.out.println("################################");
+
+		choix = Integer.parseInt(sc.next());
+
+		switch(choix){
+		case 1 :
+			//menu choix transformations
+		case 2 :
+			//menu choix analyse
+		case 3 :
+			//menu choix prévision
+		case 0 :
+			menuLancement();
+		case 9 :
+			//menu quitter et sauvegarde
+		default:
+			erreurChoix();
+			System.out.println();
 		}
+	}
+	
+	void menuChoixTransformation(){
 		
-	}
-
-
-
-	/**
-	 * @return the chemin
-	 */
-	public String getChemin() {
-		return chemin;
+		System.out.println();
+		System.out.println("##############   PROJET   ############");
+		System.out.println("#                                    #");
+		System.out.println("#  quelles transformations voulez    #");
+		System.out.println("#          vous effectuer ?          #");
+		System.out.println("#                                    #");
+		System.out.println("######################################");
+		System.out.println("#                                    #");
+		System.out.println("#  1 : Logarithme                    #");
+		System.out.println("#                                    #");	
+		System.out.println("#  2 : Box-Cox                       #");
+		System.out.println("#                                    #");	
+		System.out.println("#  3 : Logistique                    #");
+		System.out.println("#                                    #");	
+		System.out.println("#  4 : Moyenne mobile                #");
+		System.out.println("#                                    #");
+		System.out.println("#  5 : Moyenne mobile pondérée       #");
+		System.out.println("#                                    #");
+		System.out.println("#  6 : Saisonnalité                  #");
+		System.out.println("#                                    #");	
+		System.out.println("#  7 : Tendance linéaire             #");
+		System.out.println("#                                    #");
+		System.out.println("#  8 : Opérateur de différenciation  #");
+		System.out.println("#                                    #");
+		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#                                    #");
+		System.out.println("#  9 : Quitter PROJET                #");		
+		System.out.println("#                                    #");
+		System.out.println("######################################");
+		
+		choix = Integer.parseInt(sc.next());
+		
+		switch(choix){
+		case 1 :
+			//méthode logarithme
+		case 2 :
+			//méthode box-cox
+		case 3 :
+			//méthode logistique
+		case 4 :
+			//méthode moyenne mobile
+		case 5 :
+			//méthode moyenne pondérée
+		case 6 :
+			//méthode saisonnalité
+		case 7 :
+			//méthode tendance linéaire
+		case 8 :
+			//méthode opérateur de différenciation
+		case 0 :
+			menuChoixActions();
+		case 9 :
+			//menu quitter et sauvegarde
+	    default :
+	    	erreurChoix();
+			System.out.println();
+		}
 	}
 	
-	/**
-	 * @param chemin the chemin to set
-	 */
-	public void setChemin(String chemin) {
-		this.chemin = chemin;
+	void menuChoixPrevisions(){
+		
+		System.out.println();
+		System.out.println("##############   PROJET   ############");
+		System.out.println("#                                    #");
+		System.out.println("#     quelles prévisions voulez      #");
+		System.out.println("#        vous effectuer ?            #");
+		System.out.println("#                                    #");
+		System.out.println("######################################");
+		System.out.println("#                                    #");
+		System.out.println("#  1 : Lissage exponentiel simple    #");
+		System.out.println("#                                    #");	
+		System.out.println("#  2 : Lissage exponentiel double    #");
+		System.out.println("#                                    #");	
+		System.out.println("#  3 : Holt-Winters                  #");
+		System.out.println("#                                    #");
+		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#                                    #");
+		System.out.println("#  9 : Quitter PROJET                #");		
+		System.out.println("#                                    #");
+		System.out.println("######################################");
+		
+		choix = Integer.parseInt(sc.next());
+		
+		switch(choix){
+		case 1:
+			//méthode lissage exponentiel simple
+		case 2 :
+			//méthode lissage exponentiel double
+		case 3 :
+			//méthode holt-winters
+		case 0 :
+			menuChoixActions();
+		case 9 :
+			//menu quitter et sauvegarde
+		default :
+			erreurChoix();
+			System.out.println();
+		}
 	}
+	
+	void menuChoixAnalyse(){
+		
+		System.out.println();
+		System.out.println("##############   PROJET   ############");
+		System.out.println("#                                    #");
+		System.out.println("#     quelles analyses voulez        #");
+		System.out.println("#        vous effectuer ?            #");
+		System.out.println("#                                    #");
+		System.out.println("######################################");
+		System.out.println("#                                    #");
+		System.out.println("#  1 : Lissage exponentiel simple    #");
+		System.out.println("#                                    #");	
+		System.out.println("#  2 : Lissage exponentiel double    #");
+		System.out.println("#                                    #");	
+		System.out.println("#  3 : Autocorrélations des résidus  #");
+		System.out.println("#                                    #");
+		System.out.println("#  0 : Retour menu précédent         #");
+		System.out.println("#                                    #");
+		System.out.println("#  9 : Quitter PROJET                #");		
+		System.out.println("#                                    #");
+		System.out.println("######################################");
+		
+		choix = Integer.parseInt(sc.next());
+		
+		switch(choix){
+		case 1:
+			//méthode lissage exponentiel simple
+		case 2 :
+			//méthode lissage exponentiel double
+		case 3 :
+			//méthode autocorrélation
+		case 0 :
+			menuChoixActions();
+		case 9 :
+			//menu quitter et sauvegarde
+		default :
+			erreurChoix();
+			System.out.println();
+		}
+	}
+	
+	
+
+
+
+
+
+
+
+
+
+
 
 }
