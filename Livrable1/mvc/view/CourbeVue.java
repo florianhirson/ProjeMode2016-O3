@@ -29,7 +29,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected final LineChart<X,Y> lineChart;
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
-	TabPane tabPane = new TabPane();
+//	TabPane tabPane = new TabPane();
 
 
 	@SuppressWarnings({"unchecked", "rawtypes" })
@@ -58,10 +58,10 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		lineChart.getData().add(series);
 		
 		
-		Tab tab = new Tab();
+	/*	Tab tab = new Tab();
 		tab.setText(t);
 		tab.setContent(lineChart);
-		tabPane.getTabs().add(tab);
+		tabPane.getTabs().add(tab);*/
 		model.addObserver(this);
 		Scene scene  = new Scene(tabPane,800,600);
 		this.setScene(scene);
@@ -78,10 +78,10 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			nSeries.getData().add(new XYChart.Data(c.getDataX(i), c.getDataY(i)));
 		}
 		lineChart.getData().add(nSeries);
-		Tab tab = new Tab();
+		/*Tab tab = new Tab();
 		tab.setText(title);
 		tab.setContent(lineChart);
-		tabPane.getTabs().add(tab);
+		tabPane.getTabs().add(tab);*/
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -95,10 +95,10 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		}
 		lineChart.getData().add(nSeries);
 		lineChart.getData().add(nSeries);
-		Tab tab = new Tab();
+	/*	Tab tab = new Tab();
 		tab.setText(title);
 		tab.setContent(lineChart);
-		tabPane.getTabs().add(tab);
+		tabPane.getTabs().add(tab);*/
 	}
 
 
