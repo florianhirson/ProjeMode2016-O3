@@ -6,9 +6,7 @@ import java.util.Scanner;
  * Model du MVC sur la Courbe
  * @author Florian Barbet
  * @author Thomas Mastalerz
- * @author Rayan Haddad
- * @author Florian Hirson
- * 
+ *
  * @param <X>
  * @param <Y>
  */
@@ -41,9 +39,9 @@ public class CourbeModel<X,Y> extends Observable {
 		notifyObservers();
 	}
 
-	private void setOrdre(){
+	public final void setOrdre(int o){
 		System.out.print("Ordre : ");
-		ordre = sc.nextInt();
+		ordre = o;
 	}
 	
 	public int getOrdre(){
@@ -85,7 +83,7 @@ public class CourbeModel<X,Y> extends Observable {
 		double moyenne = 0;
 
 		if(a==1)System.out.println("Moyenne Mobile : Mht");
-		if(this.ordre <= 0)setOrdre();
+		if(this.ordre <= 0)setOrdre(sc.nextInt());
 
 		if(this.ordre<=0)moyenneMobile(c,a);
 		else{
