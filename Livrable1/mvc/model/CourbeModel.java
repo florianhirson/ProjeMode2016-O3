@@ -6,7 +6,8 @@ import java.util.Scanner;
  * Model du MVC sur la Courbe
  * @author Florian Barbet
  * @author Thomas Mastalerz
- *
+ * @author Rayan Haddad
+ *  @author Florian Hirson
  * @param <X>
  * @param <Y>
  */
@@ -48,6 +49,10 @@ public class CourbeModel<X,Y> extends Observable {
 		return Integer.valueOf(ordre);
 	}
 
+	public double getLambda(){
+		return Double.valueOf(lambda);
+	}
+	
 	public final void setLambda(int l){
 		
 		lambda = l;
