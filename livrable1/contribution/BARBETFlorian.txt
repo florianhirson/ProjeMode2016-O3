@@ -14,10 +14,10 @@ Synthése des actions éffectués :
     0. Creation structurelle ;
     1. Ajout d'une classe essentielle Courbe<X,Y> ;
     2. Mise en place d'un modèle générique Courbe<X,Y> ;
-    3. Correction de méthodes sur traitements fonctionnel : logarithme ( fait par autre membre du groupe );
+    3. Correction de méthodes sur traitements fonctionnel : logarithme ( fait par autre membre du groupe ), BoxCox (fait par florian hirson);
     4. Utilisation et comprehension de JavaFXChart ;
     5. Recherche sur lecture csv avec Florian Hirson ;
-    6. 
+    6. Ecriture de methode Transformation et Analytique ; Main etc..
     
 Avis sur le groupe :
 
@@ -41,5 +41,5 @@ Fréquence de travail :
     Jour le plus fréquent : Jeudi ;
     Moyenne d'heure semaine : 4h ;
     Personnel : variable soit au total 8heures
-    soit Temps total pour Livrable 1 >>>  ~12h en groupe ; ~20h de travail personnel.
+    soit Temps total pour Livrable 1 >>>  ~12h en groupe ; ~150h de travail personnel.
     
