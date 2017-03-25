@@ -1,8 +1,10 @@
 package mvc;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,6 +30,7 @@ public class CourbeMVCMain extends Application{
 		String data = "";
 		String chemin = "";
 		String chaine = "";
+		String save = "";
 		int condition = 0;
 		int scan = 0;
 		int choixaction = -1;
@@ -37,8 +40,9 @@ public class CourbeMVCMain extends Application{
 		Double x,y;
 
 		BufferedReader fichier_source;
+		BufferedWriter fichier_result;
 
-
+		Courbe<Number,Number> donnee = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		Courbe<Number,Number> csr = new Courbe<Number,Number>();
 		Courbe<Number,Number> cs = new Courbe<Number,Number>();
@@ -49,7 +53,7 @@ public class CourbeMVCMain extends Application{
 
 		Courbe<Number,Number> res = new Courbe<Number,Number>();
 
-
+		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visée
 		ArrayList<Integer> choice = new ArrayList<Integer>();
 		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
@@ -110,9 +114,10 @@ public class CourbeMVCMain extends Application{
 		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data);
 		control.addView(vue);
 
-		
+
 
 		listCourbe.add(c);
+		listTitle.add("Base");
 		System.out.println("Action :  Transformation = 1 Analyse : 2 ?"); 
 		System.out.println(":>>");
 		choixaction = sc.nextInt();
@@ -153,9 +158,12 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.transfoLog(log,1);
 							listCourbe.add(log);
+							listTitle.add("Logarithme");
 						}else if(choixaction==2){
 							model.residu(res, 1);
 							listCourbe.add(res);
+							listTitle.add("AnalyseResidu");
+							
 						}
 
 						break;
@@ -163,6 +171,7 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.transfoBoxCox(bc,1);
 							listCourbe.add(bc);
+							listTitle.add("BoxCox");
 
 						}else{System.out.println("Option inexistante: "+scan);}
 						break;
@@ -170,6 +179,7 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.logistique(logis,1);
 							listCourbe.add(logis);
+							listTitle.add("Logistique");
 
 						}else{System.out.println("Option inexistante: "+scan);}
 						break;
@@ -178,6 +188,7 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.moyenneMobile(cmm,1);
 							listCourbe.add(cmm);
+							listTitle.add("MoyenneMobile");
 						}else{System.out.println("Option inexistante: "+scan);}
 						break;
 
@@ -185,6 +196,7 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.saisonResidu(csr,1);
 							listCourbe.add(csr);
+							listTitle.add("residu");
 						}else{System.out.println("Option inexistante: "+scan);}
 
 
@@ -193,12 +205,14 @@ public class CourbeMVCMain extends Application{
 						if(choixaction == 1){
 							model.saison(cs,1);
 							listCourbe.add(cs);
+							listTitle.add("saison");
 						}else{System.out.println("Option inexistante: "+scan);}
 						break;
 					case 7 : 
 						if(choixaction == 1){
 							model.desaisonaliser(cmd,1);
 							listCourbe.add(cmd);
+							listTitle.add("desonnalisation");
 						}else{System.out.println("Option inexistante: "+scan);}
 						break; 
 
@@ -209,8 +223,10 @@ public class CourbeMVCMain extends Application{
 		}else{
 			System.out.println("Ni analyse, ni transformation Affichage de la courbe de base !");
 			vue.show();
-
+			//System.exit(0);
 		}
+
+
 
 
 
@@ -219,24 +235,32 @@ public class CourbeMVCMain extends Application{
 		if(Integer.valueOf(choix)==1)
 		{
 
+			System.out.println("Affichage  ? Unitaire = 1  Multiple = 0");
 
-		
+			choix+=sc.nextInt();
+			if(Integer.valueOf(choix) == 2){ 
+				modelF = new CourbeModel<Number,Number>();
+				modelF.setCourbe(c);
+				controlF = new CourbeController<Number,Number>(modelF);
+				vueF = new CourbeVueConcret<Number,Number>(modelF,controlF,new NumberAxis(),new NumberAxis(),data);
+			}
 			for(i = 0; i < choice.size();i++){
 
-			
 
-				listModel.add( new CourbeModel<Number,Number>());
-				modelF = listModel.get(i);
-				modelF.setCourbe(c);
-				listControl.add(new CourbeController<Number,Number>(modelF));
-				controlF = listControl.get(i);
-				listView.add(new CourbeVueConcret<Number,Number>(modelF,controlF,new NumberAxis(),new NumberAxis(),data));
-				vueF = listView.get(i);
-				
-				
-				
-				
-				
+				if(Integer.valueOf(choix)==1){
+
+					listModel.add( new CourbeModel<Number,Number>());
+					modelF = listModel.get(i);
+					modelF.setCourbe(c);
+					listControl.add(new CourbeController<Number,Number>(modelF));
+					controlF = listControl.get(i);
+					listView.add(new CourbeVueConcret<Number,Number>(modelF,controlF,new NumberAxis(),new NumberAxis(),data));
+					vueF = listView.get(i);
+				}
+
+
+
+
 				controlF.addView(vueF);
 
 				switch(choice.get(i)){
@@ -276,20 +300,55 @@ public class CourbeMVCMain extends Application{
 					break;
 				}
 
-
 				vueF.setColorSeries(c,listCourbe.indexOf(c), "blue");
-				for(k = 1 ; k < listCourbe.size();k++){
-					vueF.setColorSeries(listCourbe.get(k), listCourbe.indexOf(listCourbe.get(k)) , "red");
+
+				if(Integer.valueOf(choix)==1){
+
+					for(k = 1 ; k < listCourbe.size();k++){
+						vueF.setColorSeries(listCourbe.get(k), listCourbe.indexOf(listCourbe.get(k)) , "red");
+					}
+
+					vueF.show();
 				}
-
-				vueF.show();
 			}
-
-
+			
+			
+			
 		}
+		if(Integer.valueOf(choix) == 2)
+			vueF.show();
+
+		
+		for(i = 0 ; i < listCourbe.size();i++){
+			try
+			{
+				String title = listTitle.get(i);
+				FileWriter fileWriter = new FileWriter("data/save/"+title+".csv");
+
+				fileWriter.close();
+				chemin = "data/save/"+title+".csv";
+				fichier_result = new BufferedWriter(new FileWriter(chemin));
+
+				donnee = listCourbe.get(i);
+				for(j=0;j<donnee.sizeOfData();j++)
+					save += donnee.getX(j)+","+donnee.getY(j)+"\n";
+
+				fichier_result.write(save);
+				fichier_result.close();
+
+			}
+			catch (FileNotFoundException e)
+			{
+				System.out.println("Le fichier est introuvable !");
+			}	
+		}
+
 		
 
+		
 	}
+
+
 
 	public  static  void  main(String  args []) {
 		launch(args);
