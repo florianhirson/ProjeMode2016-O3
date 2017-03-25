@@ -318,17 +318,17 @@ public class CourbeMVCMain extends Application{
 		if(Integer.valueOf(choix) == 2)
 			vueF.show();
 
-		
+		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
 		for(i = 0 ; i < listCourbe.size();i++){
-			try
-			{
+			
 				String title = listTitle.get(i);
 				FileWriter fileWriter = new FileWriter("data/save/"+title+".csv");
-
+				fileWriter.append(title);
+				save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
 				fileWriter.close();
 				chemin = "data/save/"+title+".csv";
 				fichier_result = new BufferedWriter(new FileWriter(chemin));
-
+				
 				donnee = listCourbe.get(i);
 				for(j=0;j<donnee.sizeOfData();j++)
 					save += donnee.getX(j)+","+donnee.getY(j)+"\n";
@@ -336,14 +336,11 @@ public class CourbeMVCMain extends Application{
 				fichier_result.write(save);
 				fichier_result.close();
 
-			}
-			catch (FileNotFoundException e)
-			{
-				System.out.println("Le fichier est introuvable !");
-			}	
+			
+			
 		}
 
-		
+		//System.exit(0);	if(choixaction == 1){
 
 		
 	}
