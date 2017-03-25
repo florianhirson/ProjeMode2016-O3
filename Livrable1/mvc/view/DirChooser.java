@@ -15,13 +15,10 @@ public class DirChooser extends Stage{
 		super();
 		primaryStage = new Stage();
 		primaryStage.setTitle("Selection d'un dossier pour l'enregistrement des données");
-		/*
-		scene = new Scene(vbox, 500, 300); // w x h
-		primaryStage.setScene(scene);
-		*/
-		//primaryStage.show();
+
 		
 		DirectoryChooser directoryChooser = new DirectoryChooser();
+		directoryChooser.setInitialDirectory(new File("data/"));
         File selectedDirectory = directoryChooser.showDialog(primaryStage);
          
         if(selectedDirectory == null){
@@ -50,3 +47,4 @@ public class DirChooser extends Stage{
 	
 	
 }
+
