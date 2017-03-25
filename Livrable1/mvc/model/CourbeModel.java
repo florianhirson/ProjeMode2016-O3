@@ -6,7 +6,9 @@ import java.util.Scanner;
  * Model du MVC sur la Courbe
  * @author Florian Barbet
  * @author Thomas Mastalerz
- *
+ * @author Rayan Haddad
+ * @author Florian Hirson
+ * 
  * @param <X>
  * @param <Y>
  */
@@ -42,6 +44,10 @@ public class CourbeModel<X,Y> extends Observable {
 	private void setOrdre(){
 		System.out.print("Ordre : ");
 		ordre = sc.nextInt();
+	}
+	
+	public int getOrdre(){
+		return Integer.valueOf(ordre);
 	}
 
 	private void setLambda(){
@@ -244,7 +250,7 @@ public class CourbeModel<X,Y> extends Observable {
 		covyt-=ybar*tbar;
 		ahat = covyt/vart;
 		bhat = ybar - ahat*tbar;
-		System.out.println("residu d:"+tbar+" ; "+ybar+" ; "+vart + " ; "+covyt + " b"+bhat+" a"+ahat);
+	//	System.out.println("residu d:"+tbar+" ; "+ybar+" ; "+vart + " ; "+covyt + " b"+bhat+" a"+ahat);
 		for(int i = 0; i < courbeData.sizeOfData();i++){
 			yhat=ahat*(i+1)+bhat;
 			//System.out.println("yhat :"+yhat);
