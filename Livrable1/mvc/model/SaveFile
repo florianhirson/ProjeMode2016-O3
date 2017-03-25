@@ -7,7 +7,7 @@ import javax.swing.JFileChooser;
 
 public class SavaFile {
 	
-	
+	/*Je me suis permis de l'implementer regarde sur CourbeMVCMain c'est à la fin*/
 	public void save(Courbe<Number,Number> c, String chemin) throws IOException {
 		
 		String dataX = "";
