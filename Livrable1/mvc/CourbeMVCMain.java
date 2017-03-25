@@ -318,7 +318,8 @@ public class CourbeMVCMain extends Application{
 
 		}
 		if(Integer.valueOf(choix) == 2)
-			vueF.show();
+			//vueF.show();
+			
 
 		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
 		for(i = 0 ; i < listCourbe.size();i++){
