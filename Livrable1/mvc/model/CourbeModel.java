@@ -40,17 +40,17 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 	public final void setOrdre(int o){
-		System.out.print("Ordre : ");
+
 		ordre = o;
 	}
-	
+
 	public int getOrdre(){
 		return Integer.valueOf(ordre);
 	}
 
-	private void setLambda(){
-		System.out.print("Lambda : ");
-		lambda = sc.nextInt();
+	public final void setLambda(int l){
+		
+		lambda = l;
 	}
 
 
@@ -83,7 +83,10 @@ public class CourbeModel<X,Y> extends Observable {
 		double moyenne = 0;
 
 		if(a==1)System.out.println("Moyenne Mobile : Mht");
-		if(this.ordre <= 0)setOrdre(sc.nextInt());
+		if(this.ordre <= 0){
+			System.out.print("Ordre : ");
+			setOrdre(sc.nextInt());
+		}
 
 		if(this.ordre<=0)moyenneMobile(c,a);
 		else{
@@ -214,7 +217,7 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 	}
 
-	
+
 	/**
 	 * Basé sur l'exemple vue en cours sur R de M.IOVLEFF
 	 * @author florian barbet
@@ -222,7 +225,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param a
 	 */
 	public void residu(Courbe<Number,Number> c, int a){
-		
+
 		Courbe<Number,Number> y = new Courbe<Number,Number>();
 		double tbar=0.0;
 		double ybar=0.0;
@@ -233,7 +236,7 @@ public class CourbeModel<X,Y> extends Observable {
 		double yhat=0.0;
 		double residu=0.0;
 		desaisonaliser(y,0);
-		
+
 		for(int i = 0; i < courbeData.sizeOfData();i++){//sert à faire les sommes
 			tbar+= i+1;
 			ybar+= (double)y.getY(i);
@@ -248,7 +251,7 @@ public class CourbeModel<X,Y> extends Observable {
 		covyt-=ybar*tbar;
 		ahat = covyt/vart;
 		bhat = ybar - ahat*tbar;
-	//	System.out.println("residu d:"+tbar+" ; "+ybar+" ; "+vart + " ; "+covyt + " b"+bhat+" a"+ahat);
+		//	System.out.println("residu d:"+tbar+" ; "+ybar+" ; "+vart + " ; "+covyt + " b"+bhat+" a"+ahat);
 		for(int i = 0; i < courbeData.sizeOfData();i++){
 			yhat=ahat*(i+1)+bhat;
 			//System.out.println("yhat :"+yhat);
@@ -257,8 +260,8 @@ public class CourbeModel<X,Y> extends Observable {
 			System.out.println("residu"+i+" :"+residu);
 			c.addXY((double)courbeData.getX(i),residu );
 		}
-		
-		
+
+
 	}
 
 	/**
@@ -339,25 +342,28 @@ public class CourbeModel<X,Y> extends Observable {
 		int taille = courbeData.sizeOfData();
 		X dataX;
 		double dataY;
-		if(lambda<0)setLambda();
+		if(lambda<0){
+			System.out.print("Lambda : ");
+			setLambda(sc.nextInt());
+			}
 		if(a==1)System.out.println("Fonction Box Cox : BC ");
 
 		if (lambda == 0) {
 			transfoLog(c,1);
 		}else if( lambda > 0) {
-			
+
 			for(i=0; i<taille; i++){
-				
+
 				dataX = courbeData.getX(i);
-				
+
 				dataY = Math.pow((double)courbeData.getY(i), lambda);
 				dataY-=1;
 				dataY/=lambda;
-				
+
 				if(a==1)System.out.println("BC : "+ dataY);
 				c.addXY(dataX,dataY);
 			}
-			
+
 		}else{
 
 			System.out.println("Lambda doit être positif ou nul ! >>");
