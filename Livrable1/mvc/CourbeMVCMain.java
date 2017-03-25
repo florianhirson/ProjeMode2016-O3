@@ -124,23 +124,24 @@ public class CourbeMVCMain extends Application{
 
 
 		if(choixaction == 1 || choixaction == 2){
-			if(choixaction == 1){
-				System.out.println("Voir resultat pour (number only): ");
-				System.out.println("-> 1 : Logarithme Yt1 ");
-				System.out.println("-> 2 : BoxCox BC ");
-				System.out.println("-> 3 : Logistique Yt2 ");
-				System.out.println("-> 4 : Moyenne Mobile (Mt) ");
-				System.out.println("-> 5 : Xt-Mt ");
-				System.out.println("-> 6 : St : saison");
-				System.out.println("-> 7 : Xt-St desaisonnalisation ");
-				System.out.println("-> 0 : Fin");
-			}else{
-				System.out.println("Voir resultat pour (un seul choix): ");
-				System.out.println("-> 1 Residu");
-				System.out.println("-> 0 : Fin");
-			}
+		
 			while(condition==0){
 
+				if(choixaction == 1){
+					System.out.println("\nVoir resultat pour (number only): ");
+					System.out.println("-> 1 : Logarithme Yt1 ");
+					System.out.println("-> 2 : BoxCox BC ");
+					System.out.println("-> 3 : Logistique Yt2 ");
+					System.out.println("-> 4 : Moyenne Mobile (Mt) ");
+					System.out.println("-> 5 : Xt-Mt ");
+					System.out.println("-> 6 : St : saison");
+					System.out.println("-> 7 : Xt-St desaisonnalisation ");
+					System.out.println("-> 0 : Fin");
+				}else{
+					System.out.println("\nVoir resultat pour (un seul choix): ");
+					System.out.println("-> 1 Residu");
+					System.out.println("-> 0 : Fin");
+				}
 				System.out.println("0 = END :>>");
 				scan = sc.nextInt();
 				for( i = 0; i < choice.size();i++){
@@ -163,7 +164,7 @@ public class CourbeMVCMain extends Application{
 							model.residu(res, 1);
 							listCourbe.add(res);
 							listTitle.add("AnalyseResidu");
-							
+
 						}
 
 						break;
@@ -235,9 +236,10 @@ public class CourbeMVCMain extends Application{
 		if(Integer.valueOf(choix)==1)
 		{
 
-			System.out.println("Affichage  ? Unitaire = 1  Multiple = 0");
-
-			choix+=sc.nextInt();
+			if(choixaction==1) {
+				System.out.println("Affichage  ? Unitaire = 1  Multiple = 0");
+				choix+=sc.nextInt();
+			}
 			if(Integer.valueOf(choix) == 2){ 
 				modelF = new CourbeModel<Number,Number>();
 				modelF.setCourbe(c);
@@ -311,38 +313,39 @@ public class CourbeMVCMain extends Application{
 					vueF.show();
 				}
 			}
-			
-			
-			
+
+
+
 		}
 		if(Integer.valueOf(choix) == 2)
 			vueF.show();
 
 		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
 		for(i = 0 ; i < listCourbe.size();i++){
-			
-				String title = listTitle.get(i);
-				FileWriter fileWriter = new FileWriter("data/save/"+title+".csv");
-				fileWriter.append(title);
-				save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
-				fileWriter.close();
-				chemin = "data/save/"+title+".csv";
-				fichier_result = new BufferedWriter(new FileWriter(chemin));
-				
-				donnee = listCourbe.get(i);
-				for(j=0;j<donnee.sizeOfData();j++)
-					save += donnee.getX(j)+","+donnee.getY(j)+"\n";
 
-				fichier_result.write(save);
-				fichier_result.close();
+			String title = listTitle.get(i);
+			FileWriter fileWriter = new FileWriter("data/save/"+title+".csv");
+			fileWriter.append(title);
+			save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
+			fileWriter.close();
+			chemin = "data/save/"+title+".csv";
+			fichier_result = new BufferedWriter(new FileWriter(chemin));
 
-			
-			
+			donnee = listCourbe.get(i);
+			for(j=0;j<donnee.sizeOfData();j++)
+				save += donnee.getX(j)+","+donnee.getY(j)+"\n";
+
+			fichier_result.write(save);
+			fichier_result.close();
+
+
+
 		}
 
-		//System.exit(0);	if(choixaction == 1){
-
+		System.out.println("Fin de processus\nAu revoir !");
 		
+
+
 	}
 
 
