@@ -1,7 +1,7 @@
 Contribution de BARBET Florian :
 
 > Debut du projet : 08/02/2016 08:57
-> Rôle : -
+> Rôle : Programmeur / Analyste Programmeur -
 > Modification : 16/03/2017 14:31
 
 >> Details : Création de la structure MVC pour Livrable 1 & 2
