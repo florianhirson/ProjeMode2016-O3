@@ -6,8 +6,7 @@ import java.util.Scanner;
  * Model du MVC sur la Courbe
  * @author Florian Barbet
  * @author Thomas Mastalerz
- *  @author Rayan Hadad
- * @author Florian Hirson
+ *
  * @param <X>
  * @param <Y>
  */
@@ -17,7 +16,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * Courbe<X,Y> courbe sur laquelle toute transformation passera
 	 */
 	private Courbe<X,Y> courbeData = new Courbe<X,Y>();
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	private int ordre=0;
 	private int lambda=-1;
 
@@ -211,6 +210,52 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 	}
 
+	
+	/**
+	 * Basé sur l'exemple vue en cours sur R de M.IOVLEFF
+	 * @author florian barbet
+	 * @param c
+	 * @param a
+	 */
+	public void residu(Courbe<Number,Number> c, int a){
+		
+		Courbe<Number,Number> y = new Courbe<Number,Number>();
+		double tbar=0.0;
+		double ybar=0.0;
+		double vart=0.0;
+		double covyt=0.0;
+		double ahat=0.0;
+		double bhat=0.0;
+		double yhat=0.0;
+		double residu=0.0;
+		desaisonaliser(y,0);
+		
+		for(int i = 0; i < courbeData.sizeOfData();i++){//sert à faire les sommes
+			tbar+= i+1;
+			ybar+= (double)y.getY(i);
+			vart+=(i+1)*(i+1);
+			covyt+=((double)y.getY(i)*(i+1));
+		}
+		vart/=12;
+		covyt/=12;
+		tbar/=12; 
+		ybar/=12;
+		vart-=tbar*tbar;
+		covyt-=ybar*tbar;
+		ahat = covyt/vart;
+		bhat = ybar - ahat*tbar;
+		System.out.println("residu d:"+tbar+" ; "+ybar+" ; "+vart + " ; "+covyt + " b"+bhat+" a"+ahat);
+		for(int i = 0; i < courbeData.sizeOfData();i++){
+			yhat=ahat*(i+1)+bhat;
+			//System.out.println("yhat :"+yhat);
+
+			residu = (double)y.getY(i)-yhat;
+			System.out.println("residu"+i+" :"+residu);
+			c.addXY((double)courbeData.getX(i),residu );
+		}
+		
+		
+	}
 
 	/**
 	 * logistique se trouvant avec Xt -> I = ]0 , 1[
