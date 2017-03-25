@@ -318,10 +318,10 @@ public class CourbeMVCMain extends Application{
 
 		}
 		if(Integer.valueOf(choix) == 2)
-			//vueF.show();
+			vueF.show(); // ne pas modifier ne s'active pas si l'utilisateur ne veut pas !
 			
 
-		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
+	
 		for(i = 0 ; i < listCourbe.size();i++){
 
 			String title = listTitle.get(i);
