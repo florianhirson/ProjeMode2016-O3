@@ -8,7 +8,7 @@ Contribution de HADDAD Rayan :
 - Création de la méthode de la moyenne mobile et participation à la création de la méthode du résidu.
 - Création d'un menu en graphique (JavaFX) pour le Livrable 2.
 - Ecriture des tests.
-- Aide sur les autres transformation.
+- Aide sur les autres méthode pour les transformations.
     
 Avis sur le groupe :
 
