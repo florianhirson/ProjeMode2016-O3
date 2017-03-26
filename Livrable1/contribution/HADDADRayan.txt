@@ -1,0 +1,31 @@
+Contribution de HADDAD Rayan :
+
+> Debut du projet : 08/02/2016
+> Rôle : Chef de projet / Programmeur -
+
+>> Details : Programmation de méthode pour Livrable 1 et menu pour Livrable 2
+
+- Création de la méthode de la moyenne mobile et participation à la création de la méthode du résidu.
+- Création d'un menu en graphique (JavaFX) pour le Livrable 2.
+- Ecriture des tests.
+- Aide sur les autres transformation.
+    
+Avis sur le groupe :
+
+    Positives:
+    
+        Bon groupe, sérieux et travailleur. Bonne entraide.
+    
+    Négatives :
+        
+        Problème de compréhension. Réglable facilement. 
+
+    
+Fréquence de travail : 
+    3h/semaine ;
+    Jour de travail le plus fréquent : Jeudi (réservation d'une salle de travaille à la bibliothèque);
+    Personnel : Au moins 1h chaque jour pour ne pas prendre de retard.
+    
+    Tout le monde avait des tâches à faire. Chaque semaine on se rassemblé, que ce soit dans une salle réservé à la bibliothèque Liliad ou dans une salle TP de l'IUT.
+    On rester en contact grâce a un groupe facebook et un Google Drive pour pouvoir échanger sur le projet.
+    
