@@ -1,0 +1,25 @@
+Contribution de MASTALERZ Thomas:
+> Debut du projet : 08/02/2016
+> Rôle : Programmeur -
+>> Details : Programmation de méthode pour Livrable 1 
+- Création de la méthode Logarithme.
+- Création d'un menu terminal pour le livrable 1 mais non utilisé au final.
+- Création d'une méthode pour  enregistrer les transformations dans des fichiers csv pour le livrable 1.
+    
+Avis sur le groupe :
+    Positives:
+    
+        Bon groupe, sérieux et travailleur. Bonne entraide.
+    
+    Négatives :
+        
+        Problème de compréhension. Réglable facilement. 
+    
+Fréquence de travail : 
+    3h/semaine ;
+    Jour de travail le plus fréquent : Jeudi (réservation d'une salle de travail à la bibliothèque);
+    Personnel : Au moins 1 à 2h chaque jours pour ne pas prendre de retard.
+    Samedi matin à l'iut pour avancer dans le projet grâce à monsieur LEBEGUE 
+    
+    Tout le monde avait des tâches à faire. Chaque semaine on se rassemblait, que ce soit dans une salle réservée à la bibliothèque Liliad ou dans une salle TP de l'IUT.
+    On rester en contact grâce a un groupe facebook et un Google Drive pour pouvoir échanger sur le projet.
