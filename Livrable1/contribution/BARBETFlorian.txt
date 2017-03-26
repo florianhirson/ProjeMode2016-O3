@@ -2,14 +2,14 @@ Contribution de BARBET Florian :
 
 > Debut du projet : 08/02/2016 08:57
 > Rôle : Programmeur / Analyste Programmeur -
-> Modification : 16/03/2017 14:31
+> Modification : 26/03/2017 19:01
 
 >> Details : Création de la structure MVC pour Livrable 1 & 2
 
 MVC pour Livrable 1 sans un réel controller ; il s'agit d'une mise en place afin de ne pas modifier toute la structure au livrable 2.
 Il s'agit donc d'un pseudo MVC il s'agit donc plus d'une structure qu'un patron de conception( ce qui sera contraire au MVC Livrable 2).
 
-Synthése des actions éffectués : 
+Synthese des actions effectues : 
 
     0. Creation structurelle ;
     1. Ajout d'une classe essentielle Courbe<X,Y> ;
@@ -17,7 +17,22 @@ Synthése des actions éffectués :
     3. Correction de méthodes sur traitements fonctionnel : logarithme ( fait par autre membre du groupe ), BoxCox (fait par florian hirson);
     4. Utilisation et comprehension de JavaFXChart ;
     5. Recherche sur lecture csv avec Florian Hirson ;
-    6. Ecriture de methode Transformation et Analytique ; Main etc..
+    6. Ecriture de methode Transformation et Analytique ; Main etc.. 
+    6.1. Details : 
+        Ecriture de classe(s) : CourbeVue<X,Y> ; CourbeVueConcret<X,Y> ; Courbe<X,Y> ; CourbeController<X,Y> ; 
+        Ecriture de methode(s) sur CourbeModel<X,Y> : { saisonResidu(Courbe,int) ; saison(Courbe,int) ; desaisonaliser(Courbe,int) ; residu(Courbe, int) ; logistique(Courbe, int)}
+        Ecriture de classe(s)[à plusieurs] : CourbeMVCMain [Thomas , Florian H ; conseil : Rayan] ; CourbeModel<X,Y> [Thomas, Florian H, Rayan] ;
+        
+    7. Apprentissage de git ; utilisation courante -> "ménage du depôt".
+    8. Tentatives d'explications de chaque classes ; méthodes implémentés afin d'améliorer la compréhension du code.
+    9. Analyse du code afin de respecter les principes de Demeter et autres exigences de la COA.
+    10. Recherche de donnée sur le site de l'Insee.
+    11. Recherche sur le cour de modélisation afin de comprendre et anticiper les cours qui viennent.
+    12. Ecriture de Test parallèles non dépôsé avec Rayan.
+    13. Finitions Livrable1 + recherche sur les changements de couleurs des LineChart.
+    13.1. Explication de Finitions : La sauvegarde et la demande utilisateur.
+    
+    
     
 Avis sur le groupe :
 
@@ -30,9 +45,11 @@ Avis sur le groupe :
         4. Structuré ;
         5. Aide pour la compréhension ;
         
+        
     Caractéristique negatives :
     
-        0. Aucune Observation
+        0. Aucune Observation 
+        
         
     Conclusion : Bon groupe.
     
@@ -42,4 +59,4 @@ Fréquence de travail :
     Moyenne d'heure semaine : 4h ;
     Personnel : variable soit au total 8heures
     soit Temps total pour Livrable 1 >>>  ~12h en groupe ; ~150h de travail personnel.
-    
+    le travail personnel : certains jours plus que d'autres !
