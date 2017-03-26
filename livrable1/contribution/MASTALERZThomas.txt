@@ -3,6 +3,7 @@ Contribution de MASTALERZ Thomas:
 > Rôle : Programmeur -
 >> Details : Programmation de méthode pour Livrable 1 
 - Création de la méthode Logarithme.
+- Aide pour la transformation de la moyenne mobile 
 - Création d'un menu terminal pour le livrable 1 mais non utilisé au final.
 - Création d'une méthode pour  enregistrer les transformations dans des fichiers csv pour le livrable 1.
     
