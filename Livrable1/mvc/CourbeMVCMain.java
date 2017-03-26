@@ -2,6 +2,7 @@ package mvc;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -74,12 +75,28 @@ public class CourbeMVCMain extends Application{
 		ArrayList<CourbeController<Number,Number>> listControl = new ArrayList<CourbeController<Number,Number>>();
 
 
+		
+		String nameRep = "";
 
-		System.out.println("Inserez le fichier de donnee a utiliser  : ");
+		File repertoire = new File("data/");
+		String [] listefichiers;  
+		listefichiers=repertoire.list(); 
+		for(i=0;i<listefichiers.length;i++){ 
+			if(listefichiers[i].endsWith(".csv")==true){ 
+
+				nameRep+=listefichiers[i].substring(0,listefichiers[i].length()-4)+ "  ";
+				if(i%5==0){
+					nameRep+="\n";
+				}
+			}
+		}
+		
+		System.out.println("Inserez le fichier de donnee a utiliser parmis ceux la: ");
+		System.out.println(nameRep);
 		data = sc.nextLine();
 		try
 		{
-			chemin = "data/"+data;
+			chemin = "data/"+data+".csv";
 			fichier_source = new BufferedReader(new FileReader(chemin));
 			while((chaine = fichier_source.readLine())!= null)
 			{
@@ -124,7 +141,7 @@ public class CourbeMVCMain extends Application{
 
 
 		if(choixaction == 1 || choixaction == 2){
-		
+
 			while(condition==0){
 
 				if(choixaction == 1){
@@ -318,33 +335,45 @@ public class CourbeMVCMain extends Application{
 
 		}
 		if(Integer.valueOf(choix) == 2)
-			vueF.show(); // ne pas modifier ne s'active pas si l'utilisateur ne veut pas !
-			
+			vueF.show();
 
-	
+		String crw = "";
+		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
 		for(i = 0 ; i < listCourbe.size();i++){
 
-			String title = listTitle.get(i);
-			FileWriter fileWriter = new FileWriter("data/save/"+title+".csv");
-			fileWriter.append(title);
-			save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
-			fileWriter.close();
-			chemin = "data/save/"+title+".csv";
-			fichier_result = new BufferedWriter(new FileWriter(chemin));
+			try{
+				String title = listTitle.get(i);
+				FileWriter fileWriter = new FileWriter("data/save/"+title+".csv");
 
-			donnee = listCourbe.get(i);
-			for(j=0;j<donnee.sizeOfData();j++)
-				save += donnee.getX(j)+","+donnee.getY(j)+"\n";
+				fileWriter.append(title);
+				save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
+				fileWriter.close();
+				chemin = "data/save/"+title+".csv";
+				fichier_result = new BufferedWriter(new FileWriter(chemin));
 
-			fichier_result.write(save);
-			fichier_result.close();
+
+				donnee = listCourbe.get(i);
+				for(j=0;j<donnee.sizeOfData();j++)
+					save += donnee.getX(j)+","+donnee.getY(j)+"\n";
+
+
+				fichier_result.write(save);
+				fichier_result.close();
+				String ch2 = "data/save/Save.csv";
+				BufferedWriter fcr = new BufferedWriter(new FileWriter(ch2));
+				crw+=save;
+				fcr.write(crw);
+				fcr.close();
+			}catch(FileNotFoundException e){
+				System.out.println("Erreur : "+e.getMessage());
+			}
 
 
 
 		}
 
 		System.out.println("Fin de processus\nAu revoir !");
-		
+
 
 
 	}
