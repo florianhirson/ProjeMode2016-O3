@@ -371,8 +371,17 @@ public class CourbeMVCMain extends Application{
 
 
 		}
+		int fin = -1;
+        while(fin=!0){
+            System.out.print("Terminer proccessus(0) : ");
+		    fin=sc.nextInt();
+        }
+        
+		    System.out.println("Fin de processus\nAu revoir !");
+		     System.exit(0);
+		 
 
-		System.out.println("Fin de processus\nAu revoir !");
+		
 
 
 
