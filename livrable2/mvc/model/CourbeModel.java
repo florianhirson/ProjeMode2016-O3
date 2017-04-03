@@ -391,7 +391,6 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 	
 		public void transfoRegLineaire(Courbe<X,Number> c) {
-		double moyenne = moyenne(c);
 		int taille = courbeData.sizeOfData();
 		ArrayList<Double> resultat = new ArrayList<>();
 
