@@ -376,6 +376,13 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 	}
 	
+	/**
+	 * méthode moyenne utilisée pour transformation régression linéaire
+	 * @author Thomas
+	 * @param c
+	 * @param a
+	 */
+	
 		public double Moyenne(Courbe<X,Number> c) {
 		double moyenne=0;
 		int taille = courbeData.sizeOfData();
@@ -390,7 +397,13 @@ public class CourbeModel<X,Y> extends Observable {
 		return moyenne;
 	}
 	
-			public void transfoRegLineaire(Courbe<X,Number> c, int a) {
+	/**
+	 * transformation régression linéaire sur la courbe avec méthode transfoRegLineaire
+	 * @author Thomas
+	 * @param c
+	 * @param a
+	 */
+		public void transfoRegLineaire(Courbe<X,Number> c, int a) {
 			    
 	    if(a==1)System.out.println("Regression linéaire : RL ");
 		int taille = courbeData.sizeOfData();
