@@ -375,6 +375,20 @@ public class CourbeModel<X,Y> extends Observable {
 			transfoBoxCox(c,a);
 		}
 	}
+	
+		public double Moyenne(Courbe<X,Number> c) {
+		double moyenne=0;
+		int taille = courbeData.sizeOfData();
+		
+		for(int i = 0;i < taille ;i++)
+		{
+			moyenne += (double)c.getY(i);
+		}
+		moyenne /= taille;
+		
+		
+		return moyenne;
+	}
 
 
 }
