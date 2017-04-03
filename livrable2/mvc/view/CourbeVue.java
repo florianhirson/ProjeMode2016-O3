@@ -57,7 +57,6 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			series.getData().add(new XYChart.Data(model.getDataX(i), model.getDataY(i)));
 		}
 
-		lineChart.getData().add(series);
 		
 		model.addObserver(this);
 		Scene scene  = new Scene(lineChart,800,600);
