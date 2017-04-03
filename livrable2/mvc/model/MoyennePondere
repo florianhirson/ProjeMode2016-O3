@@ -1,0 +1,14 @@
+
+public void transfoMMPondere(){
+		double tabX[]=new double[courbeData.sizeOfData()];
+		double tabY[]=new double[courbeData.sizeOfData()];
+		double pondere = 0;
+		double somme=0;
+		for(int i=0;i<courbeData.sizeOfData();++i){
+			tabX[i]=(double)courbeData.getX(i);
+			tabY[i]=(double)courbeData.getY(i);
+			somme=somme+tabX[i];	
+			pondere=pondere+tabY[i]*(tabX[i]/somme);
+			System.out.println(pondere);
+		}
+	}
