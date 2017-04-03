@@ -391,6 +391,8 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 	
 			public void transfoRegLineaire(Courbe<X,Number> c) {
+			    
+	    if(a==1)System.out.println("Regression linéaire : RL ");
 		int taille = courbeData.sizeOfData();
 		Courbe<X, Number> cpcd = new Courbe<X,Number>();
 
