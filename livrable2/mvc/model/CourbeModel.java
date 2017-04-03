@@ -389,6 +389,37 @@ public class CourbeModel<X,Y> extends Observable {
 		
 		return moyenne;
 	}
+	
+		public void transfoRegLineaire(Courbe<X,Number> c) {
+		double moyenne = moyenne(c);
+		int taille = courbeData.sizeOfData();
+		ArrayList<Double> resultat = new ArrayList<>();
+
+		double somme1 = 0;
+		int carre = 0;
+
+		for(int i = 0; i < taille; i++)
+		{
+			somme1 += (double)c.getY(i) * (i + 1);
+		}
+		double cov = somme1 / taille;
+
+		for(int x = 0;x < taille; x++)
+		{
+			carre += Math.pow(x + 1,2);
+		}
+		carre /= taille;
+
+		double a = (cov - ((taille + 1) / 2) * moyenne(c)) / (carre - ((taille + 1) / 2));
+
+
+		double b = moyenne(c) - a * ((taille + 1) / 2);
+		
+		for (int i = 0;i < taille; i++)
+		{
+			resultat.add(a * (i + 1) + b);
+		}
+	}
 
 
 }
