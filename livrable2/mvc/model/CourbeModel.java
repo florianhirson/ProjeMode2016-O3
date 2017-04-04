@@ -428,10 +428,10 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 		carre /= taille;
 
-		double valA = (cov - ((taille + 1) / 2) * moyenne(cpcd)) / (carre - ((taille + 1) / 2));
+		double valA = (cov - ((taille + 1) / 2) * Moyenne(cpcd)) / (carre - ((taille + 1) / 2));
 
 
-		double valB = moyenne(cpcd) - valA * ((taille + 1) / 2);
+		double valB = Moyenne(cpcd) - valA * ((taille + 1) / 2);
 		
 		for (int i = 0;i < taille; i++)
 		{
