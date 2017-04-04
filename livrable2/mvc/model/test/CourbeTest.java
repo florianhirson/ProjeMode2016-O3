@@ -17,7 +17,7 @@ import mvc.model.Courbe;
 
 
 public class CourbeTest {
-	
+
 	Courbe<Number,Number> courbeData = new Courbe<Number,Number>();
 	int taille=0;
 
@@ -28,13 +28,13 @@ public class CourbeTest {
 			taille++;
 		}
 	}
-	
-	
+
+
 	@Test
 	public void sizeOfDataTest(){
 		assertEquals(taille,courbeData.sizeOfData());
 	}
-	
+
 	@Test
 	public void getXtest() {
 		Courbe<Integer,Integer> c = new Courbe<Integer,Integer>();
@@ -44,18 +44,18 @@ public class CourbeTest {
 	}
 
 	@Test
-	public void getYtest() {	
+	public void getYtest() {
 		Courbe<Integer,Integer> c = new Courbe<Integer,Integer>();
 		c.addXY(2,5);
 		int y = c.getY(0);
 		assertEquals(5,y);
 	}
-	
+
 	@Test
 	public void removeXYTest(){
 		int sizeDebut = Integer.valueOf(courbeData.sizeOfData());
 		courbeData.removeXY(0);
-		assertEquals(sizeDebut,courbeData.sizeOfData()+1); 
+		assertEquals(sizeDebut,courbeData.sizeOfData()+1);
 	}
 
 	@Test
@@ -64,21 +64,21 @@ public class CourbeTest {
 		courbeData.addXY(40,20);
 		assertTrue(sizeDebut==courbeData.sizeOfData()-1);
 	}
-	
+
 	@Test
-	public void setYTest(){ 
-			
+	public void setYTest(){
+
 		assertEquals(2,courbeData.getY(0));
-		courbeData.setY(0,20);
+		courbeData.setY( 0, 20);
 		assertEquals(20,courbeData.getY(0));
-		
+
 	}
 
 	@Test
 	public void indexOfXYTest(){
 		int indexY = courbeData.indexOfXYbyY(4);
 		int indexX = courbeData.indexOfXYbyX(2);
-		
+
 		assertEquals(1,indexY);
 		assertEquals(1,indexX);
 	}
