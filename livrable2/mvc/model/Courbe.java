@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * Courbe encapsule deux ArrayList<> considere comme coordonnee
  * servira a indiquer les coordonnees pour LineChart
- * @author Florian
+ * @author florian barbet
  *
  * @param <typeX>
  * @param <typeY>
@@ -44,6 +44,10 @@ public class Courbe<typeX,typeY> {
 	 */
 	public typeY getY(int i){
 		return y.get(i);
+	}
+	
+	public void setY(int i,typeY nY){
+		y.set(i,nY);
 	}
 
 	/**
