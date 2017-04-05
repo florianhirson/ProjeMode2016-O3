@@ -440,6 +440,45 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 
+/*ajout prevision re arrangement plus tard ajout du test ce soir ou demain*/
+
+	private double beta=-1;
+	private double aT=-1;
+	private double bT=-1;
+	
+	public double getBchapT(){
+		return this.bT;
+	}
+	public double getAchapT(){
+		return this.aT;
+	}
+	
+	public double getBeta(){
+		return Double.valueOf(beta);
+	}
+
+	public final void setBeta(double l){
+
+		beta = l;
+	}
+	
+	public void lissage_exp1et2(Courbe<X,Number> s1,Courbe<X,Number> s2,double beta){
+		if(getBeta()<0 && getBeta()>1){setBeta(sc.nextDouble());}
+		s1.addXY(courbeData.getX(0),(double)courbeData.getY(0)*(1-beta) );
+		s2.addXY(s2.getX(0),(double)s2.getY(0)*(1-beta));
+		for(int i=0; i < courbeData.sizeOfData();i++){
+			s1.addXY(courbeData.getX(i),beta*(double)courbeData.getY(i)+(1-beta)*(double)s1.getY(i-1));
+			s2.addXY(s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
+		}
+		
+		
+		this.aT=(1-beta)/beta;
+		this.aT*=(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
+		
+		this.bT=2*(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
+		
+	}
+
 }
 
 
