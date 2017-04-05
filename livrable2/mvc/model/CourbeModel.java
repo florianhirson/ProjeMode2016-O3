@@ -462,7 +462,9 @@ public class CourbeModel<X,Y> extends Observable {
 		beta = l;
 	}
 	
-	public void lissage_exp1et2(Courbe<X,Number> s1,Courbe<X,Number> s2,double beta){
+	public void lissage_exp1et2(Courbe<X,Number> c1,Courbe<X,Number> c2,double beta){
+		Courbe<X,Number> s1=new Courbe<X,Number>();
+		Courbe<X,Number> s2=new Courbe<X,Number>();
 		if(getBeta()<0 && getBeta()>1){setBeta(sc.nextDouble());}
 		s1.addXY(courbeData.getX(0),(double)courbeData.getY(0)*(1-beta) );
 		s2.addXY(s2.getX(0),(double)s2.getY(0)*(1-beta));
@@ -476,6 +478,8 @@ public class CourbeModel<X,Y> extends Observable {
 		this.aT*=(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
 		
 		this.bT=2*(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
+		
+		
 		
 	}
 
