@@ -440,48 +440,83 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 
-/*ajout prevision re arrangement plus tard ajout du test ce soir ou demain*/
+    /*prevision simple et double ci dessous*/
 
 	private double beta=-1;
 	private double aT=-1;
 	private double bT=-1;
-	
+
 	public double getBchapT(){
 		return this.bT;
 	}
 	public double getAchapT(){
 		return this.aT;
 	}
-	
+
 	public double getBeta(){
 		return Double.valueOf(beta);
 	}
 
-	public final void setBeta(double l){
-
-		beta = l;
-	}
-	
-	public void lissage_exp1et2(Courbe<X,Number> c1,Courbe<X,Number> c2,double beta){
-		Courbe<X,Number> s1=new Courbe<X,Number>();
-		Courbe<X,Number> s2=new Courbe<X,Number>();
-		if(getBeta()<0 && getBeta()>1){setBeta(sc.nextDouble());}
-		s1.addXY(courbeData.getX(0),(double)courbeData.getY(0)*(1-beta) );
-		s2.addXY(s2.getX(0),(double)s2.getY(0)*(1-beta));
-		for(int i=0; i < courbeData.sizeOfData();i++){
-			s1.addXY(courbeData.getX(i),beta*(double)courbeData.getY(i)+(1-beta)*(double)s1.getY(i-1));
-			s2.addXY(s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
+	/**
+	 * 
+	 * @param l valeur de beta
+	 * @return -1 si beta est deja entre, 0 sinon.
+	 */
+	public int setBeta(double l){
+		if(l>0 && l<1 && ( beta<0 || beta>1 || beta==-1 )){
+			beta = l;
+			return 0;
 		}
-		
-		
-		this.aT=(1-beta)/beta;
-		this.aT*=(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
-		
-		this.bT=2*(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
-		
-		
+		return -1;
 		
 	}
+
+	/**
+	 * Une methode regroupant deux fonctionnalites qui sont lies le lissage double s1 et simple c2
+	 * 
+	 * 
+	 * @param s1 lissage exponentiel simple
+	 * @param c2 lissage exponentiel double
+	 * @return 0 si tout se passe bien, recursivite sinon.
+	 */
+	public int lissage_exp1et2(Courbe<Number,Number> s1,Courbe<Number,Number> c2){
+		
+		Courbe<Number,Number> s2=new Courbe<Number,Number>();
+		double xT = 0;
+
+
+		if(getBeta()<0 || getBeta()>1){ setBeta(sc.nextDouble()); return lissage_exp1et2(s1,c2);}else{
+			
+			c2.addXY((int)courbeData.getX(0), (double)courbeData.getY(0));
+			s1.addXY((int)courbeData.getX(0),((double)courbeData.getY(0))*(1-beta) );
+			s2.addXY(s1.getX(0),((double)s1.getY(0))*(1-beta));
+			for(int i=1; i < courbeData.sizeOfData();i++){
+				s1.addXY((int)courbeData.getX(i),beta*(double)courbeData.getY(i)+(1-beta)*(double)s1.getY(i-1));
+				s2.addXY((int)s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
+				
+				c2.addXY((int)courbeData.getX(i), (double)courbeData.getY(i));
+			}
+
+
+			this.aT=(1-beta)/beta;
+			this.aT*=(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
+
+			this.bT=2*(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
+			//xT est la prevision pour le lissage exponentiel double
+			xT=aT*getOrdre()+bT;
+
+			//pour demontrer le lissage nous allons ajouter 3 points a la serie double
+
+			for(int i=courbeData.sizeOfData();i<courbeData.sizeOfData()+3;i++){
+				System.out.print("/"+i+"/"+"---\n");
+				c2.addXY(i, xT);
+			}
+		
+		}
+		return 0;
+
+	}
+
 
 }
 
