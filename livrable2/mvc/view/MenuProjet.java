@@ -114,6 +114,7 @@ public class MenuProjet extends Application{
 
 		chargerCSV.setOnAction(e -> {
 			File courbe = SelectFileChooser.showSingleFileChooser();
+			System.out.println(courbe.getAbsolutePath());
 		});
 
 		exit.setOnAction(e ->{
