@@ -479,24 +479,27 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c2 lissage exponentiel double
 	 * @return 0 si tout se passe bien, recursivite sinon.
 	 */
-	public int lissage_exp1et2(Courbe<Number,Number> s1,Courbe<Number,Number> c2){
-		
+	public int lissage_exp1et2(Courbe<Number,Number> c1,Courbe<Number,Number> c2){
+		Courbe<Number,Number> s1 = new Courbe<Number,Number>();
 		Courbe<Number,Number> s2=new Courbe<Number,Number>();
 		double xT = 0;
-
+		int i=0;
 
 		if(getBeta()<0 || getBeta()>1){ setBeta(sc.nextDouble()); return lissage_exp1et2(s1,c2);}else{
-			
+			c1.addXY((int)courbeData.getX(0), (double)courbeData.getY(0));
 			c2.addXY((int)courbeData.getX(0), (double)courbeData.getY(0));
 			s1.addXY((int)courbeData.getX(0),((double)courbeData.getY(0))*(1-beta) );
 			s2.addXY(s1.getX(0),((double)s1.getY(0))*(1-beta));
-			for(int i=1; i < courbeData.sizeOfData();i++){
+			for( i=1; i < courbeData.sizeOfData();i++){
 				s1.addXY((int)courbeData.getX(i),beta*(double)courbeData.getY(i)+(1-beta)*(double)s1.getY(i-1));
 				s2.addXY((int)s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
-				
+				c1.addXY((int)courbeData.getX(i), (double)courbeData.getY(i));
 				c2.addXY((int)courbeData.getX(i), (double)courbeData.getY(i));
 			}
+			//pour demontrer le lissage nous allons ajouter 3 points
 
+			for(int j=0;j<3;j++)
+				c1.addXY(i+j, s1.getY(i-1));
 
 			this.aT=(1-beta)/beta;
 			this.aT*=(((double)s1.getY(s1.sizeOfData()-1))-((double)s2.getY(s2.sizeOfData()-1)));
@@ -505,9 +508,9 @@ public class CourbeModel<X,Y> extends Observable {
 			//xT est la prevision pour le lissage exponentiel double
 			xT=aT*getOrdre()+bT;
 
-			//pour demontrer le lissage nous allons ajouter 3 points a la serie double
+			//pour demontrer le lissage nous allons ajouter 3 points
 
-			for(int i=courbeData.sizeOfData();i<courbeData.sizeOfData()+3;i++){
+			for(i=courbeData.sizeOfData();i<courbeData.sizeOfData()+3;i++){
 				System.out.print("/"+i+"/"+"---\n");
 				c2.addXY(i, xT);
 			}
