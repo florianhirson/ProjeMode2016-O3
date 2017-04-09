@@ -1,6 +1,11 @@
 package mvc.view;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import com.sun.webkit.ContextMenu.ShowContext;
 
@@ -26,12 +31,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import mvc.model.Courbe;
 
 public class MenuProjet extends Application{
+	Courbe<Number,Number> c = new Courbe<Number,Number>();
 	static String choixT = "";
 	static String choixA = "";
 	static String choixP = "";
 	static String chemin = "";
+	static String chaine = "";
+	static BufferedReader fichier_source = null;
 
 	public static void main(String[] args)
 	{
@@ -43,6 +52,11 @@ public class MenuProjet extends Application{
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
+
+
+		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
+		ArrayList<String[]> tabCh = new ArrayList<String[]>();
+
 		BorderPane root = new BorderPane();
 		MenuBar menuBar = new MenuBar();
 
@@ -112,9 +126,86 @@ public class MenuProjet extends Application{
 	    .selectedItemProperty()
 	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixT = newValue );
 
+		bAjoutT.setOnAction(e -> {
+			switch(choixT) {
+			case "Logarithme Yt1":
+
+				choixT = "";
+				break;
+			case "BoxCox BC":
+
+				choixT = "";
+				break;
+			case "Logistique Yt2":
+
+				choixT = "";
+				break;
+			case "Moyenne Mobile (Mt)":
+
+				choixT = "";
+				break;
+			case "Xt-Mt":
+
+				choixT = "";
+				break;
+			case "St : saison":
+
+				choixT = "";
+				break;
+			case "Xt-St desaisonnalisation":
+
+				choixT = "";
+				break;
+			}
+
+
+		});
+
 		chargerCSV.setOnAction(e -> {
+			int indice = 0;
+			int i,j = 0;
+			Double x,y;
+
 			File courbe = SelectFileChooser.showSingleFileChooser();
 			System.out.println(courbe.getAbsolutePath());
+
+			try {
+				fichier_source = new BufferedReader(new FileReader(chemin));
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				while((chaine = fichier_source.readLine())!= null)
+				{
+					tabChaine.add(chaine.split(";"));
+					indice++;
+				}
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			for( i = 0; i < indice ; i++)
+				for( j = 0; j < tabChaine.get(i).length ; j++ )
+				{
+					tabCh.add(tabChaine.get(i)[j].split(","));
+				}
+			try {
+				fichier_source.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			for(i = 0; i < indice ; i++)
+			{
+				x = Double.parseDouble(tabCh.get(i)[0]);
+				y = Double.parseDouble(tabCh.get(i)[1]);
+				c.addXY(x,y);
+			}
+
+
 		});
 
 		exit.setOnAction(e ->{
@@ -136,7 +227,7 @@ public class MenuProjet extends Application{
 		});
 
 
-
+		/** Ajout de 5 onglets
 		for (int i = 0; i < 5; i++) {
             Tab tab = new Tab();
             tab.setText("Tab" + i);
@@ -149,7 +240,7 @@ public class MenuProjet extends Application{
             tabPane.getTabs().add(tab);
 
         }
-
+	**/
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setHeight(700);
