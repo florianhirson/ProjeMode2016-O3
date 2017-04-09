@@ -1,6 +1,12 @@
 package mvc.view;
 
+import java.io.File;
+
+import com.sun.webkit.ContextMenu.ShowContext;
+
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,6 +28,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuProjet extends Application{
+	static String choixT = "";
+	static String choixA = "";
+	static String choixP = "";
+	static String chemin = "";
 
 	public static void main(String[] args)
 	{
@@ -59,22 +69,20 @@ public class MenuProjet extends Application{
 		HBox ajoutP = new HBox();
 		ajoutP.setSpacing(10);
 
-		@SuppressWarnings("rawtypes")
-		ChoiceBox cAjoutT = new ChoiceBox();
+		ChoiceBox<String> cAjoutT = new ChoiceBox<String>(FXCollections.observableArrayList("Logarithme Yt1", "BoxCox BC", "Logistique Yt2", "Moyenne Mobile (Mt)", "Xt-Mt", "St : saison", "Xt-St desaisonnalisation"));
 		cAjoutT.setPrefWidth(150);
 
-		@SuppressWarnings("rawtypes")
-		ChoiceBox cAjoutA = new ChoiceBox();
+		ChoiceBox<String> cAjoutA = new ChoiceBox<String>(FXCollections.observableArrayList("First", "Second", "Third"));
 		cAjoutA.setPrefWidth(150);
 
-		@SuppressWarnings("rawtypes")
-		ChoiceBox cAjoutP = new ChoiceBox();
+		ChoiceBox<String> cAjoutP = new ChoiceBox<String>(FXCollections.observableArrayList("First", "Second", "Third"));
 		cAjoutP.setPrefWidth(150);
 
 		Button bAjoutT = new Button("Ajouter");
-
 		Button bAjoutA = new Button("Ajouter");
 		Button bAjoutP = new Button("Ajouter");
+
+
 
 		ajoutT.getChildren().addAll(cAjoutT,bAjoutT);
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
@@ -84,15 +92,47 @@ public class MenuProjet extends Application{
 
 		Menu menuF = new Menu("File");
 		Menu menuH = new Menu("Aide");
+
+		MenuItem chargerCSV = new MenuItem("Charger un fichier CSV");
+		MenuItem chargerCSVInternet = new MenuItem("Charger un fichier CSV par internet");
+		MenuItem saveCourbes = new MenuItem("Sauvegarder les courbes");
+		MenuItem exit = new MenuItem("Exit");
+		MenuItem aide = new MenuItem("Aide en ligne");
+		MenuItem apropos = new MenuItem("A propos");
+
 		menuBar.getMenus().addAll(menuF,menuH);
 	    menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 
-		menuF.getItems().add(new MenuItem("Charger un fichier CSV"));
-		menuF.getItems().add(new MenuItem("Charger un fichier CSV par Internet"));
-		menuF.getItems().add(new MenuItem("Sauvegarder les courbes"));
+		menuF.getItems().addAll(chargerCSV,chargerCSVInternet,saveCourbes);
 		menuF.getItems().add(new SeparatorMenuItem());
-		menuF.getItems().add(new MenuItem("Exit"));
-		menuH.getItems().add(new MenuItem("Aide en ligne"));
+		menuF.getItems().add(exit);
+		menuH.getItems().addAll(aide,apropos);
+
+		cAjoutT.getSelectionModel()
+	    .selectedItemProperty()
+	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixT = newValue );
+
+		chargerCSV.setOnAction(e -> {
+			File courbe = SelectFileChooser.showSingleFileChooser();
+		});
+
+		exit.setOnAction(e ->{
+			primaryStage.close();
+		});
+
+		apropos.setOnAction(e ->{
+			BorderPane bp = new BorderPane();
+
+			Label lInfo = new Label("Projet du DUT Informatique\n	Membre du groupe :\n        - Barbet Florian\n        - Mastalerz Thomas\n        - Haddad Rayan\n        - Hirson Florian");
+			bp.setCenter(lInfo);
+
+			Scene sInfo = new Scene(bp);
+			Stage info = new Stage();
+			info.setScene(sInfo);
+			info.setHeight(500.0);
+			info.setWidth(500.0);
+			info.show();
+		});
 
 
 
