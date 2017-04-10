@@ -26,7 +26,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MenuProjet extends Application{
+public class MenuP extends Application{
 	private TableView<CourbeModel> personTable;
 	private TableColumn<CourbeModel, String> firstCol = new TableColumn<CourbeModel, String>("X");
 	private TableColumn<CourbeModel, String> lastCol = new TableColumn<CourbeModel, String>("Y");
@@ -66,7 +66,7 @@ public class MenuProjet extends Application{
 
 		Label lAjouT = new Label("Ajouter une transformation : ");
 		Label lAjouA = new Label("Ajouter une analyse : ");
-		Label lAjouP = new Label("Ajouter une prévision : ");
+		Label lAjouP = new Label("Ajouter une prvision : ");
 
 		HBox ajoutT = new HBox();
 		ajoutT.setSpacing(10);
@@ -172,8 +172,8 @@ public class MenuProjet extends Application{
 		root.setRight(tabPane);
 		root.setMaxSize(110000.0, 600.0);
 
-		Label lAjouV = new Label("Stabilisé la variance de vos données : ");
-		Label lAjouTS = new Label("Estimer la tendance et saisonnalité : ");
+		Label lAjouV = new Label("Stabilis la variance de vos donnes : ");
+		Label lAjouTS = new Label("Estimer la tendance et saisonnalit : ");
 
 		VBox ajoutTot1 = new VBox();
 		ajoutTot1.setSpacing(10);
@@ -189,13 +189,13 @@ public class MenuProjet extends Application{
 		logis.setMaxSize(150, 150);
 		Button mobile = new Button("Moyenne Mobile");
 		mobile.setMaxSize(150, 150);
-		Button pondere = new Button("Moyenne Mobile Pondéré");
+		Button pondere = new Button("Moyenne Mobile Pondr");
 		pondere.setMaxSize(150, 150);
-		Button saiso = new Button("Saisonnalité");
+		Button saiso = new Button("Saisonnalit");
 		saiso.setMaxSize(150, 150);
 		Button lineaire = new Button("Tendance lineaire");
 		lineaire.setMaxSize(150, 150);
-		Button diff = new Button("Différentiation");
+		Button diff = new Button("Diffrentiation");
 		diff.setMaxSize(150, 150);
 		Button retour = new Button("Retour");
 		retour.setMaxSize(150, 150);
