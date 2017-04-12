@@ -20,6 +20,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import mvc.model.CourbeModel;
 import javafx.scene.layout.HBox;
@@ -27,9 +28,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuP extends Application{
-	private TableView<CourbeModel> personTable;
+	/*static private TableView<TableColumn<CourbeModel<Number,Number>, String>> personTable;
 	private TableColumn<CourbeModel, String> firstCol = new TableColumn<CourbeModel, String>("X");
 	private TableColumn<CourbeModel, String> lastCol = new TableColumn<CourbeModel, String>("Y");
+	static TableColumn<CourbeModel<Number,Number>, String> firstNameCol = new TableColumn<CourbeModel<Number,Number>, String>("First Name");
+    static TableColumn<CourbeModel<Number,Number>, String> lastNameCol = new TableColumn<CourbeModel<Number,Number>, String>("Last Name");
+    static TableColumn<CourbeModel<Number,Number>, String> emailCol = new TableColumn<CourbeModel<Number,Number>, String>("Email");*/
+	static private TableView personTable = new TableView();
 	
 	public static void main(String[] args)
 	{
@@ -52,21 +57,38 @@ public class MenuP extends Application{
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
-		int ch=0;
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
 		ajout.setPadding(new Insets(10, 10, 10, 10));
+		
+		VBox table = new VBox();
+		VBox.setMargin(table, new Insets(200,0,0,0));
+		table.getChildren().add(personTable);
+		
+		AnchorPane ap = new AnchorPane();
+		ap.getChildren().add(table);
+		AnchorPane.setBottomAnchor(table, 20.0);
+		AnchorPane.setLeftAnchor(table, 300.0);
 
 		TabPane tabPane = new TabPane();
 
+		AnchorPane ap2 = new AnchorPane();
+		
 		root.setTop(menuBar);
-		root.setLeft(ajout);
+		root.setLeft(ap2);
 		root.setRight(tabPane);
-		root.setMaxSize(110000.0, 600.0);
+		root.setBottom(ap);
+			
+		TableColumn ColX = new TableColumn("X");
+        TableColumn ColY = new TableColumn("Y");
+        ColX.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+        ColY.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
+		personTable.getColumns().addAll(ColX, ColY);
+		personTable.setMaxSize(200.0, 200.0);
 
 		Label lAjouT = new Label("Ajouter une transformation : ");
 		Label lAjouA = new Label("Ajouter une analyse : ");
-		Label lAjouP = new Label("Ajouter une prvision : ");
+		Label lAjouP = new Label("Ajouter une prévision : ");
 
 		HBox ajoutT = new HBox();
 		ajoutT.setSpacing(10);
@@ -88,8 +110,12 @@ public class MenuP extends Application{
 		ajoutA.getChildren().addAll(analyse);
 		ajoutP.getChildren().addAll(prevision);
 
-		ajout.getChildren().addAll(lAjouT,transfo,lAjouA,prevision,lAjouP,analyse);
-
+		ajout.getChildren().addAll(lAjouT,transfo,lAjouA,prevision,lAjouP,analyse);	
+		
+		ap2.getChildren().add(ajout);
+		AnchorPane.setLeftAnchor(ajout, 40.0);
+		AnchorPane.setTopAnchor(ajout, 80.0);
+		
 		Menu menuF = new Menu("Fichier");
 		Menu menuH = new Menu("Aide");
 		menuBar.getMenus().addAll(menuF,menuH);
@@ -167,19 +193,20 @@ public class MenuP extends Application{
 		ajoutRet.setSpacing(70);
 		TabPane tabPane = new TabPane();
 
+		AnchorPane ap = new AnchorPane();
+		
 		root.setTop(menuBar);
-		root.setLeft(ajoutRet);
+		root.setLeft(ap);
 		root.setRight(tabPane);
 		root.setMaxSize(110000.0, 600.0);
 
-		Label lAjouV = new Label("Stabilis la variance de vos donnes : ");
-		Label lAjouTS = new Label("Estimer la tendance et saisonnalit : ");
+		Label lAjouV = new Label("Stabilisé la variance de vos données : ");
+		Label lAjouTS = new Label("Estimer la tendance et saisonnalité : ");
 
 		VBox ajoutTot1 = new VBox();
 		ajoutTot1.setSpacing(10);
 		VBox ajoutTot2 = new VBox();
 		ajoutTot2.setSpacing(10);
-
 
 		Button log = new Button("Logarithme");
 		log.setMaxSize(150, 150);
@@ -189,23 +216,27 @@ public class MenuP extends Application{
 		logis.setMaxSize(150, 150);
 		Button mobile = new Button("Moyenne Mobile");
 		mobile.setMaxSize(150, 150);
-		Button pondere = new Button("Moyenne Mobile Pondr");
+		Button pondere = new Button("Moyenne Mobile Pondéré");
 		pondere.setMaxSize(150, 150);
-		Button saiso = new Button("Saisonnalit");
+		Button saiso = new Button("Saisonnalité");
 		saiso.setMaxSize(150, 150);
 		Button lineaire = new Button("Tendance lineaire");
 		lineaire.setMaxSize(150, 150);
-		Button diff = new Button("Diffrentiation");
+		Button diff = new Button("Différentiation");
 		diff.setMaxSize(150, 150);
 		Button retour = new Button("Retour");
 		retour.setMaxSize(150, 150);
-		//retour.setPadding(new Insets(10,0,0,0));
 		
 		ajoutTot1.getChildren().addAll(log,boxcox,logis);
 		ajoutTot2.getChildren().addAll(mobile,pondere,saiso,lineaire,diff);
 		ajout.getChildren().addAll(lAjouV,ajoutTot1,lAjouTS,ajoutTot2);
 		ajoutRet.getChildren().addAll(ajout,retour);
 		ajoutRet.setSpacing(50.0);
+		
+		
+		ap.getChildren().add(ajoutRet);
+		AnchorPane.setLeftAnchor(ajoutRet, 40.0);
+		AnchorPane.setTopAnchor(ajoutRet, 80.0);
 
 		Menu menuF = new Menu("Fichier");
 		Menu menuH = new Menu("Aide");
