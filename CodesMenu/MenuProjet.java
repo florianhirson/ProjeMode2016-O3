@@ -1,4 +1,4 @@
-package mvc.view;
+package CodesMenu;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mvc.model.Courbe;
+import mvc.view.SelectFileChooser;
 
 public class MenuProjet extends Application{
 	Courbe<Number,Number> c = new Courbe<Number,Number>();
@@ -129,31 +130,31 @@ public class MenuProjet extends Application{
 		bAjoutT.setOnAction(e -> {
 			switch(choixT) {
 			case "Logarithme Yt1":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			case "BoxCox BC":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			case "Logistique Yt2":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			case "Moyenne Mobile (Mt)":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			case "Xt-Mt":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			case "St : saison":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			case "Xt-St desaisonnalisation":
-
+				System.out.println(choixT);
 				choixT = "";
 				break;
 			}
@@ -241,6 +242,15 @@ public class MenuProjet extends Application{
 
         }
 	**/
+		Tab tab = new Tab();
+        tab.setText("Tab 1");
+        final CategoryAxis xAxis = new CategoryAxis();
+        final NumberAxis yAxis = new NumberAxis();
+         xAxis.setLabel("Month");
+        final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
+
+        tab.setContent(lineChart);
+        tabPane.getTabs().add(tab);
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setHeight(700);

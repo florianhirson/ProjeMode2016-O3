@@ -1,4 +1,4 @@
-package mvc.view;
+package CodesMenu;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -35,15 +35,15 @@ public class MenuP extends Application{
     static TableColumn<CourbeModel<Number,Number>, String> lastNameCol = new TableColumn<CourbeModel<Number,Number>, String>("Last Name");
     static TableColumn<CourbeModel<Number,Number>, String> emailCol = new TableColumn<CourbeModel<Number,Number>, String>("Email");*/
 	static private TableView personTable = new TableView();
-	
+
 	public static void main(String[] args)
 	{
 		System.setProperty("http.proxyPort", "3128");
 		System.setProperty("http.proxyHost", "proxy.univ-lille1.fr");
 		Application.launch(args);
-		
+
 	}
-	
+
 	public void start(Stage stage){
 		Scene scene = new Scene(ScenePrinc(), 200, 200);
         stage.setScene(scene);
@@ -51,7 +51,7 @@ public class MenuP extends Application{
         stage.setWidth(800.0);
         stage.show();
 	}
-	
+
 	public static VBox ScenePrinc(){
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
@@ -60,11 +60,11 @@ public class MenuP extends Application{
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
 		ajout.setPadding(new Insets(10, 10, 10, 10));
-		
+
 		VBox table = new VBox();
 		VBox.setMargin(table, new Insets(200,0,0,0));
 		table.getChildren().add(personTable);
-		
+
 		AnchorPane ap = new AnchorPane();
 		ap.getChildren().add(table);
 		AnchorPane.setBottomAnchor(table, 20.0);
@@ -73,12 +73,12 @@ public class MenuP extends Application{
 		TabPane tabPane = new TabPane();
 
 		AnchorPane ap2 = new AnchorPane();
-		
+
 		root.setTop(menuBar);
 		root.setLeft(ap2);
 		root.setRight(tabPane);
 		root.setBottom(ap);
-			
+
 		TableColumn ColX = new TableColumn("X");
         TableColumn ColY = new TableColumn("Y");
         ColX.prefWidthProperty().bind(table.widthProperty().multiply(0.5));
@@ -110,12 +110,12 @@ public class MenuP extends Application{
 		ajoutA.getChildren().addAll(analyse);
 		ajoutP.getChildren().addAll(prevision);
 
-		ajout.getChildren().addAll(lAjouT,transfo,lAjouA,prevision,lAjouP,analyse);	
-		
+		ajout.getChildren().addAll(lAjouT,transfo,lAjouA,prevision,lAjouP,analyse);
+
 		ap2.getChildren().add(ajout);
 		AnchorPane.setLeftAnchor(ajout, 40.0);
 		AnchorPane.setTopAnchor(ajout, 80.0);
-		
+
 		Menu menuF = new Menu("Fichier");
 		Menu menuH = new Menu("Aide");
 		menuBar.getMenus().addAll(menuF,menuH);
@@ -129,13 +129,13 @@ public class MenuP extends Application{
 		MenuItem apropos = new MenuItem("A propos");
 
 		menuF.getItems().addAll(chargerCSV,chargerCSVint,save,exit);
-		menuH.getItems().addAll(aide,apropos);		
+		menuH.getItems().addAll(aide,apropos);
 
 		exit.setOnAction(e ->{
 			stage.close();
 		});
 
-		apropos.setOnAction(e ->{	
+		apropos.setOnAction(e ->{
 			BorderPane bp = new BorderPane();
 
 			Label lInfo = new Label("Projet du DUT Informatique\n	Membre du groupe :\n        - Barbet Florian\n        - Mastalerz Thomas\n        - Haddad Rayan\n        - Hirson Florian");
@@ -162,23 +162,23 @@ public class MenuP extends Application{
 
 		}
 
-		/***** DEBUT TRANSFORMATION *****/	
+		/***** DEBUT TRANSFORMATION *****/
 		transfo.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent arg0) {
-                transfo.getScene().setRoot(TransfoButton());             
+                transfo.getScene().setRoot(TransfoButton());
             }
         });
-		
+
 		/***** FIN TRANSFORMATION *****/
 
 		VBox vb = new VBox();
 		vb.getChildren().addAll(root);
 		return vb;
-		
+
 	}
-	
+
 	public static VBox TransfoButton(){
 
 		Stage stage = new Stage();
@@ -194,7 +194,7 @@ public class MenuP extends Application{
 		TabPane tabPane = new TabPane();
 
 		AnchorPane ap = new AnchorPane();
-		
+
 		root.setTop(menuBar);
 		root.setLeft(ap);
 		root.setRight(tabPane);
@@ -226,14 +226,14 @@ public class MenuP extends Application{
 		diff.setMaxSize(150, 150);
 		Button retour = new Button("Retour");
 		retour.setMaxSize(150, 150);
-		
+
 		ajoutTot1.getChildren().addAll(log,boxcox,logis);
 		ajoutTot2.getChildren().addAll(mobile,pondere,saiso,lineaire,diff);
 		ajout.getChildren().addAll(lAjouV,ajoutTot1,lAjouTS,ajoutTot2);
 		ajoutRet.getChildren().addAll(ajout,retour);
 		ajoutRet.setSpacing(50.0);
-		
-		
+
+
 		ap.getChildren().add(ajoutRet);
 		AnchorPane.setLeftAnchor(ajoutRet, 40.0);
 		AnchorPane.setTopAnchor(ajoutRet, 80.0);
@@ -251,7 +251,7 @@ public class MenuP extends Application{
 		MenuItem apropos = new MenuItem("A propos");
 
 		menuF.getItems().addAll(chargerCSV,chargerCSVint,save,exit);
-		menuH.getItems().addAll(aide,apropos);		
+		menuH.getItems().addAll(aide,apropos);
 
 		retour.setOnAction(e ->{
 			retour.getScene().setRoot(ScenePrinc());
@@ -261,7 +261,7 @@ public class MenuP extends Application{
 			stage.close();
 		});
 
-		apropos.setOnAction(e ->{	
+		apropos.setOnAction(e ->{
 			BorderPane bp = new BorderPane();
 
 			Label lInfo = new Label("Projet du DUT Informatique\n	Membre du groupe :\n        - Barbet Florian\n        - Mastalerz Thomas\n        - Haddad Rayan\n        - Hirson Florian");
@@ -288,12 +288,12 @@ public class MenuP extends Application{
 
 		}
 
-		
+
 		VBox vb = new VBox();
 		vb.getChildren().addAll(root);
 		return vb;
-		
-		
+
+
 	}
-	
+
 }

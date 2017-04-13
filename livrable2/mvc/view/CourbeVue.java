@@ -57,13 +57,13 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			series.getData().add(new XYChart.Data(model.getDataX(i), model.getDataY(i)));
 		}
 
-		
+
 		model.addObserver(this);
 		Scene scene  = new Scene(lineChart,800,600);
 		this.setScene(scene);
 	}
 
-	
+
 
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -73,7 +73,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		for(int i = 0; i < c.sizeOfCourbe();i++){
 			nSeries.getData().add(new XYChart.Data(c.getDataX(i), c.getDataY(i)));
 		}
-		
+
 
 	}
 
@@ -82,12 +82,10 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		XYChart.Series nSeries = new XYChart.Series();
 
 		nSeries.setName(title);
-		
+
 		for(int i = 0; i < c.sizeOfData();i++){
 			nSeries.getData().add(new XYChart.Data(c.getX(i), c.getY(i)));
 		}
-		
-
 	}
 
 
