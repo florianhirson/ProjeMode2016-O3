@@ -167,10 +167,11 @@ public class MenuProjet extends Application{
 			int i,j = 0;
 			Double x,y;
 
-			File courbe = SelectFileChooser.showSingleFileChooser();
-			System.out.println(courbe.getAbsolutePath());
+			chemin = SelectFileChooser.showSingleFileChooser();
+
 
 			try {
+				System.out.println(chemin);
 				fichier_source = new BufferedReader(new FileReader(chemin));
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block

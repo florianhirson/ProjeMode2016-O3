@@ -6,14 +6,14 @@ import javafx.stage.FileChooser;
 
 public class SelectFileChooser {
 
-	public static File showSingleFileChooser() {
+	public static String showSingleFileChooser() {
 
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Charger un fichier CSV");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
 		File selectedFile = fileChooser.showOpenDialog(null);
 
-		return selectedFile;
+		return selectedFile.getAbsolutePath();
 	}
 
 
