@@ -20,6 +20,19 @@ public class CourbeModel<X,Y> extends Observable {
 	private Scanner sc = new Scanner(System.in);
 	private int ordre=0;
 	private int lambda=-1;
+    /* Creation du singleton un seul model pour plusieurs vue !*/
+
+	private static CourbeModel<?, ?> singleton = null;
+	
+	private CourbeModel(){}
+	
+	public CourbeModel<?, ?> getInstance(){
+		if(singleton == null){
+			singleton = new CourbeModel<X,Y>();
+		}
+		return singleton;
+	}
+	/* Creation du singleton un seul model pour plusieurs vue !*/
 
 	/**
 	 * Renvoie la courbe accession
