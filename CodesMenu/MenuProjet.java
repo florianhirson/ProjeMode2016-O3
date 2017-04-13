@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.sun.webkit.ContextMenu.ShowContext;
 
@@ -27,6 +28,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -208,6 +210,30 @@ public class MenuProjet extends Application{
 			}
 
 
+		});
+
+		chargerCSVInternet.setOnAction(e -> {
+			TextInputDialog dialog = new TextInputDialog("Download");
+			dialog.setTitle("Téléchargement d'un CSV par internet");
+			dialog.setContentText("Veuillez entrer l'url : ");
+			Optional<String> result = dialog.showAndWait();
+
+			result.ifPresent(url -> {
+				try {
+					String fileName = url.substring(url.lastIndexOf('/') + 1);
+					SelectFileChooser.csvDownload(url, "data/"+fileName);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println("Success !");
+			});
+
+		});
+
+		saveCourbes.setOnAction( e -> {
+			chemin = SelectFileChooser.showDirChooser();
+			System.out.println(chemin);
 		});
 
 		exit.setOnAction(e ->{
