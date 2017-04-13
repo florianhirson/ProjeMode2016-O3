@@ -176,6 +176,7 @@ public class MenuProjet extends Application{
 				System.out.println(chemin);
 				fichier_source = new BufferedReader(new FileReader(chemin));
 			} catch (FileNotFoundException e1) {
+				SelectFileChooser.error(e1);
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -186,6 +187,7 @@ public class MenuProjet extends Application{
 					indice++;
 				}
 			} catch (IOException e1) {
+				SelectFileChooser.error(e1);
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -198,6 +200,7 @@ public class MenuProjet extends Application{
 			try {
 				fichier_source.close();
 			} catch (IOException e1) {
+				SelectFileChooser.error(e1);
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -219,13 +222,8 @@ public class MenuProjet extends Application{
 			Optional<String> result = dialog.showAndWait();
 
 			result.ifPresent(url -> {
-				try {
-					String fileName = url.substring(url.lastIndexOf('/') + 1);
-					SelectFileChooser.csvDownload(url, "data/"+fileName);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				String fileName = url.substring(url.lastIndexOf('/') + 1);
+				SelectFileChooser.csvDownload(url, "data/"+fileName);
 				System.out.println("Success !");
 			});
 
