@@ -22,13 +22,16 @@ public class CourbeModel<X,Y> extends Observable {
 	private int lambda=-1;
     /* Creation du singleton un seul model pour plusieurs vue !*/
 
-	private static CourbeModel<?, ?> singleton = null;
+    /* à modifier plus tard */
+
+	private static CourbeModel<Number, Number> singleton = null;
 	
 	private CourbeModel(){}
 	
-	public CourbeModel<?, ?> getInstance(){
+	
+	public static CourbeModel<Number, Number> getInstance(){
 		if(singleton == null){
-			singleton = new CourbeModel<X,Y>();
+			singleton = new CourbeModel<Number,Number>();
 		}
 		return singleton;
 	}
