@@ -46,6 +46,11 @@ public class MenuProjet extends Application{
 	static double lambda = 0;
 	static BufferedReader fichier_source = null;
 
+	// load the stylesheet
+	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
+	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
+	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();
+
 	public static void main(String[] args)
 	{
 		System.setProperty("http.proxyPort", "3128");
@@ -74,7 +79,12 @@ public class MenuProjet extends Application{
 		ArrayList<String[]> tabCh = new ArrayList<String[]>();
 
 		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
+
+
+
+
 
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
@@ -122,21 +132,29 @@ public class MenuProjet extends Application{
 
 		Menu menuF = new Menu("File");
 		Menu menuH = new Menu("Aide");
+		Menu menuS = new Menu("Styles");
 
 		MenuItem chargerCSV = new MenuItem("Charger un fichier CSV");
 		MenuItem chargerCSVInternet = new MenuItem("Charger un fichier CSV par internet");
 		MenuItem saveCourbes = new MenuItem("Sauvegarder les courbes");
+
 		MenuItem exit = new MenuItem("Exit");
 		MenuItem aide = new MenuItem("Aide en ligne");
 		MenuItem apropos = new MenuItem("A propos");
 
-		menuBar.getMenus().addAll(menuF,menuH);
+		MenuItem vanilla = new MenuItem("Vanilla");
+		MenuItem metroD = new MenuItem("Metro foncé");
+		MenuItem metroL = new MenuItem("Metro clair");
+		MenuItem brume = new MenuItem("Brume");
+
+		menuBar.getMenus().addAll(menuF,menuS,menuH);
 	    menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 
 		menuF.getItems().addAll(chargerCSV,chargerCSVInternet,saveCourbes);
 		menuF.getItems().add(new SeparatorMenuItem());
 		menuF.getItems().add(exit);
 		menuH.getItems().addAll(aide,apropos);
+		menuS.getItems().addAll(vanilla,metroD,metroL,brume);
 
 		cAjoutT.getSelectionModel()
 	    .selectedItemProperty()
@@ -177,6 +195,32 @@ public class MenuProjet extends Application{
 			}
 
 
+		});
+
+		vanilla.setOnAction(e -> {
+			scene.getStylesheets().clear();
+			System.out.println("vanilla !");
+		});
+
+		metroD.setOnAction(e -> {
+			// apply stylesheet to the scene graph
+			scene.getStylesheets().clear();
+			scene.getStylesheets().add(styleMetroD);
+			System.out.println("metroDark !");
+		});
+
+		metroL.setOnAction(e -> {
+			// apply stylesheet to the scene graph
+			scene.getStylesheets().clear();
+			scene.getStylesheets().add(styleMetroL);
+			System.out.println("metrolight !");
+		});
+
+		brume.setOnAction(e -> {
+			// apply stylesheet to the scene graph
+			scene.getStylesheets().clear();
+			scene.getStylesheets().add(styleBrume);
+			System.out.println("brume !");
 		});
 
 		chargerCSV.setOnAction(e -> {
@@ -291,7 +335,7 @@ public class MenuProjet extends Application{
 
         tab.setContent(lineChart);
         tabPane.getTabs().add(tab);
-		Scene scene = new Scene(root);
+
 		primaryStage.setScene(scene);
 		primaryStage.setHeight(700);
 		primaryStage.setWidth(1000);
