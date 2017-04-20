@@ -43,6 +43,7 @@ public class MenuProjet extends Application{
 	static String choixP = "";
 	static String chemin = "";
 	static String chaine = "";
+	static double lambda = 0;
 	static BufferedReader fichier_source = null;
 
 	public static void main(String[] args)
@@ -50,6 +51,18 @@ public class MenuProjet extends Application{
 		System.setProperty("http.proxyPort", "3128");
 		System.setProperty("http.proxyHost", "proxy.univ-lille1.fr");
 		Application.launch(args);
+	}
+
+
+	public void saisieLambda() {
+		TextInputDialog dialog = new TextInputDialog("");
+		dialog.setHeaderText(null);
+		dialog.setTitle("Saisie de lambda");
+		dialog.setContentText("Veuillez entrer lambda : ");
+		Optional<String> res = dialog.showAndWait();
+		if(res.isPresent())
+			lambda = Double.parseDouble(res.get());
+
 	}
 
 	@Override
@@ -138,6 +151,8 @@ public class MenuProjet extends Application{
 			case "BoxCox BC":
 				System.out.println(choixT);
 				choixT = "";
+				saisieLambda();
+				System.out.println("Lambda :"+lambda);
 				break;
 			case "Logistique Yt2":
 				System.out.println(choixT);
