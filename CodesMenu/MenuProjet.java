@@ -164,33 +164,26 @@ public class MenuProjet extends Application{
 			switch(choixT) {
 			case "Logarithme Yt1":
 				System.out.println(choixT);
-				choixT = "";
 				break;
 			case "BoxCox BC":
 				System.out.println(choixT);
-				choixT = "";
 				saisieLambda();
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Logistique Yt2":
 				System.out.println(choixT);
-				choixT = "";
 				break;
 			case "Moyenne Mobile (Mt)":
 				System.out.println(choixT);
-				choixT = "";
 				break;
 			case "Xt-Mt":
 				System.out.println(choixT);
-				choixT = "";
 				break;
 			case "St : saison":
 				System.out.println(choixT);
-				choixT = "";
 				break;
 			case "Xt-St desaisonnalisation":
 				System.out.println(choixT);
-				choixT = "";
 				break;
 			}
 
