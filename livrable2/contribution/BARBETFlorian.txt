@@ -9,8 +9,10 @@ Contribution de BARBET Florian :
 MVC pour Livrable 1 sans un réel controller ; il s'agit d'une mise en place afin de ne pas modifier toute la structure au livrable 2.
 Il s'agit donc d'un pseudo MVC il s'agit donc plus d'une structure qu'un patron de conception( ce qui sera contraire au MVC Livrable 2).
 
-Synthese des actions effectues : 
+Mise à jour du MVC pour inclure les controllers et la/les vue(s).
 
+Synthese des actions effectues : 
+                <<<< Livrable 1 >>>>
     0. Creation structurelle ;
     1. Ajout d'une classe essentielle Courbe<X,Y> ;
     2. Mise en place d'un modèle générique Courbe<X,Y> ;
@@ -31,8 +33,11 @@ Synthese des actions effectues :
     12. Ecriture de Test parallèles non dépôsé avec Rayan.
     13. Finitions Livrable1 + recherche sur les changements de couleurs des LineChart.
     13.1. Explication de Finitions : La sauvegarde et la demande utilisateur.
-    
-    
+                <<<< Livrable 2 >>>>
+    14. Ecriture des previsions par lissage exponentielles simple et double.
+    15. Implementation du singleton dans le model.
+                <<<< Livrable 3 >>>>
+    (à venir)
     
 Avis sur le groupe :
 
@@ -44,7 +49,7 @@ Avis sur le groupe :
         3. Travailleur ;
         4. Structuré ;
         5. Aide pour la compréhension ;
-        
+        6. Amelioration de la repartition de travail ;
         
     Caractéristique negatives :
     
@@ -58,5 +63,5 @@ Fréquence de travail :
     Jour le plus fréquent : Jeudi ;
     Moyenne d'heure semaine : 4h ;
     Personnel : variable soit au total 8heures
-    soit Temps total pour Livrable 1 >>>  ~12h en groupe ; ~150h de travail personnel.
+    soit Temps total pour Livrable 1 >>>  ~20h en groupe ; ~200h de travail personnel.
     le travail personnel : certains jours plus que d'autres !
