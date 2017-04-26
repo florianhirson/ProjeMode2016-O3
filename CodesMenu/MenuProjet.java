@@ -10,7 +10,6 @@ import java.util.Optional;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -19,7 +18,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -45,6 +43,8 @@ public class MenuProjet extends Application{
 	static double lambda = 0;
 	static int ordre = 0;
 	static BufferedReader fichier_source = null;
+	ArrayList<Courbe> choix = new ArrayList<Courbe>();
+
 
 	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -61,7 +61,20 @@ public class MenuProjet extends Application{
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
+		Courbe<Number,Number> donnee = new Courbe<Number,Number>();
+		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
+		Courbe<Number,Number> csr = new Courbe<Number,Number>();
+		Courbe<Number,Number> cs = new Courbe<Number,Number>();
+		Courbe<Number,Number> cmd = new Courbe<Number,Number>();
+		Courbe<Number,Number> logis = new Courbe<Number,Number>();
+		Courbe<Number,Number> log = new Courbe<Number,Number>();
+		Courbe<Number,Number> bc = new Courbe<Number,Number>();
 
+		Courbe<Number,Number> res = new Courbe<Number,Number>();
+
+		ArrayList<String> listTitle = new ArrayList<String>();
+		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
+		ArrayList<Integer> choice = new ArrayList<Integer>();
 		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
 		ArrayList<String[]> tabCh = new ArrayList<String[]>();
 
@@ -69,20 +82,7 @@ public class MenuProjet extends Application{
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
 
-		ObservableList<String> data = FXCollections.observableArrayList();
 
-	    ListView<String> listView = new ListView<String>(data);
-	    listView.setPrefSize(200, 250);
-
-	    data.addAll("A", "B", "C", "D", "E");
-
-	    listView.setItems(data);
-	    listView.getSelectionModel().selectedItemProperty().addListener(
-	        (ObservableValue<? extends String> ov, String old_val,
-	            String new_val) -> {
-	                System.out.println(new_val);
-
-	    });
 
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
@@ -159,28 +159,49 @@ public class MenuProjet extends Application{
 		bAjoutT.setOnAction(e -> {
 			switch(choixT) {
 			case "Logarithme Yt1":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
 				break;
 			case "BoxCox BC":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
 				lambda = InputDialogs.saisieLambda();
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Logistique Yt2":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
 				break;
 			case "Moyenne Mobile (Mt)":
-				ordre = InputDialogs.saisieOrdre();
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
+				ordre = InputDialogs.saisieOrdre();
 				System.out.println("Ordre :"+ordre);
 				break;
 			case "Xt-Mt":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
 				break;
 			case "St : saison":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
 				break;
 			case "Xt-St desaisonnalisation":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
 				System.out.println(choixT);
 				break;
 			}
