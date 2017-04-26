@@ -96,10 +96,12 @@ public class InputDialogs {
 		// Candidates
 		final ObservableList<Courbe> candidates = FXCollections.observableArrayList(listCourbe);
 		final ListView<Courbe> candidatesListView = new ListView<>(candidates);
+		candidatesListView.setMaxHeight(200);
 		gridpane.add(candidatesListView, 0, 1);
 
 		final ObservableList<Courbe> selected = FXCollections.observableArrayList();
 		final ListView<Courbe> heroListView = new ListView<>(selected);
+		heroListView.setMaxHeight(200);
 		gridpane.add(heroListView, 2, 1);
 
 		Button sendRightButton = new Button(" > ");
