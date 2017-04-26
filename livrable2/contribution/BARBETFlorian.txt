@@ -36,6 +36,7 @@ Synthese des actions effectues :
                 <<<< Livrable 2 >>>>
     14. Ecriture des previsions par lissage exponentielles simple et double et ses Test.
     15. Implementation du singleton dans le model.
+    16. Implementation d'un systeme de tableau (ArrayList de courbe dans le model afin de pouvoir utiliser plusieurs courbes).
                 <<<< Livrable 3 >>>>
     (à venir)
     
