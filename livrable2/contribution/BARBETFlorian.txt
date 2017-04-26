@@ -34,7 +34,7 @@ Synthese des actions effectues :
     13. Finitions Livrable1 + recherche sur les changements de couleurs des LineChart.
     13.1. Explication de Finitions : La sauvegarde et la demande utilisateur.
                 <<<< Livrable 2 >>>>
-    14. Ecriture des previsions par lissage exponentielles simple et double.
+    14. Ecriture des previsions par lissage exponentielles simple et double et ses Test.
     15. Implementation du singleton dans le model.
                 <<<< Livrable 3 >>>>
     (à venir)
