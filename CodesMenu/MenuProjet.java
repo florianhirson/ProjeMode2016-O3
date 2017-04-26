@@ -1,20 +1,16 @@
 package CodesMenu;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.sun.webkit.ContextMenu.ShowContext;
-
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -65,8 +61,13 @@ public class MenuProjet extends Application{
 		dialog.setTitle("Saisie de lambda");
 		dialog.setContentText("Veuillez entrer lambda : ");
 		Optional<String> res = dialog.showAndWait();
-		if(res.isPresent())
+
+		try {
 			lambda = Double.parseDouble(res.get());
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 
 	}
 
@@ -74,17 +75,12 @@ public class MenuProjet extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 
-
 		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
 		ArrayList<String[]> tabCh = new ArrayList<String[]>();
 
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
-
-
-
-
 
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
@@ -272,12 +268,17 @@ public class MenuProjet extends Application{
 			dialog.setTitle("Téléchargement d'un CSV par internet");
 			dialog.setContentText("Veuillez entrer l'url : ");
 			Optional<String> result = dialog.showAndWait();
+			try {
+				result.ifPresent(url -> {
+					String fileName = url.substring(url.lastIndexOf('/') + 1);
+					SelectFileChooser.csvDownload(url, "data/"+fileName);
+					System.out.println("Success !");
+				});
+			}
+			catch (Exception e1) {
+				System.out.println(e1);
+			}
 
-			result.ifPresent(url -> {
-				String fileName = url.substring(url.lastIndexOf('/') + 1);
-				SelectFileChooser.csvDownload(url, "data/"+fileName);
-				System.out.println("Success !");
-			});
 
 		});
 
@@ -333,7 +334,6 @@ public class MenuProjet extends Application{
 		primaryStage.setHeight(700);
 		primaryStage.setWidth(1000);
 		primaryStage.show();
-
 
 	}
 

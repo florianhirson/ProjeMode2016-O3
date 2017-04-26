@@ -50,7 +50,7 @@ public class SelectFileChooser {
 		} catch (MalformedURLException e) {
 			error(e);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
         ReadableByteChannel rbc = null;
 		try {
@@ -58,7 +58,7 @@ public class SelectFileChooser {
 		} catch (IOException e) {
 			error(e);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
         FileOutputStream fos = null;
 		try {
@@ -66,28 +66,28 @@ public class SelectFileChooser {
 		} catch (FileNotFoundException e) {
 			error(e);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
         try {
 			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
 		} catch (IOException e) {
 			error(e);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
         try {
 			fos.close();
 		} catch (IOException e) {
 			error(e);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
         try {
 			rbc.close();
 		} catch (IOException e) {
 			error(e);
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
         System.out.println("Success !");
 	}
