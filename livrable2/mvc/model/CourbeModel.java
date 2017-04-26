@@ -25,10 +25,10 @@ public class CourbeModel<X,Y> extends Observable {
     /* à modifier plus tard */
 
 	private static CourbeModel<Number, Number> singleton = null;
-	
-	private CourbeModel(){}
-	
-	
+
+	public CourbeModel(){}
+
+
 	public static CourbeModel<Number, Number> getInstance(){
 		if(singleton == null){
 			singleton = new CourbeModel<Number,Number>();
@@ -68,9 +68,9 @@ public class CourbeModel<X,Y> extends Observable {
 	public double getLambda(){
 		return Double.valueOf(lambda);
 	}
-	
+
 	public final void setLambda(int l){
-		
+
 		lambda = l;
 	}
 
@@ -89,9 +89,9 @@ public class CourbeModel<X,Y> extends Observable {
 
 
 	/**
-	 * 
+	 *
 	 * TODO Methode de transformation de la courbe
-	 * 
+	 *
 	 **/
 
 	/**
@@ -266,7 +266,7 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 		vart/=12;
 		covyt/=12;
-		tbar/=12; 
+		tbar/=12;
 		ybar/=12;
 		vart-=tbar*tbar;
 		covyt-=ybar*tbar;
@@ -343,7 +343,7 @@ public class CourbeModel<X,Y> extends Observable {
 				c.addXY(dataX,dataY);
 				if(a==1)System.out.println("Yt1 : "+dataY);
 
-			} 
+			}
 
 
 		}
@@ -391,28 +391,28 @@ public class CourbeModel<X,Y> extends Observable {
 			transfoBoxCox(c,a);
 		}
 	}
-	
+
 	/**
 	 * méthode moyenne utilisée pour transformation régression linéaire
 	 * @author Thomas
 	 * @param c
 	 * @param a
 	 */
-	
+
 		public double Moyenne(Courbe<X,Number> c) {
 		double moyenne=0;
 		int taille = courbeData.sizeOfData();
-		
+
 		for(int i = 0;i < taille ;i++)
 		{
 			moyenne += (double)c.getY(i);
 		}
 		moyenne /= taille;
-		
-		
+
+
 		return moyenne;
 	}
-	
+
 	/**
 	 * transformation régression linéaire sur la courbe avec méthode transfoRegLineaire
 	 * @author Thomas
@@ -420,14 +420,14 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param a
 	 */
 		public void transfoRegLineaire(Courbe<X,Number> c, int a) {
-			    
+
 	    if(a==1)System.out.println("Regression linéaire : RL ");
 		int taille = courbeData.sizeOfData();
 		Courbe<X, Number> cpcd = new Courbe<X,Number>();
 
 		double somme1 = 0;
 		int carre = 0;
-		
+
 		for(int i=0; i<taille; i++){
 			cpcd.addXY(courbeData.getX(i), (double)courbeData.getY(i));
 		}
@@ -448,7 +448,7 @@ public class CourbeModel<X,Y> extends Observable {
 
 
 		double valB = Moyenne(cpcd) - valA * ((taille + 1) / 2);
-		
+
 		for (int i = 0;i < taille; i++)
 		{
 			c.addXY(courbeData.getX(i), valA * (i + 1) + valB);
@@ -474,7 +474,7 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param l valeur de beta
 	 * @return -1 si beta est deja entre, 0 sinon.
 	 */
@@ -484,13 +484,13 @@ public class CourbeModel<X,Y> extends Observable {
 			return 0;
 		}
 		return -1;
-		
+
 	}
 
 	/**
 	 * Une methode regroupant deux fonctionnalites qui sont lies le lissage double s1 et simple c2
-	 * 
-	 * 
+	 *
+	 *
 	 * @param s1 lissage exponentiel simple
 	 * @param c2 lissage exponentiel double
 	 * @return 0 si tout se passe bien, recursivite sinon.
@@ -530,7 +530,7 @@ public class CourbeModel<X,Y> extends Observable {
 				System.out.print("/"+i+"/"+"---\n");
 				c2.addXY(i, xT);
 			}
-		
+
 		}
 		return 0;
 

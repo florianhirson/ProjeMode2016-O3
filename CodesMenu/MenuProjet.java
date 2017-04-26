@@ -10,6 +10,7 @@ import java.util.Optional;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -18,6 +19,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -30,6 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mvc.model.Courbe;
+import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
 
 public class MenuProjet extends Application{
@@ -40,9 +43,10 @@ public class MenuProjet extends Application{
 	static String chemin = "";
 	static String chaine = "";
 	static double lambda = 0;
+	static int ordre = 0;
 	static BufferedReader fichier_source = null;
 
-	// load the stylesheet
+	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
 	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
 	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();
@@ -52,23 +56,6 @@ public class MenuProjet extends Application{
 		System.setProperty("http.proxyPort", "3128");
 		System.setProperty("http.proxyHost", "proxy.univ-lille1.fr");
 		Application.launch(args);
-	}
-
-
-	public void saisieLambda() {
-		TextInputDialog dialog = new TextInputDialog("");
-		dialog.setHeaderText(null);
-		dialog.setTitle("Saisie de lambda");
-		dialog.setContentText("Veuillez entrer lambda : ");
-		Optional<String> res = dialog.showAndWait();
-
-		try {
-			lambda = Double.parseDouble(res.get());
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
-
 	}
 
 	@Override
@@ -81,6 +68,21 @@ public class MenuProjet extends Application{
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
+
+		ObservableList<String> data = FXCollections.observableArrayList();
+
+	    ListView<String> listView = new ListView<String>(data);
+	    listView.setPrefSize(200, 250);
+
+	    data.addAll("A", "B", "C", "D", "E");
+
+	    listView.setItems(data);
+	    listView.getSelectionModel().selectedItemProperty().addListener(
+	        (ObservableValue<? extends String> ov, String old_val,
+	            String new_val) -> {
+	                System.out.println(new_val);
+
+	    });
 
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
@@ -117,8 +119,6 @@ public class MenuProjet extends Application{
 		Button bAjoutT = new Button("Ajouter");
 		Button bAjoutA = new Button("Ajouter");
 		Button bAjoutP = new Button("Ajouter");
-
-
 
 		ajoutT.getChildren().addAll(cAjoutT,bAjoutT);
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
@@ -163,14 +163,16 @@ public class MenuProjet extends Application{
 				break;
 			case "BoxCox BC":
 				System.out.println(choixT);
-				saisieLambda();
+				lambda = InputDialogs.saisieLambda();
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Logistique Yt2":
 				System.out.println(choixT);
 				break;
 			case "Moyenne Mobile (Mt)":
+				ordre = InputDialogs.saisieOrdre();
 				System.out.println(choixT);
+				System.out.println("Ordre :"+ordre);
 				break;
 			case "Xt-Mt":
 				System.out.println(choixT);
@@ -305,21 +307,6 @@ public class MenuProjet extends Application{
 			info.show();
 		});
 
-
-		/** Ajout de 5 onglets
-		for (int i = 0; i < 5; i++) {
-            Tab tab = new Tab();
-            tab.setText("Tab" + i);
-            final CategoryAxis xAxis = new CategoryAxis();
-            final NumberAxis yAxis = new NumberAxis();
-             xAxis.setLabel("Month");
-            final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
-
-            tab.setContent(lineChart);
-            tabPane.getTabs().add(tab);
-
-        }
-	**/
 		Tab tab = new Tab();
         tab.setText("Tab 1");
         final CategoryAxis xAxis = new CategoryAxis();
