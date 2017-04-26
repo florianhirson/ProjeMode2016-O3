@@ -219,7 +219,13 @@ public class MenuProjet extends Application{
 			int i,j = 0;
 			Double x,y;
 
-			chemin = SelectFileChooser.showSingleFileChooser();
+			try {
+				chemin = SelectFileChooser.showSingleFileChooser();
+			}
+			catch(Exception ex) {
+				System.out.println(ex);
+			}
+
 
 
 			try {

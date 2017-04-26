@@ -1,10 +1,7 @@
 package mvc.view;
 
-import java.io.File;
 import java.util.Observer;
 import java.util.Set;
-
-import com.sun.javafx.geom.Rectangle;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -16,8 +13,6 @@ import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.paint.Color;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
 import mvc.model.Courbe;
@@ -32,12 +27,13 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
 
-
-
 	@SuppressWarnings({"unchecked", "rawtypes" })
-	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,Axis<X> xAx,Axis<Y> yAx,String t){
+	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,Axis<X> xAx,Axis<Y> yAx,String t,TabPane tabPane){
 		super();
 		super.setTitle("Projet Modelisation");
+
+		Tab tab = new Tab();
+
 		model = mod;
 		controller = cont;
 		xAxis=xAx;
@@ -46,6 +42,10 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		yAxis.setLabel("Ordonnee");
 		lineChart = new LineChart<X,Y>(xAxis,yAxis);
 		lineChart.setTitle(t+"");
+
+		tab.setText("Projet Modelisation");
+		tab.setContent(lineChart);
+        tabPane.getTabs().add(tab);
 		//definition de la serie
 
 
@@ -59,8 +59,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 
 		model.addObserver(this);
-		Scene scene  = new Scene(lineChart,800,600);
-		this.setScene(scene);
+
 	}
 
 
