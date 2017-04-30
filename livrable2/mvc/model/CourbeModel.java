@@ -28,7 +28,7 @@ public class CourbeModel<X,Y> extends Observable {
 
 	private static CourbeModel<Number, Number> singleton = null;
 
-	public CourbeModel(){}
+	private CourbeModel(){}
 
 
 	public static CourbeModel<Number, Number> getInstance(){
