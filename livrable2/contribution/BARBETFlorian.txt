@@ -36,10 +36,11 @@ Synthese des actions effectues :
                 <<<< Livrable 2 >>>>
     14. Ecriture des previsions par lissage exponentielles simple et double et ses Test.
     15. Implementation du singleton dans le model.
-    16. Implementation d'un systeme de tableau (ArrayList de courbe dans le model afin de pouvoir utiliser plusieurs courbes).
+    16. Implementation d'un systeme de tableau (ArrayList de courbe dans le model afin de pouvoir utiliser plusieurs courbes (listcourbe et ses fonctionnalités) ).
     17. Implementation de toute les classes du package control et ses Tests.
-    18. UML model et ajout des methodes dans control.
+    18. UML model et ajout des methodes dans control ( methodes pour les classe ModifieCourbe ; ModifieCourbeForm et CourbeController ).
     19. refonte des Tests du Livrable 1 pour inclure le singleton + ajout.
+    20. Recherche sur exceptions concernant l'interface
                 <<<< Livrable 3 >>>>
     (à venir)
     
