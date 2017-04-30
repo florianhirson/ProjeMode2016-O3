@@ -37,6 +37,9 @@ Synthese des actions effectues :
     14. Ecriture des previsions par lissage exponentielles simple et double et ses Test.
     15. Implementation du singleton dans le model.
     16. Implementation d'un systeme de tableau (ArrayList de courbe dans le model afin de pouvoir utiliser plusieurs courbes).
+    17. Implementation de toute les classes du package control et ses Tests.
+    18. UML model et ajout des methodes dans control.
+    19. refonte des Tests du Livrable 1 pour inclure le singleton + ajout.
                 <<<< Livrable 3 >>>>
     (à venir)
     
@@ -64,5 +67,5 @@ Fréquence de travail :
     Jour le plus fréquent : Jeudi ;
     Moyenne d'heure semaine : 4h ;
     Personnel : variable soit au total 8heures
-    soit Temps total pour Livrable 1 >>>  ~20h en groupe ; ~200h de travail personnel.
+    soit Temps total pour Livrable 1 >>>  ~20h en groupe ; ~210h de travail personnel.
     le travail personnel : certains jours plus que d'autres !
