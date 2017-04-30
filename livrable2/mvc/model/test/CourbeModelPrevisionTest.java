@@ -1,6 +1,8 @@
 package mvc.model.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,24 +12,32 @@ import mvc.model.CourbeModel;
 
 public class CourbeModelPrevisionTest {
 
-	Courbe<Number,Number> courbeData = new Courbe<Number,Number>();
-	CourbeModel<Number,Number> model = new CourbeModel<Number,Number>();
+	ArrayList<Courbe<Number,Number>> courbeData = new ArrayList<Courbe<Number,Number>>();
+	Courbe<Number,Number> courbeTest = new Courbe<Number,Number>();
+	CourbeModel<Number,Number> model = CourbeModel.getInstance();
 	Courbe<Number,Number> c1 = new Courbe<Number,Number>();
 	Courbe<Number,Number> c2 = new Courbe<Number,Number>();
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		courbeData.addXY(1,3.0);
-		courbeData.addXY(2,4.0);
-		courbeData.addXY(3,4.5);
-		courbeData.addXY(4,4.0);
-		model.setCourbe(courbeData);
+		courbeTest.addXY(1,3.0);
+		courbeTest.addXY(2,4.0);
+		courbeTest.addXY(3,4.5);
+		courbeTest.addXY(4,4.0);
+		
+		
+		
+		
+		model.setCourbes(courbeData);
+		model.addCourbe(courbeTest);
+		model.setIndex(0);
 		model.setBeta(0.5);
 		model.setOrdre(4);
-
+		
 		
 		model.lissage_exp1et2(c1, c2);
+		
 	}
 
 	@Test
