@@ -36,17 +36,25 @@ public class CourbeController<X,Y> {
 		model.addCourbe(modcourbe.doMM(new Courbe<Number,Number>(), model));
 	}
 	
+	
+	
 	public void doSaisonResidu(){
 		model.addCourbe(modcourbe.doSaisonResidu(new Courbe<Number,Number>(), model));
 	}
+	
+	
 	
 	public void doSaison(){
 		model.addCourbe(modcourbe.doSaison(new Courbe<Number,Number>(), model));
 	}
 	
+	
+	
 	public void doDesaisonaliser(){
 		model.addCourbe(modcourbe.doDesaisonaliser(new Courbe<Number,Number>(), model));
 	}
+	
+	
 	
 	public void doLogistique(){
 		model.addCourbe(modcourbe.doLogistique(new Courbe<Number,Number>(), model));
