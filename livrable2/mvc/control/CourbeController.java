@@ -13,7 +13,6 @@ public class CourbeController<X,Y> {
 
 
 	private CourbeModel<Number,Number> model;
-	@SuppressWarnings("unused")
 	private CourbeVue<Number,Number> view = null;
 	private ModifieCourbe modcourbe = new ModifieCourbeForm ();
 
