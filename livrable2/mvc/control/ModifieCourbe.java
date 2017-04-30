@@ -1,9 +1,13 @@
+/**
+ * mise en place des prototypes de transformations, analyse et prevision de CourbeModel !
+ * @author florian barbet
+ */
 package mvc.control;
 
 import mvc.model.Courbe;
 import mvc.model.CourbeModel;
 
-public interface ModifieCourbe<X,Y> {
+public interface ModifieCourbe {
 
 
 	public Courbe<Number,Number> doMM(Courbe<Number,Number> c,CourbeModel<Number,Number> model);

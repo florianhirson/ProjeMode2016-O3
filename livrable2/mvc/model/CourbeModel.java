@@ -47,11 +47,10 @@ public class CourbeModel<X,Y> extends Observable {
 	 * Renvoie la courbe accession
 	 * @return courbeData
 	 */
-	public Courbe<X,Y> getCourbe(){
+	public Courbe<X,Y> getCourbe(int i){
 
 		if(!isSetIndex()){
-			System.out.println("Saisir l'indice de courbe :");
-			setIndex(sc.nextInt());
+			setIndex(i);
 		}
 		return courbeData;
 	}
@@ -85,11 +84,10 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 
-	private void checkSettingIndexOrDo(){
-		if(!isSetIndex()){
-			System.out.println("Saisir l'indice de courbe à utiliser :");
-			setIndex(sc.nextInt());
-		}
+	private void checkSettingIndexOrDo(int i){
+		
+			setIndex(i);
+		
 	}
 	/**
 	 * Permet de modifier la courbe et initialiser
@@ -125,14 +123,17 @@ public class CourbeModel<X,Y> extends Observable {
 
 
 	public int sizeOfCourbe(){
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		return courbeData.sizeOfData();
 	}
 
 	public X getDataX(int i){
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		return courbeData.getX(i);
 	}
 
 	public Y getDataY(int i){
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		return courbeData.getY(i);
 	}
 
@@ -148,7 +149,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void moyenneMobile(Courbe<Number,Number> c,int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		double tabX[]=new double[courbeData.sizeOfData()];
 		double moyenne = 0;
 
@@ -186,7 +187,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void saisonResidu(Courbe<Number,Number> c, int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		double moyennet = 0;
 		double xt = 0;
@@ -210,7 +211,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void saison(Courbe<Number,Number> c, int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		if(a==1)System.out.println("Saison : St");
 		Courbe<Number, Number> cmd = new Courbe<Number,Number>();
 		this.saisonResidu(cmd,0);
@@ -255,16 +256,22 @@ public class CourbeModel<X,Y> extends Observable {
 			s4-=surplus/4;
 		}
 		if(a==1)System.out.println("St : s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4+"\n Surplus :"+surplus);
+		double temporary=0;
 		for( i=0;i<courbeData.sizeOfData();i++){
-			if((double)courbeData.getX(i)%4==0){
-				c.addXY((double)courbeData.getX(i), s4);
-			}else if((double)courbeData.getX(i+1)%4==0){
-				c.addXY((double)courbeData.getX(i), s3);
-			}else if((double)courbeData.getX(i)%2==0){
-				c.addXY((double)courbeData.getX(i), s2);
+			temporary = ((Integer)courbeData.getX(i)*10)/10;
+			
+			
+			if(temporary%4==0){
+				c.addXY(temporary, s4);
+			}else if((Integer)courbeData.getX(i+1)%4==0){
+				c.addXY(temporary, s3);
+			}else if(temporary%2==0){
+				c.addXY(temporary, s2);
 			}else{
-				c.addXY((double)courbeData.getX(i), s1);
+				c.addXY(temporary, s1);
 			}
+			
+			
 		}
 
 
@@ -276,7 +283,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void desaisonaliser(Courbe<Number,Number> c,int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		if(a==1)System.out.println("Desaisonnalisation : Xt-St");
 		Courbe<Number,Number> st = new Courbe<Number,Number>();
 		this.saison(st,0);
@@ -286,7 +293,7 @@ public class CourbeModel<X,Y> extends Observable {
 			des =(double)courbeData.getY(i);
 			des-=(double)st.getY(i);
 			if(a==1)System.out.println("Xt-St : "+des);
-			c.addXY((double)courbeData.getX(i), des);
+			c.addXY((Integer)courbeData.getX(i), des);
 		}
 	}
 
@@ -298,7 +305,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param a
 	 */
 	public void residu(Courbe<Number,Number> c, int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		Courbe<Number,Number> y = new Courbe<Number,Number>();
 		double tbar=0.0;
 		double ybar=0.0;
@@ -343,7 +350,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void logistique(Courbe<X,Number> c, int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		int taille = courbeData.sizeOfData();
 		X dataX;
 		double dataY;
@@ -377,7 +384,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void transfoLog(Courbe<X,Number> c, int a){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		if(a==1)System.out.println("Logarithme : Yt1");
 		int taille = courbeData.sizeOfData();
 
@@ -387,7 +394,7 @@ public class CourbeModel<X,Y> extends Observable {
 		for(int i=0; i<taille; i++){
 
 
-			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0){
+			if((double)courbeData.getY(i) < 0 ||(Integer)courbeData.getX(i)==0){
 
 			}
 			else{
@@ -411,7 +418,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 */
 
 	public void transfoBoxCox(Courbe<X,Number> c, int a) {
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		int i;
 		int taille = courbeData.sizeOfData();
 		X dataX;
@@ -453,7 +460,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 */
 
 	public double Moyenne(Courbe<X,Number> c) {
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		double moyenne=0;
 		int taille = courbeData.sizeOfData();
 
@@ -474,8 +481,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param a
 	 */
 	public void transfoRegLineaire(Courbe<X,Number> c, int a) {
-		checkSettingIndexOrDo();
-		if(a==1)System.out.println("Regression linéaire : RL ");
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		int taille = courbeData.sizeOfData();
 		Courbe<X, Number> cpcd = new Courbe<X,Number>();
 
@@ -550,7 +556,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @return 0 si tout se passe bien, recursivite sinon.
 	 */
 	public int lissage_exp1et2(Courbe<Number,Number> c1,Courbe<Number,Number> c2){
-		checkSettingIndexOrDo();
+		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
 		Courbe<Number,Number> s1 = new Courbe<Number,Number>();
 		Courbe<Number,Number> s2=new Courbe<Number,Number>();
 		double xT = 0;

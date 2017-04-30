@@ -1,9 +1,13 @@
+/**
+ * mise en place des methodes de transformations, analyse et prevision de CourbeModel !
+ * @author florian barbet
+ */
 package mvc.control;
 
 import mvc.model.Courbe;
 import mvc.model.CourbeModel;
 
-public class ModifieCourbeForm<X,Y> implements ModifieCourbe<X,Y>{
+public class ModifieCourbeForm implements ModifieCourbe{
 
 	@Override
 	public Courbe<Number, Number> doMM(Courbe<Number, Number> c, CourbeModel<Number, Number> model) {
