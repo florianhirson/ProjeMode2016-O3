@@ -60,12 +60,12 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @return rien
 	 */
 	public void setIndex(int index){
-		if(index>0 && index<courbeData.sizeOfData()-1)
+		if(index>=0 && index<=listcourbeData.size()-1)
 			courbeData=listcourbeData.get(index);
 		else if(index<0)
 			courbeData=listcourbeData.get(0);
-		else if(index>courbeData.sizeOfData()-1)
-			courbeData=listcourbeData.get(courbeData.sizeOfData()-1);
+		else if(index>listcourbeData.size()-1)
+			courbeData=listcourbeData.get(courbeData.sizeOfData());
 	}
 
 	/**
