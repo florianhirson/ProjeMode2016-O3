@@ -1,5 +1,6 @@
 package mvc.model;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Scanner;
 /**
@@ -53,8 +54,9 @@ public class CourbeModel<X,Y> extends Observable {
 
 	/**
 	 * setIndex permet de choisir la courbe à transfo
+	 * @return 
 	 */
-	public setIndex(int index){
+	public void setIndex(int index){
 		courbeData=listcourbeData.get(index);
 	}
 	
