@@ -32,7 +32,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import mvc.control.CourbeController;
 import mvc.model.Courbe;
+import mvc.model.CourbeModel;
+import mvc.view.CourbeVue;
+import mvc.view.CourbeVueConcret;
 import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
 
@@ -55,6 +59,10 @@ public class MenuProjet extends Application{
 	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
 	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();
 
+	CourbeModel<Number,Number> model; 				//	Modele MVC
+	CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
+	CourbeController<Number,Number> control;        // structure OK
+
 	public static void main(String[] args)
 	{
 		System.setProperty("http.proxyPort", "3128");
@@ -65,6 +73,9 @@ public class MenuProjet extends Application{
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
+		String data = "";
+		ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
+
 		Courbe<Number,Number> donnee = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
 		Courbe<Number,Number> csr = new Courbe<Number,Number>();
@@ -75,6 +86,11 @@ public class MenuProjet extends Application{
 		Courbe<Number,Number> bc = new Courbe<Number,Number>();
 
 		Courbe<Number,Number> res = new Courbe<Number,Number>();
+
+
+
+
+		CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
 
 		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
@@ -400,6 +416,17 @@ public class MenuProjet extends Application{
 				System.out.println(e2);
 			}
 
+			model = CourbeModel.getInstance();
+			model.setCourbes(listc);
+			model.addCourbe(c);
+			model.setIndex(0);
+			control = new CourbeController<Number,Number>(model);
+			vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data,tabPane);
+			control.addView(vue);
+
+			listCourbe.add(c);
+			listTitle.add("Base");
+			c.setName("Base");
 
 
 
