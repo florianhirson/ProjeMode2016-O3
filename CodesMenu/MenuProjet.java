@@ -193,6 +193,14 @@ public class MenuProjet extends Application{
 		cAjoutT.getSelectionModel()
 	    .selectedItemProperty()
 	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixT = newValue );
+	    
+	    cAjoutA.getSelectionModel()
+		.selectedItemProperty()
+		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixA = newValue );
+		
+		cAjoutP.getSelectionModel()
+		.selectedItemProperty()
+		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixP = newValue );
 
 		bAjoutT.setOnAction(e -> {
 			switch(choixT) {
