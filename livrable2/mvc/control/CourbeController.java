@@ -23,7 +23,9 @@ public class CourbeController<X,Y> {
 	
 
 	public void fixeCourbes(ArrayList<Courbe<Number,Number>> listcourbe){
+		
 		model.setCourbes(listcourbe);
+	
 	}
 
 	public void addView ( CourbeVue<X,Y> view ) {
