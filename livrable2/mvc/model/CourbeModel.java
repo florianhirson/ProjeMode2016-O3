@@ -42,7 +42,7 @@ public class CourbeModel<X,Y> extends Observable {
 	public int getNbCourbe(){
 		return listcourbeData.size();
 	}
-	
+
 	/**
 	 * Renvoie la courbe accession
 	 * @return courbeData
@@ -59,7 +59,7 @@ public class CourbeModel<X,Y> extends Observable {
 	 * setIndex permet de choisir la courbe à transfo
 	 * si le choix est deficient c'est à dire inferieur à 0 ou superieur à la taille maximale on met respectivement l'index à 0 ou l'index à la taille max
 	 * ainsi on evite les Exception Out of Bounds
-	 * 
+	 *
 	 * @return rien
 	 */
 	public void setIndex(int index){
@@ -70,7 +70,7 @@ public class CourbeModel<X,Y> extends Observable {
 		else if(index>listcourbeData.size()-1)
 			courbeData=listcourbeData.get(listcourbeData.size()-1);
 	}
-	
+
 	public int getIndexUse(){
 		return listcourbeData.indexOf(courbeData);
 	}
@@ -85,9 +85,9 @@ public class CourbeModel<X,Y> extends Observable {
 
 
 	private void checkSettingIndexOrDo(int i){
-		
+
 			setIndex(i);
-		
+
 	}
 	/**
 	 * Permet de modifier la courbe et initialiser
@@ -259,8 +259,8 @@ public class CourbeModel<X,Y> extends Observable {
 		double temporary=0;
 		for( i=0;i<courbeData.sizeOfData();i++){
 			temporary = ((Integer)courbeData.getX(i)*10)/10;
-			
-			
+
+
 			if(temporary%4==0){
 				c.addXY(temporary, s4);
 			}else if((Integer)courbeData.getX(i+1)%4==0){
@@ -270,8 +270,8 @@ public class CourbeModel<X,Y> extends Observable {
 			}else{
 				c.addXY(temporary, s1);
 			}
-			
-			
+
+
 		}
 
 
@@ -394,7 +394,7 @@ public class CourbeModel<X,Y> extends Observable {
 		for(int i=0; i<taille; i++){
 
 
-			if((double)courbeData.getY(i) < 0 ||(Integer)courbeData.getX(i)==0){
+			if((double)courbeData.getY(i) < 0 ||(double)courbeData.getX(i)==0){
 
 			}
 			else{
