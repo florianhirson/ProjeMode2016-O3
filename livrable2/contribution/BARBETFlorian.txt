@@ -49,16 +49,16 @@ Avis sur le groupe :
     Caractéristiques positives :
     
         0. Entraide ;
-        1. Serieux ;
-        2. Convivial ;
-        3. Travailleur ;
         4. Structuré ;
         5. Aide pour la compréhension ;
         6. Amelioration de la repartition de travail ;
         
     Caractéristique negatives :
     
-        0. Aucune Observation 
+        0. Aucune Observation .
+        1. Problème de mise en main.
+        2. Problème d'organisation, de temps, d'optimisation.
+        3. Problème réglable mais non géré.
         
         
     Conclusion : Bon groupe.
@@ -68,5 +68,5 @@ Fréquence de travail :
     Jour le plus fréquent : Jeudi ;
     Moyenne d'heure semaine : 4h ;
     Personnel : variable soit au total 8heures
-    soit Temps total pour Livrable 1 >>>  ~20h en groupe ; ~210h de travail personnel.
+    soit Temps total pour Livrable 1 >>>  ~20h en groupe ; ~215h de travail personnel.
     le travail personnel : certains jours plus que d'autres !
