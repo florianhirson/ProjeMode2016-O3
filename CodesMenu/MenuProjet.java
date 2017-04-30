@@ -252,36 +252,91 @@ public class MenuProjet extends Application{
 						vueF.addSeries(courbe, "Yt1");
 						vueF.setTitle("Logarithme");
 						//vueF.show();
-						System.out.println("wtf");
 					}
 					System.out.println(choixT);
 				}
 
 				break;
 			case "BoxCox BC":
-				d = new DialogChoixCourbes(listCourbe);
-				choix = d.getCourbesChoisies();
-				if(choix == null)
-					break;
-				System.out.println(choixT);
 				lambda = InputDialogs.saisieLambda();
 				System.out.println("Lambda :"+lambda);
+
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
+				System.out.println(choix);
+
+				if(choix.isEmpty()) {
+					System.out.println("choix est vide");
+				}
+				else {
+					System.out.println("choix n'est pas vide");
+					for(Courbe<Number,Number> courbe : choix) {
+						model.transfoBoxCox(courbe,1);
+						listCourbe.add(courbe);
+						listTitle.add("BoxCox");
+						courbe.setName("BoxCox");
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data, tabPane);
+						control.addView(vueF);
+						vueF.addSeries(courbe, "BC");
+						vueF.setTitle("BoxCox");
+						//vueF.show();
+					}
+					System.out.println(choixT);
+				}
+
 				break;
 			case "Logistique Yt2":
 				d = new DialogChoixCourbes(listCourbe);
 				choix = d.getCourbesChoisies();
-				if(choix == null)
-					break;
+				System.out.println(choix);
+
+				if(choix.isEmpty()) {
+					System.out.println("choix est vide");
+				}
+				else {
+					System.out.println("choix n'est pas vide");
+					for(Courbe<Number,Number> courbe : choix) {
+						model.logistique(courbe,1);
+						listCourbe.add(courbe);
+						listTitle.add("Logistique");
+						courbe.setName("Logistique");
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data, tabPane);
+						control.addView(vueF);
+						vueF.addSeries(courbe, "Logistique");
+						vueF.setTitle("Logistique");
+						//vueF.show();
+					}
+				}
+
 				System.out.println(choixT);
 				break;
 			case "Moyenne Mobile (Mt)":
 				d = new DialogChoixCourbes(listCourbe);
 				choix = d.getCourbesChoisies();
-				if(choix == null)
-					break;
+
 				System.out.println(choixT);
 				ordre = InputDialogs.saisieOrdre();
 				System.out.println("Ordre :"+ordre);
+
+				System.out.println(choix);
+
+				if(choix.isEmpty()) {
+					System.out.println("choix est vide");
+				}
+				else {
+					System.out.println("choix n'est pas vide");
+					for(Courbe<Number,Number> courbe : choix) {
+						model.moyenneMobile(courbe,1);
+						listCourbe.add(courbe);
+						listTitle.add("MoyenneMobile");
+						courbe.setName("MoyenneMobile");
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data, tabPane);
+						control.addView(vueF);
+						vueF.addSeries(courbe, "MoyenneMobile");
+						vueF.setTitle("MoyenneMobile");
+						//vueF.show();
+					}
+				}
 				break;
 			case "Xt-Mt":
 				d = new DialogChoixCourbes(listCourbe);
@@ -471,6 +526,10 @@ public class MenuProjet extends Application{
 
 		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
+			int indice = 0;
+			int i,j = 0;
+			Double x,y;
+
 			TextInputDialog dialog = new TextInputDialog("Download");
 			dialog.setTitle("Téléchargement d'un CSV par internet");
 			dialog.setContentText("Veuillez entrer l'url : ");
@@ -478,13 +537,70 @@ public class MenuProjet extends Application{
 			try {
 				result.ifPresent(url -> {
 					String fileName = url.substring(url.lastIndexOf('/') + 1);
-					SelectFileChooser.csvDownload(url, "data/"+fileName);
+					SelectFileChooser.csvDownload(url, "livrable2/data/"+fileName);
+					chemin = "livrable2/data/"+fileName;
 					System.out.println("Success !");
 				});
 			}
 			catch (Exception e1) {
 				System.out.println(e1);
 			}
+
+			try {
+				System.out.println(chemin);
+				fichier_source = new BufferedReader(new FileReader(chemin));
+			} catch (FileNotFoundException e1) {
+				SelectFileChooser.error(e1);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				while((chaine = fichier_source.readLine())!= null)
+				{
+					tabChaine.add(chaine.split(";"));
+					indice++;
+				}
+			} catch (IOException e1) {
+				SelectFileChooser.error(e1);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			for( i = 0; i < indice ; i++)
+				for( j = 0; j < tabChaine.get(i).length ; j++ )
+				{
+					tabCh.add(tabChaine.get(i)[j].split(","));
+				}
+			try {
+				fichier_source.close();
+			} catch (IOException e1) {
+				SelectFileChooser.error(e1);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				for(i = 0; i < indice ; i++)
+				{
+					x = Double.parseDouble(tabCh.get(i)[0]);
+					y = Double.parseDouble(tabCh.get(i)[1]);
+					c.addXY(x,y);
+				}
+			}
+			catch (Exception e2) {
+				System.out.println(e2);
+			}
+
+			model = CourbeModel.getInstance();
+			model.setCourbes(listc);
+			model.addCourbe(c);
+			model.setIndex(0);
+			control = new CourbeController<Number,Number>(model);
+			vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data,tabPane);
+			control.addView(vue);
+
+			listCourbe.add(c);
+			listTitle.add("Base");
+			c.setName("Base");
 
 
 		});
