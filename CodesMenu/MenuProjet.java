@@ -241,8 +241,56 @@ public class MenuProjet extends Application{
 				System.out.println(choixT);
 				break;
 			}
+		});
+		
+		bAjoutA.setOnAction(e -> {
+			switch(choixA) {
+			case "Graphe des résidus":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
+				System.out.println(choixA);
+				break;
+			case "Variance résiduelle":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
+				System.out.println(choixA);
+				lambda = InputDialogs.saisieLambda();
+				System.out.println("Lambda :"+lambda);
+				break;
+			case "Autocorrélation des résidus":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
+				System.out.println(choixA);
+				break;
+			}
+		});
 
-
+		bAjoutP.setOnAction(e -> {
+			switch(choixP) {
+			case "Lissage exponentiel simple":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
+				System.out.println(choixP);
+				break;
+			case "Lissage exponentiel double":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
+				System.out.println(choixP);
+				lambda = InputDialogs.saisieLambda();
+				System.out.println("Lambda :"+lambda);
+				break;
+			case "Holt-Winters":
+				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				if(choix == null)
+					break;
+				System.out.println(choixP);
+				break;
+			}
 		});
 
 		vanilla.setOnAction(e -> {
