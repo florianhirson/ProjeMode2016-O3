@@ -19,6 +19,7 @@ import mvc.view.CourbeVue;
 import mvc.view.CourbeVueConcret;
 
 public class CourbeMVCMain extends Application{
+	ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
 	Courbe<Number,Number> c = new Courbe<Number,Number>();
 	Scanner sc = new Scanner(System.in);
 
@@ -55,7 +56,7 @@ public class CourbeMVCMain extends Application{
 		Courbe<Number,Number> res = new Courbe<Number,Number>();
 
 		ArrayList<String> listTitle = new ArrayList<String>();
-		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visée
+		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe visï¿½e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
 		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
 		ArrayList<String[]> tabCh = new ArrayList<String[]>();
@@ -65,14 +66,14 @@ public class CourbeMVCMain extends Application{
 		CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
 		CourbeController<Number,Number> control;        // structure OK
 
-		CourbeModel<Number,Number> modelF = null; 				//	Modele MVC
+
 		CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
-		CourbeController<Number,Number> controlF = null;        // structure OK
 
 
-		ArrayList<CourbeModel<Number,Number>> listModel = new ArrayList<CourbeModel<Number,Number>>();
+
+
 		ArrayList<CourbeVue<Number,Number>> listView = new ArrayList<CourbeVue<Number,Number>>();
-		ArrayList<CourbeController<Number,Number>> listControl = new ArrayList<CourbeController<Number,Number>>();
+
 
 
 		
@@ -126,8 +127,10 @@ public class CourbeMVCMain extends Application{
 		}
 
 
-		model = new CourbeModel<Number,Number>();
-		model.setCourbe(c);
+		model = CourbeModel.getInstance();
+		model.setCourbes(listc);
+		model.addCourbe(c);
+		model.setIndex(0);
 		control = new CourbeController<Number,Number>(model);
 		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data);
 		control.addView(vue);
@@ -169,7 +172,7 @@ public class CourbeMVCMain extends Application{
 				}
 				if(scan == 0 )condition++;
 				else if(scan == -1)
-					System.out.println("Option déjà saisie");
+					System.out.println("Option dï¿½jï¿½ saisie");
 				else{
 					choice.add(scan);
 					switch(scan){
@@ -259,29 +262,21 @@ public class CourbeMVCMain extends Application{
 				choix+=sc.nextInt();
 			}
 			if(Integer.valueOf(choix) == 2){ 
-				modelF = new CourbeModel<Number,Number>();
-				modelF.setCourbe(c);
-				controlF = new CourbeController<Number,Number>(modelF);
-				vueF = new CourbeVueConcret<Number,Number>(modelF,controlF,new NumberAxis(),new NumberAxis(),data);
+
+				vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data);
 			}
 			for(i = 0; i < choice.size();i++){
 
 
 				if(Integer.valueOf(choix)==1){
-
-					listModel.add( new CourbeModel<Number,Number>());
-					modelF = listModel.get(i);
-					modelF.setCourbe(c);
-					listControl.add(new CourbeController<Number,Number>(modelF));
-					controlF = listControl.get(i);
-					listView.add(new CourbeVueConcret<Number,Number>(modelF,controlF,new NumberAxis(),new NumberAxis(),data));
+					listView.add(new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data));
 					vueF = listView.get(i);
 				}
 
 
 
 
-				controlF.addView(vueF);
+				control.addView(vueF);
 
 				switch(choice.get(i)){
 				case 1 :
@@ -308,7 +303,7 @@ public class CourbeMVCMain extends Application{
 					break;
 				case 5 :
 					vueF.addSeries(csr, "Xt-Mt");
-					vueF.setTitle("Moyenne pondérée");
+					vueF.setTitle("Moyenne pondï¿½rï¿½e");
 					break;
 				case 6 :
 					vueF.addSeries(cs, "St");
