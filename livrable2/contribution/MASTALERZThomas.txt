@@ -1,20 +1,21 @@
 Contribution de MASTALERZ Thomas:
 > Debut du projet : 08/02/2016
 > Rôle : Programmeur -
->> Details : Programmation de méthode pour Livrable 1 
-- Création de la méthode Logarithme.
-- Aide pour la transformation de la moyenne mobile 
-- Création d'un menu terminal pour le livrable 1 mais non utilisé au final.
-- Création d'une méthode pour  enregistrer les transformations dans des fichiers csv pour le livrable 1.
+>> Details : Programmation de méthode pour Livrable 2 
+- Création de la méthode régression linéaire.
+- étude de la programmation en utilisant JavaFx
+
     
 Avis sur le groupe :
     Positives:
     
         Bon groupe, sérieux et travailleur. Bonne entraide.
+        même remarque que pour le livrable 1 le groupe fonctionne parfaitement bien
     
     Négatives :
         
-        Problème de compréhension. Réglable facilement. 
+        pour ma part j'ai été embêté durant cette deuxième partie de projet car la majeure partie des choses à faire étaient pour la création de l'interface graphique en javaFx
+        que je ne maitrise pas du tout, j'ai donc laissé les autres membres du groupe géré cette partie la du projet. 
     
 Fréquence de travail : 
     3h/semaine ;
@@ -24,3 +25,6 @@ Fréquence de travail :
     
     Tout le monde avait des tâches à faire. Chaque semaine on se rassemblait, que ce soit dans une salle réservée à la bibliothèque Liliad ou dans une salle TP de l'IUT.
     On rester en contact grâce a un groupe facebook et un Google Drive pour pouvoir échanger sur le projet.
+    
+    Nous avons également utilisé un site qui m'a été recommandé pendant les projets https://trello.com/b/tVfIunsW/projet qui nous permet de bien voir ce qu'il reste à faire 
+    et de se répartir les tâches
