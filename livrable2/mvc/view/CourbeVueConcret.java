@@ -22,8 +22,9 @@ public class CourbeVueConcret<X, Y> extends CourbeVue<X,Y> {
 
 	@Override
 	public void update(Observable o, Object arg) {
-
-		setDisplay(model().getCourbe());
+		for(int i=0; i < model().getNbCourbe();i++){
+			setDisplay(model().getCourbe(i));
+		}
 	}
 
 }
