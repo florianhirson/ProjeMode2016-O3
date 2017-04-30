@@ -44,7 +44,8 @@ public class MenuProjet extends Application{
 	static int ordre = 0;
 	static BufferedReader fichier_source = null;
 	ArrayList<Courbe> choix = new ArrayList<Courbe>();
-
+    static private TableView valCsv = new TableView();
+	static private TableView valModif = new TableView();
 
 	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -81,8 +82,42 @@ public class MenuProjet extends Application{
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
+		
+		Label CsvLab = new Label("Valeur initial");
 
+		Label ModifLab = new Label("Valeur modifier");
+		
+		VBox valCsvLabel = new VBox();
+		VBox.setMargin(valCsvLabel, new Insets(200,0,0,0));
+		valCsvLabel.getChildren().addAll(CsvLab,valCsv);
 
+		VBox valModifLabel = new VBox();
+		VBox.setMargin(valModifLabel, new Insets(200,0,0,0));
+		valModifLabel.getChildren().addAll(ModifLab,valModif);
+
+		HBox table = new HBox();
+		HBox.setMargin(table, new Insets(200,0,0,0));
+		table.getChildren().addAll(valCsvLabel,valModifLabel);
+		table.setSpacing(200.0);
+
+		TableColumn ColX = new TableColumn("X");
+		TableColumn ColY = new TableColumn("Y");
+		ColX.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
+		ColY.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
+		valCsv.getColumns().addAll(ColX, ColY);
+		valCsv.setMaxSize(200.0, 200.0);
+
+		TableColumn ColXmodif = new TableColumn("X");
+		TableColumn ColYmodif = new TableColumn("Y");
+		ColXmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
+		ColYmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
+		valModif.getColumns().addAll(ColXmodif, ColYmodif);
+		valModif.setMaxSize(200.0, 200.0);
+
+		AnchorPane ap = new AnchorPane();
+		ap.getChildren().add(table);
+		AnchorPane.setBottomAnchor(table, 20.0);
+		AnchorPane.setLeftAnchor(table, 150.0);
 
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
@@ -93,6 +128,7 @@ public class MenuProjet extends Application{
 		root.setTop(menuBar);
 		root.setLeft(ajout);
 		root.setCenter(tabPane);
+		root.setBottom(ap);
 
 		Label lAjouT = new Label("Ajouter une transformation : ");
 		Label lAjouA = new Label("Ajouter une analyse : ");
