@@ -24,11 +24,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mvc.model.Courbe;
@@ -84,11 +85,11 @@ public class MenuProjet extends Application{
 		BorderPane root = new BorderPane();
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar();
-		
+
 		Label CsvLab = new Label("Valeur initial");
 
 		Label ModifLab = new Label("Valeur modifier");
-		
+
 		VBox valCsvLabel = new VBox();
 		VBox.setMargin(valCsvLabel, new Insets(200,0,0,0));
 		valCsvLabel.getChildren().addAll(CsvLab,valCsv);
@@ -193,11 +194,11 @@ public class MenuProjet extends Application{
 		cAjoutT.getSelectionModel()
 	    .selectedItemProperty()
 	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixT = newValue );
-	    
+
 	    cAjoutA.getSelectionModel()
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixA = newValue );
-		
+
 		cAjoutP.getSelectionModel()
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixP = newValue );
@@ -252,7 +253,7 @@ public class MenuProjet extends Application{
 				break;
 			}
 		});
-		
+
 		bAjoutA.setOnAction(e -> {
 			switch(choixA) {
 			case "Graphe des résidus":
