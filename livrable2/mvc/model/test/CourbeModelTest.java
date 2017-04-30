@@ -242,4 +242,36 @@ public class CourbeModelTest {
 		assertNull(cp.getX(0));	
 		
 	}
+	
+	@Test
+	public void getInstanceTest(){
+		CourbeModel<Number,Number> model2 = CourbeModel.getInstance();
+		assertEquals(1,model2.getNbCourbe());
+	}
+	
+	@Test(expected=Error.class)
+	public void errorSingletonTest(){
+		
+		CourbeModel<Number,Number> model2 = new CourbeModel<Number,Number>();
+		assertEquals(1,model2.getNbCourbe());
+	}
+	
+	@Test
+	public void indexNegatifTest(){
+		model.setIndex(-20);
+		assertEquals(0,model.getIndexUse());
+	}
+	
+	@Test
+	public void indexOutTest(){
+		
+		model.addCourbe(new Courbe<Number,Number>());
+		model.addCourbe(new Courbe<Number,Number>());
+		model.addCourbe(new Courbe<Number,Number>());
+		model.addCourbe(new Courbe<Number,Number>());
+		System.out.println("-------------------------nb courbe : "+model.getNbCourbe()+"");
+		model.setIndex(model.getNbCourbe()+30);
+		
+		assertEquals(model.getNbCourbe()-1,model.getIndexUse());
+	}
 }
