@@ -20,6 +20,11 @@ public class Courbe<typeX,typeY> {
 	 */
 	protected ArrayList<typeY> y = new ArrayList<typeY>();
 
+	/**
+	 * toString nom de la courbe
+	 */
+	protected String nom="";
+	
 
 	/**
 	 * vérifie que la taille des deux tableaux correspondent
@@ -99,6 +104,20 @@ public class Courbe<typeX,typeY> {
 		}
 
 		return -1;
+	}
+	
+	/**
+	 * setName saisir le nom d'une courbe pour son toString()
+	 */
+	public void setName(String n){
+		nom=n;
+	}
+	
+	/**
+	 * toString()
+	 */
+	public String toString(){
+		return "Courbe : "+nom;
 	}
 
 
