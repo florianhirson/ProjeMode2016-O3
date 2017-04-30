@@ -10,6 +10,7 @@ import java.util.Optional;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -37,6 +38,7 @@ import mvc.model.Courbe;
 import mvc.model.CourbeModel;
 import mvc.view.CourbeVue;
 import mvc.view.CourbeVueConcret;
+import mvc.view.DialogChoixCourbes;
 import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
 
@@ -50,7 +52,8 @@ public class MenuProjet extends Application{
 	static double lambda = 0;
 	static int ordre = 0;
 	static BufferedReader fichier_source = null;
-	ArrayList<Courbe<Number,Number>> choix = new ArrayList<Courbe<Number,Number>>();
+	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
+	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
     static private TableView valCsv = new TableView();
 	static private TableView valModif = new TableView();
 
@@ -63,6 +66,8 @@ public class MenuProjet extends Application{
 	CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
 	CourbeController<Number,Number> control;        // structure OK
 
+	DialogChoixCourbes d;
+
 	public static void main(String[] args)
 	{
 		System.setProperty("http.proxyPort", "3128");
@@ -73,6 +78,7 @@ public class MenuProjet extends Application{
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
+
 		String data = "";
 		ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
 
@@ -90,13 +96,15 @@ public class MenuProjet extends Application{
 
 
 
-		CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
+
 
 		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
 		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
 		ArrayList<String[]> tabCh = new ArrayList<String[]>();
+
+
 
 		BorderPane root = new BorderPane(); //borderpane de la scene
 		Scene scene = new Scene(root);
@@ -230,13 +238,34 @@ public class MenuProjet extends Application{
 		bAjoutT.setOnAction(e -> {
 			switch(choixT) {
 			case "Logarithme Yt1":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
-				if(choix == null)
-					break;
-				System.out.println(choixT);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
+				System.out.println(choix);
+
+				if(choix.isEmpty()) {
+					System.out.println("choix est vide");
+				}
+				else {
+					System.out.println("choix n'est pas vide");
+					for(Courbe<Number,Number> courbe : choix) {
+						model.transfoLog(courbe,1);
+						listCourbe.add(courbe);
+						listTitle.add("Logarithme");
+						courbe.setName("Logarithme");
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data, tabPane);
+						control.addView(vueF);
+						vueF.addSeries(courbe, "Yt1");
+						vueF.setTitle("Logarithme");
+						//vueF.show();
+						System.out.println("wtf");
+					}
+					System.out.println(choixT);
+				}
+
 				break;
 			case "BoxCox BC":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixT);
@@ -244,13 +273,15 @@ public class MenuProjet extends Application{
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Logistique Yt2":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixT);
 				break;
 			case "Moyenne Mobile (Mt)":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixT);
@@ -258,19 +289,22 @@ public class MenuProjet extends Application{
 				System.out.println("Ordre :"+ordre);
 				break;
 			case "Xt-Mt":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixT);
 				break;
 			case "St : saison":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixT);
 				break;
 			case "Xt-St desaisonnalisation":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixT);
@@ -282,13 +316,15 @@ public class MenuProjet extends Application{
 		bAjoutA.setOnAction(e -> {
 			switch(choixA) {
 			case "Graphe des résidus":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixA);
 				break;
 			case "Variance résiduelle":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixA);
@@ -296,7 +332,8 @@ public class MenuProjet extends Application{
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Autocorrélation des résidus":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixA);
@@ -308,13 +345,15 @@ public class MenuProjet extends Application{
 		bAjoutP.setOnAction(e -> {
 			switch(choixP) {
 			case "Lissage exponentiel simple":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixP);
 				break;
 			case "Lissage exponentiel double":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixP);
@@ -322,7 +361,8 @@ public class MenuProjet extends Application{
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Holt-Winters":
-				choix = InputDialogs.saisieChoixCourbe(listCourbe);
+				d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
 				if(choix == null)
 					break;
 				System.out.println(choixP);
@@ -368,6 +408,7 @@ public class MenuProjet extends Application{
 			}
 			catch(Exception ex) {
 				System.out.println(ex);
+				System.out.println("Test exception 1");
 			}
 
 

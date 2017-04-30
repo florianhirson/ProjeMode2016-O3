@@ -24,6 +24,8 @@ import javafx.util.Pair;
 import mvc.model.Courbe;
 
 public class InputDialogs {
+	static Optional<ObservableList<Courbe<Number, Number>>> result=null;
+	static ObservableList<Courbe<Number,Number>> retour = null;
 
 	public static double saisieLambda() {
 		double lambda = 0;
@@ -47,6 +49,7 @@ public class InputDialogs {
 		int ordre = 0;
 		TextInputDialog dialog = new TextInputDialog("");
 		dialog.setHeaderText(null);
+
 		dialog.setTitle("Saisie de l'ordre pour la moyenne mobile");
 		dialog.setContentText("Veuillez entrer l'ordre : ");
 		Optional<String> res = dialog.showAndWait();
@@ -61,88 +64,5 @@ public class InputDialogs {
 		return 0;
 	}
 
-	public static ArrayList<Courbe<Number,Number>> saisieChoixCourbe (ArrayList<Courbe<Number,Number>> listCourbe) {
-		ArrayList<Courbe<Number,Number>> res = null;
-		// Create the custom dialog.
-		Dialog<ArrayList<Courbe<Number,Number>>> dialog = new Dialog<>();
-		dialog.setTitle("Choice dialog");
-		dialog.setHeaderText("Look, a Custom Choice Dialog");
-		dialog.setHeight(200);
-		// Set the button types.
-		ButtonType valider = new ButtonType("Valider", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().addAll(valider, ButtonType.CANCEL);
 
-		// Create the listviews.
-		GridPane gridpane = new GridPane();
-		gridpane.setHgap(10);
-		gridpane.setVgap(10);
-		gridpane.setPadding(new Insets(20, 20, 20, 20));
-
-		ColumnConstraints column1 = new ColumnConstraints(150, 150,Double.MAX_VALUE);
-		ColumnConstraints column2 = new ColumnConstraints(50);
-		ColumnConstraints column3 = new ColumnConstraints(150, 150,Double.MAX_VALUE);
-		column1.setHgrow(Priority.ALWAYS);
-		column3.setHgrow(Priority.ALWAYS);
-		gridpane.getColumnConstraints().addAll(column1, column2, column3);
-
-		Label candidatesLbl = new Label("Candidates");
-		GridPane.setHalignment(candidatesLbl, HPos.CENTER);
-		gridpane.add(candidatesLbl, 0, 0);
-
-		Label selectedLbl = new Label("Selected");
-		gridpane.add(selectedLbl, 2, 0);
-		GridPane.setHalignment(selectedLbl, HPos.CENTER);
-
-		// Candidates
-		final ObservableList<Courbe<Number,Number>> candidates = FXCollections.observableArrayList(listCourbe);
-		final ListView<Courbe<Number,Number>> candidatesListView = new ListView<>(candidates);
-		candidatesListView.setMaxHeight(200);
-		gridpane.add(candidatesListView, 0, 1);
-
-		final ObservableList<Courbe<Number,Number>> selected = FXCollections.observableArrayList();
-		final ListView<Courbe<Number,Number>> heroListView = new ListView<>(selected);
-		heroListView.setMaxHeight(200);
-		gridpane.add(heroListView, 2, 1);
-
-		Button sendRightButton = new Button(" > ");
-		sendRightButton.setOnAction((ActionEvent event) -> {
-			Courbe<Number,Number> potential = candidatesListView.getSelectionModel().getSelectedItem();
-			if (potential != null) {
-				candidatesListView.getSelectionModel().clearSelection();
-				candidates.remove(potential);
-				selected.add(potential);
-			}
-		});
-
-		Button sendLeftButton = new Button(" < ");
-		sendLeftButton.setOnAction((ActionEvent event) -> {
-			Courbe<Number,Number> s = heroListView.getSelectionModel().getSelectedItem();
-			if (s != null) {
-				heroListView.getSelectionModel().clearSelection();
-				selected.remove(s);
-				candidates.add(s);
-			}
-		});
-		VBox vbox = new VBox(5);
-		vbox.getChildren().addAll(sendRightButton, sendLeftButton);
-
-		gridpane.add(vbox, 1, 1);
-		dialog.getDialogPane().setContent(gridpane);
-
-		// Convert the result to a username-password-pair when the login button is clicked.
-		dialog.setResultConverter(dialogButton -> {
-		    if (dialogButton == valider) {
-		        return res;
-		    }
-		    return null;
-		});
-
-		dialog.showAndWait();
-
-
-
-
-
-		return res;
-	}
 }
