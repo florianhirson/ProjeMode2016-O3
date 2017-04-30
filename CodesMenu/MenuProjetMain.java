@@ -42,7 +42,7 @@ import mvc.view.DialogChoixCourbes;
 import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
 
-public class MenuProjet extends Application{
+public class MenuProjetMain extends Application{
 	Courbe<Number,Number> c = new Courbe<Number,Number>();
 	static String choixT = "";
 	static String choixA = "";
