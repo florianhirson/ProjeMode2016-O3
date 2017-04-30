@@ -148,10 +148,10 @@ public class MenuProjet extends Application{
 		ChoiceBox<String> cAjoutT = new ChoiceBox<String>(FXCollections.observableArrayList("Logarithme Yt1", "BoxCox BC", "Logistique Yt2", "Moyenne Mobile (Mt)", "Xt-Mt", "St : saison", "Xt-St desaisonnalisation"));
 		cAjoutT.setPrefWidth(150);
 
-		ChoiceBox<String> cAjoutA = new ChoiceBox<String>(FXCollections.observableArrayList("First", "Second", "Third"));
+		ChoiceBox<String> cAjoutA = new ChoiceBox<String>(FXCollections.observableArrayList("Graphe des résidus", "Variance résiduelle", "Autocorrélation des résidus"));
 		cAjoutA.setPrefWidth(150);
 
-		ChoiceBox<String> cAjoutP = new ChoiceBox<String>(FXCollections.observableArrayList("First", "Second", "Third"));
+		ChoiceBox<String> cAjoutP = new ChoiceBox<String>(FXCollections.observableArrayList("Lissage exponentiel simple", "Lissage exponentiel double", "Holt-Winters"));
 		cAjoutP.setPrefWidth(150);
 
 		Button bAjoutT = new Button("Ajouter");
@@ -417,6 +417,7 @@ public class MenuProjet extends Application{
 			info.setScene(sInfo);
 			info.setHeight(500.0);
 			info.setWidth(500.0);
+			info.setTitle("A propos");
 			info.show();
 		});
 
