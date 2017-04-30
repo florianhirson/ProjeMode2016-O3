@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @param <typeY>
  */
 public class Courbe<typeX,typeY> {
-	
+
 	/**
 	 * Tableau des abscisses
 	 */
@@ -24,7 +24,7 @@ public class Courbe<typeX,typeY> {
 	 * toString nom de la courbe
 	 */
 	protected String nom="";
-	
+
 
 	/**
 	 * vérifie que la taille des deux tableaux correspondent
@@ -50,13 +50,13 @@ public class Courbe<typeX,typeY> {
 	public typeY getY(int i){
 		return y.get(i);
 	}
-	
+
 	public void setY(int i,typeY nY){
 		y.set(i,nY);
 	}
 
 	/**
-	 * Ajout des valeurs X et Y pour la courbe ; afin de preserver une taille homogene pour x et y 
+	 * Ajout des valeurs X et Y pour la courbe ; afin de preserver une taille homogene pour x et y
 	 * verification qu'il ne manque aucune donnee
 	 * @param dataX
 	 * @param dataY
@@ -105,17 +105,18 @@ public class Courbe<typeX,typeY> {
 
 		return -1;
 	}
-	
+
 	/**
 	 * setName saisir le nom d'une courbe pour son toString()
 	 */
 	public void setName(String n){
 		nom=n;
 	}
-	
+
 	/**
 	 * toString()
 	 */
+	@Override
 	public String toString(){
 		return "Courbe : "+nom;
 	}

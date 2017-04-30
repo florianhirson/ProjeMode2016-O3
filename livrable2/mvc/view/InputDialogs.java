@@ -61,10 +61,10 @@ public class InputDialogs {
 		return 0;
 	}
 
-	public static ArrayList<Courbe> saisieChoixCourbe (ArrayList<Courbe<Number,Number>> listCourbe) {
-		ArrayList<Courbe> res = null;
+	public static ArrayList<Courbe<Number,Number>> saisieChoixCourbe (ArrayList<Courbe<Number,Number>> listCourbe) {
+		ArrayList<Courbe<Number,Number>> res = null;
 		// Create the custom dialog.
-		Dialog<ArrayList<Courbe>> dialog = new Dialog<>();
+		Dialog<ArrayList<Courbe<Number,Number>>> dialog = new Dialog<>();
 		dialog.setTitle("Choice dialog");
 		dialog.setHeaderText("Look, a Custom Choice Dialog");
 		dialog.setHeight(200);
@@ -94,19 +94,19 @@ public class InputDialogs {
 		GridPane.setHalignment(selectedLbl, HPos.CENTER);
 
 		// Candidates
-		final ObservableList<Courbe> candidates = FXCollections.observableArrayList(listCourbe);
-		final ListView<Courbe> candidatesListView = new ListView<>(candidates);
+		final ObservableList<Courbe<Number,Number>> candidates = FXCollections.observableArrayList(listCourbe);
+		final ListView<Courbe<Number,Number>> candidatesListView = new ListView<>(candidates);
 		candidatesListView.setMaxHeight(200);
 		gridpane.add(candidatesListView, 0, 1);
 
-		final ObservableList<Courbe> selected = FXCollections.observableArrayList();
-		final ListView<Courbe> heroListView = new ListView<>(selected);
+		final ObservableList<Courbe<Number,Number>> selected = FXCollections.observableArrayList();
+		final ListView<Courbe<Number,Number>> heroListView = new ListView<>(selected);
 		heroListView.setMaxHeight(200);
 		gridpane.add(heroListView, 2, 1);
 
 		Button sendRightButton = new Button(" > ");
 		sendRightButton.setOnAction((ActionEvent event) -> {
-			Courbe potential = candidatesListView.getSelectionModel().getSelectedItem();
+			Courbe<Number,Number> potential = candidatesListView.getSelectionModel().getSelectedItem();
 			if (potential != null) {
 				candidatesListView.getSelectionModel().clearSelection();
 				candidates.remove(potential);
@@ -116,7 +116,7 @@ public class InputDialogs {
 
 		Button sendLeftButton = new Button(" < ");
 		sendLeftButton.setOnAction((ActionEvent event) -> {
-			Courbe s = heroListView.getSelectionModel().getSelectedItem();
+			Courbe<Number,Number> s = heroListView.getSelectionModel().getSelectedItem();
 			if (s != null) {
 				heroListView.getSelectionModel().clearSelection();
 				selected.remove(s);
