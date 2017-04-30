@@ -39,6 +39,10 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 	/* Creation du singleton un seul model pour plusieurs vue !*/
 
+	public int getNbCourbe(){
+		return listcourbeData.size();
+	}
+	
 	/**
 	 * Renvoie la courbe accession
 	 * @return courbeData
@@ -65,7 +69,11 @@ public class CourbeModel<X,Y> extends Observable {
 		else if(index<0)
 			courbeData=listcourbeData.get(0);
 		else if(index>listcourbeData.size()-1)
-			courbeData=listcourbeData.get(courbeData.sizeOfData());
+			courbeData=listcourbeData.get(listcourbeData.size()-1);
+	}
+	
+	public int getIndexUse(){
+		return listcourbeData.indexOf(courbeData);
 	}
 
 	/**
@@ -97,7 +105,7 @@ public class CourbeModel<X,Y> extends Observable {
 		listcourbeData.add(c);
 	}
 
-	public final void setOrdre(int o){
+	public void setOrdre(int o){
 
 		ordre = o;
 	}
@@ -110,7 +118,7 @@ public class CourbeModel<X,Y> extends Observable {
 		return Double.valueOf(lambda);
 	}
 
-	public final void setLambda(int l){
+	public void setLambda(int l){
 
 		lambda = l;
 	}
