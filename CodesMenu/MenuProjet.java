@@ -93,11 +93,6 @@ public class MenuProjet extends Application{
 
 		Courbe<Number,Number> res = new Courbe<Number,Number>();
 
-
-
-
-
-
 		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
