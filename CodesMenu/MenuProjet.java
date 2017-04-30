@@ -46,7 +46,7 @@ public class MenuProjet extends Application{
 	static double lambda = 0;
 	static int ordre = 0;
 	static BufferedReader fichier_source = null;
-	ArrayList<Courbe> choix = new ArrayList<Courbe>();
+	ArrayList<Courbe<Number,Number>> choix = new ArrayList<Courbe<Number,Number>>();
     static private TableView valCsv = new TableView();
 	static private TableView valModif = new TableView();
 
@@ -82,10 +82,13 @@ public class MenuProjet extends Application{
 		ArrayList<String[]> tabChaine = new ArrayList<String[]>();
 		ArrayList<String[]> tabCh = new ArrayList<String[]>();
 
-		BorderPane root = new BorderPane();
+		BorderPane root = new BorderPane(); //borderpane de la scene
 		Scene scene = new Scene(root);
-		MenuBar menuBar = new MenuBar();
+		MenuBar menuBar = new MenuBar(); //barre de menus
 
+		/**
+		 * Tableaux d'aperçu
+		 */
 		Label CsvLab = new Label("Valeur initial");
 
 		Label ModifLab = new Label("Valeur modifier");
@@ -122,11 +125,12 @@ public class MenuProjet extends Application{
 		AnchorPane.setBottomAnchor(table, 20.0);
 		AnchorPane.setLeftAnchor(table, 150.0);
 
+		//Vbox contenant les choicebox d'ajout de transformation/analyse/prevision
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
 		ajout.setPadding(new Insets(10, 10, 10, 10));
 
-		TabPane tabPane = new TabPane();
+		TabPane tabPane = new TabPane(); //Tabpane contenant les onglets de linecharts
 
 		root.setTop(menuBar);
 		root.setLeft(ajout);
@@ -137,27 +141,30 @@ public class MenuProjet extends Application{
 		Label lAjouA = new Label("Ajouter une analyse : ");
 		Label lAjouP = new Label("Ajouter une prévision : ");
 
-		HBox ajoutT = new HBox();
+		HBox ajoutT = new HBox(); //hbox pour centrer la choicebox et le bouton des transformations
 		ajoutT.setSpacing(10);
 
-		HBox ajoutA = new HBox();
+		HBox ajoutA = new HBox(); //hbox pour centrer la choicebox et le bouton des analyses
 		ajoutA.setSpacing(10);
 
-		HBox ajoutP = new HBox();
+		HBox ajoutP = new HBox();  //hbox pour centrer la choicebox et le bouton des previsions
 		ajoutP.setSpacing(10);
 
+		//choicebox des transformations
 		ChoiceBox<String> cAjoutT = new ChoiceBox<String>(FXCollections.observableArrayList("Logarithme Yt1", "BoxCox BC", "Logistique Yt2", "Moyenne Mobile (Mt)", "Xt-Mt", "St : saison", "Xt-St desaisonnalisation"));
 		cAjoutT.setPrefWidth(150);
 
+		//choicebox des analyses
 		ChoiceBox<String> cAjoutA = new ChoiceBox<String>(FXCollections.observableArrayList("Graphe des résidus", "Variance résiduelle", "Autocorrélation des résidus"));
 		cAjoutA.setPrefWidth(150);
 
+		//choicebox des previsions
 		ChoiceBox<String> cAjoutP = new ChoiceBox<String>(FXCollections.observableArrayList("Lissage exponentiel simple", "Lissage exponentiel double", "Holt-Winters"));
 		cAjoutP.setPrefWidth(150);
 
-		Button bAjoutT = new Button("Ajouter");
-		Button bAjoutA = new Button("Ajouter");
-		Button bAjoutP = new Button("Ajouter");
+		Button bAjoutT = new Button("Ajouter"); //bouton pour ajouter une transformation
+		Button bAjoutA = new Button("Ajouter");	//bouton pour ajouter une analyse
+		Button bAjoutP = new Button("Ajouter");	//bouton pour ajouter une prevision
 
 		ajoutT.getChildren().addAll(cAjoutT,bAjoutT);
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
@@ -191,18 +198,19 @@ public class MenuProjet extends Application{
 		menuH.getItems().addAll(aide,apropos);
 		menuS.getItems().addAll(vanilla,metroD,metroL,brume);
 
-		cAjoutT.getSelectionModel()
+		cAjoutT.getSelectionModel() //pour récup la transformation que l'utilisateur a choisi
 	    .selectedItemProperty()
 	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixT = newValue );
 
-	    cAjoutA.getSelectionModel()
+	    cAjoutA.getSelectionModel() //pour récup l'analyse que l'utilisateur a choisi
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixA = newValue );
 
-		cAjoutP.getSelectionModel()
+		cAjoutP.getSelectionModel() //pour récup la prevision que l'utilisateur a choisi
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixP = newValue );
 
+		//Evenement d'ajout de transformations
 		bAjoutT.setOnAction(e -> {
 			switch(choixT) {
 			case "Logarithme Yt1":
@@ -254,6 +262,7 @@ public class MenuProjet extends Application{
 			}
 		});
 
+		//Evenement d'ajout d'analyses
 		bAjoutA.setOnAction(e -> {
 			switch(choixA) {
 			case "Graphe des résidus":
@@ -279,6 +288,7 @@ public class MenuProjet extends Application{
 			}
 		});
 
+		//Evenement d'ajout de previsions
 		bAjoutP.setOnAction(e -> {
 			switch(choixP) {
 			case "Lissage exponentiel simple":
@@ -304,25 +314,26 @@ public class MenuProjet extends Application{
 			}
 		});
 
+		//css
 		vanilla.setOnAction(e -> {
 			scene.getStylesheets().clear();
 			System.out.println("vanilla !");
 		});
-
+		//css
 		metroD.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
 			scene.getStylesheets().add(styleMetroD);
 			System.out.println("metroDark !");
 		});
-
+		//css
 		metroL.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
 			scene.getStylesheets().add(styleMetroL);
 			System.out.println("metrolight !");
 		});
-
+		//css
 		brume.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
@@ -330,6 +341,7 @@ public class MenuProjet extends Application{
 			System.out.println("brume !");
 		});
 
+		//Evenement du chargement de csv en local
 		chargerCSV.setOnAction(e -> {
 			int indice = 0;
 			int i,j = 0;
@@ -376,17 +388,25 @@ public class MenuProjet extends Application{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
-			for(i = 0; i < indice ; i++)
-			{
-				x = Double.parseDouble(tabCh.get(i)[0]);
-				y = Double.parseDouble(tabCh.get(i)[1]);
-				c.addXY(x,y);
+			try {
+				for(i = 0; i < indice ; i++)
+				{
+					x = Double.parseDouble(tabCh.get(i)[0]);
+					y = Double.parseDouble(tabCh.get(i)[1]);
+					c.addXY(x,y);
+				}
 			}
+			catch (Exception e2) {
+				System.out.println(e2);
+			}
+
+
+
 
 
 		});
 
+		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
 			TextInputDialog dialog = new TextInputDialog("Download");
 			dialog.setTitle("Téléchargement d'un CSV par internet");

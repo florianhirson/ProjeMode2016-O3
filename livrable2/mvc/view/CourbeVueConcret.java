@@ -13,7 +13,7 @@ public class CourbeVueConcret<X, Y> extends CourbeVue<X,Y> {
 
 	@SuppressWarnings("unchecked")
 	public CourbeVueConcret(CourbeModel<X, Y> mod, CourbeController<X, Y> cont, Axis<X> xAx, Axis<Y> yAx, String t) {
-		super(mod, cont, xAx, yAx, t);
+		super(mod, cont, xAx, yAx, t, null);
 		lineChart.getData().add(series);
 
 	}
