@@ -102,7 +102,7 @@ public class MenuProjet extends Application{
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
 		
-		ArrayList<String[]> tabCh = new ArrayList<String[]>();
+		
 
 
 
@@ -113,9 +113,9 @@ public class MenuProjet extends Application{
 		/**
 		 * Tableaux d'aperçu
 		 */
-		Label CsvLab = new Label("Valeur initial");
+		Label CsvLab = new Label("Work In Progress");
 
-		Label ModifLab = new Label("Valeur modifier");
+		Label ModifLab = new Label("Work In Progress");
 
 		VBox valCsvLabel = new VBox();
 		VBox.setMargin(valCsvLabel, new Insets(200,0,0,0));
@@ -431,9 +431,7 @@ public class MenuProjet extends Application{
 					}
 					System.out.println(choixT);
 				}
-				System.out.println(choixP);
-				lambda = InputDialogs.saisieLambda();
-				System.out.println("Lambda :"+lambda);
+				
 				break;
 			case "Holt-Winters":
 				d = new DialogChoixCourbes(listCourbe);
@@ -477,7 +475,8 @@ public class MenuProjet extends Application{
 			String chemin = "";
 			String chaine = "";
 			BufferedReader fichier_source = null;
-			ArrayList<String[]> tabChaine = new ArrayList<String[]>();
+			ArrayList<String[]> tabChaine =null;
+			ArrayList<String[]> tabCh = new ArrayList<String[]>();
 			Courbe<Number,Number> c = new Courbe<Number,Number>();
 
 			int indice = 0;
@@ -505,6 +504,7 @@ public class MenuProjet extends Application{
 				e1.printStackTrace();
 			}
 			try {
+				 tabChaine = new ArrayList<String[]>();
 				while((chaine = fichier_source.readLine())!= null)
 				{
 					System.out.println(chaine+"");

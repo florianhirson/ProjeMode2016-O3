@@ -232,7 +232,9 @@ public class CourbeController<X,Y> {
 		
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
-		while(model.setBeta((double)InputDialogs.saisieLambda())==-1);
+		while(model.getBeta()<=0 || model.getBeta()>1){
+			model.setBeta((double)InputDialogs.saisieBeta());
+		};
 		courbeN=modcourbe.doLissageExp1(courbeN, model);
 		listCourbe.add(courbeN);
 		listTitle.add("Lissage exp simple");
@@ -257,7 +259,11 @@ public class CourbeController<X,Y> {
 	public void doLissageExp2(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
-		while(model.setBeta((double)InputDialogs.saisieLambda())==-1);
+		
+		while(model.getBeta()<=0 || model.getBeta()>1){
+			model.setBeta((double)InputDialogs.saisieBeta());
+		};
+		
 		courbeN=modcourbe.doLissageExp2(courbeN, model);
 		listCourbe.add(courbeN);
 		listTitle.add("Lissage exp double");

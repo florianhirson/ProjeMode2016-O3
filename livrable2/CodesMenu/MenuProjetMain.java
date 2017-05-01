@@ -10,7 +10,6 @@ import java.util.Optional;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -54,14 +53,16 @@ public class MenuProjetMain extends Application{
 	static BufferedReader fichier_source = null;
 	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
-    static private TableView valCsv = new TableView();
+    @SuppressWarnings("rawtypes")
+	static private TableView valCsv = new TableView();
+	@SuppressWarnings("rawtypes")
 	static private TableView valModif = new TableView();
 
 	// load the stylesheets
-	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
-	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
-	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();
-
+/*	String styleMetroD = getClass().getResource("styles/JMetroDarkTheme.css").toExternalForm();
+	String styleMetroL = getClass().getResource("styles/JMetroLightTheme.css").toExternalForm();
+	String styleBrume = getClass().getResource("styles/brume.css").toExternalForm();*/
+	
 	CourbeModel<Number,Number> model; 				//	Modele MVC
 	CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
 	CourbeController<Number,Number> control;        // structure OK
@@ -75,6 +76,7 @@ public class MenuProjetMain extends Application{
 		Application.launch(args);
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
@@ -429,21 +431,21 @@ public class MenuProjetMain extends Application{
 		metroD.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			scene.getStylesheets().add(styleMetroD);
+			//scene.getStylesheets().add(styleMetroD);
 			System.out.println("metroDark !");
 		});
 		//css
 		metroL.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			scene.getStylesheets().add(styleMetroL);
+			//scene.getStylesheets().add(styleMetroL);
 			System.out.println("metrolight !");
 		});
 		//css
 		brume.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			scene.getStylesheets().add(styleBrume);
+			//scene.getStylesheets().add(styleBrume);
 			System.out.println("brume !");
 		});
 

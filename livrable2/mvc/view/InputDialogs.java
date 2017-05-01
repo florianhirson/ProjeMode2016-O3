@@ -63,6 +63,25 @@ public class InputDialogs {
 		}
 		return 0;
 	}
+	
+	public static double saisieBeta() {
+		double beta = 0;
+		TextInputDialog dialog = new TextInputDialog("");
+		dialog.setHeaderText(null);
+
+		dialog.setTitle("Saisie de Beta pour Lissage");
+		dialog.setContentText("Veuillez entrer beta entre 0 et 1 : ");
+		Optional<String> res = dialog.showAndWait();
+
+		try {
+			beta = Double.parseDouble(res.get());
+			return beta;
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+		return 0;
+	}
 
 
 }
