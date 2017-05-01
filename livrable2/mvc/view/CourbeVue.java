@@ -43,7 +43,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		lineChart = new LineChart<X,Y>(xAxis,yAxis);
 		lineChart.setTitle(t+"");
 
-		tab.setText("Projet Modelisation");
+		tab.setText(t);
 		tab.setContent(lineChart);
         tabPane.getTabs().add(tab);
 		//definition de la serie

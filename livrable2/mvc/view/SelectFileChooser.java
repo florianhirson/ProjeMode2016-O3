@@ -25,7 +25,7 @@ public class SelectFileChooser {
 	public static String showSingleFileChooser() {
 
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File("livrable2/data/"));
+		fileChooser.setInitialDirectory(new File("data/"));
 		fileChooser.setTitle("Charger un fichier CSV");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
 		File selectedFile = fileChooser.showOpenDialog(null);

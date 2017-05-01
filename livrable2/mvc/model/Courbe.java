@@ -114,6 +114,10 @@ public class Courbe<typeX,typeY> {
 	}
 	
 	/**
+	 * getName getter
+	 */
+	public String getName(){return nom;}
+	/**
 	 * toString()
 	 */
 	public String toString(){

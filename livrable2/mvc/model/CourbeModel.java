@@ -56,6 +56,47 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 	/**
+	 * give the first occurrence of courbe named by n
+	 * @param n
+	 * @return courbe
+	 */
+	public Courbe<X,Y> getCourbebyName(String n){
+		Courbe<X,Y> tmp = null;
+		for(Courbe<X, Y> courbe: listcourbeData){
+			if(courbe.getName().equals(n)){
+				if(tmp==null)
+					tmp=courbe;
+				else
+					System.out.println("already set");
+			}
+		}
+		return tmp;
+		
+	}
+	
+	/**
+	 * give the first occurrence of courbe named by n return -1 if not found
+	 * @param n
+	 * @return index
+	 */
+	public int getIndexbyName(String n){
+		
+		int tmp = -1;
+		for(int i=0; i < listcourbeData.size(); i++){
+			Courbe<X,Y> courbe=listcourbeData.get(i);
+			if(courbe.getName().equals(n)){
+				if(tmp==-1)
+					tmp=i;
+				else
+					System.out.println("already set");
+			}
+		}
+		return tmp;
+		
+	}
+	
+	
+	/**
 	 * setIndex permet de choisir la courbe à transfo
 	 * si le choix est deficient c'est à dire inferieur à 0 ou superieur à la taille maximale on met respectivement l'index à 0 ou l'index à la taille max
 	 * ainsi on evite les Exception Out of Bounds
@@ -149,19 +190,16 @@ public class CourbeModel<X,Y> extends Observable {
 	 * @param c
 	 */
 	public void moyenneMobile(Courbe<Number,Number> c,int a){
-		if(!isSetIndex())checkSettingIndexOrDo(sc.nextInt());
+		if(!isSetIndex()){checkSettingIndexOrDo(sc.nextInt());}
 		double tabX[]=new double[courbeData.sizeOfData()];
 		double moyenne = 0;
 
 		if(a==1)System.out.println("Moyenne Mobile : Mht");
-		if(this.ordre <= 0){
-			System.out.print("Ordre : ");
-			setOrdre(sc.nextInt());
-		}
+		
 
-		if(this.ordre<=0)moyenneMobile(c,a);
+		if(this.ordre<=0);
 		else{
-			for(int i=2; i<courbeData.sizeOfData()-2;++i){
+			for(int i=2; i<(courbeData.sizeOfData()-2);i++){
 
 				tabX[i]=(double)courbeData.getX(i);
 				if(ordre%2==0){
@@ -257,14 +295,30 @@ public class CourbeModel<X,Y> extends Observable {
 		}
 		if(a==1)System.out.println("St : s1: "+s1+" s2: "+s2+" s3: "+s3+" s4: "+s4+"\n Surplus :"+surplus);
 		double temporary=0;
+		double temporaryNext=0;
 		for( i=0;i<courbeData.sizeOfData();i++){
-			temporary = ((Integer)courbeData.getX(i)*10)/10;
+			if((i+1)==courbeData.sizeOfData()){
+				temporaryNext=-1;
+			}else{
+				if(courbeData.getX(i+1) instanceof Double )
+					temporaryNext = ((Double)courbeData.getX(i+1)*10)/10;
+				else{
+					temporaryNext = ((Integer)courbeData.getX(i+1)*10)/10;
+				}
+			}
+			if(courbeData.getX(i) instanceof Double )
+				temporary = ((Double)courbeData.getX(i)*10)/10;
+			else{
+				temporary = ((Integer)courbeData.getX(i)*10)/10;
+			}
+			
 
 
 			if(temporary%4==0){
 				c.addXY(temporary, s4);
-			}else if((Integer)courbeData.getX(i+1)%4==0){
+			}else if(temporaryNext%4==0){
 				c.addXY(temporary, s3);
+				
 			}else if(temporary%2==0){
 				c.addXY(temporary, s2);
 			}else{
@@ -293,7 +347,10 @@ public class CourbeModel<X,Y> extends Observable {
 			des =(double)courbeData.getY(i);
 			des-=(double)st.getY(i);
 			if(a==1)System.out.println("Xt-St : "+des);
-			c.addXY((Integer)courbeData.getX(i), des);
+			if(courbeData.getX(i) instanceof Double)
+				c.addXY((double)courbeData.getX(i), des);
+			else
+				c.addXY((Integer)courbeData.getX(i), des);
 		}
 	}
 
@@ -561,17 +618,54 @@ public class CourbeModel<X,Y> extends Observable {
 		Courbe<Number,Number> s2=new Courbe<Number,Number>();
 		double xT = 0;
 		int i=0;
+		
+		double cdY_0 = 0;
+		double cdX_0 = 0;
+		if(courbeData.getY(0) instanceof Double){
+			cdY_0=(double)courbeData.getY(0);
+		}
+		else
+			cdY_0=(int)courbeData.getY(0);
 
+		if(courbeData.getX(0) instanceof Double){
+			cdY_0=(double)courbeData.getX(0);
+		}
+		else
+			cdY_0=(int)courbeData.getX(0);
+		
+		
 		if(getBeta()<0 || getBeta()>1){ setBeta(sc.nextDouble()); return lissage_exp1et2(s1,c2);}else{
-			c1.addXY((int)courbeData.getX(0), (double)courbeData.getY(0));
-			c2.addXY((int)courbeData.getX(0), (double)courbeData.getY(0));
-			s1.addXY((int)courbeData.getX(0),((double)courbeData.getY(0))*(1-beta) );
+			
+			double cdY = 0;
+			double cdX = 0;
+			if(courbeData.getY(i) instanceof Double){
+				cdY=(double)courbeData.getY(i);
+			}
+			else
+				cdY=(int)courbeData.getY(i);
+
+			if(courbeData.getX(i) instanceof Double){
+				cdY=(double)courbeData.getX(i);
+			}
+			else
+				cdY=(int)courbeData.getX(i);
+			
+			
+			c1.addXY(cdX_0, cdY_0);
+			c2.addXY(cdX_0, cdY_0);
+			s1.addXY(cdX_0,(cdY_0)*(1-beta) );
 			s2.addXY(s1.getX(0),((double)s1.getY(0))*(1-beta));
 			for( i=1; i < courbeData.sizeOfData();i++){
-				s1.addXY((int)courbeData.getX(i),beta*(double)courbeData.getY(i)+(1-beta)*(double)s1.getY(i-1));
-				s2.addXY((int)s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
-				c1.addXY((int)courbeData.getX(i), (double)courbeData.getY(i));
-				c2.addXY((int)courbeData.getX(i), (double)courbeData.getY(i));
+			
+				s1.addXY(cdX,beta*(double)courbeData.getY(i)+(1-beta)*(double)s1.getY(i-1));
+				if(s1.getX(i) instanceof Double)
+					s2.addXY((double)s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
+				else
+					s2.addXY((int)s1.getX(i),beta*(double)s1.getY(i)+(1-beta)*(double)s2.getY(i-1));
+				c1.addXY((cdX), (cdY));
+				c2.addXY((cdX), (cdY));
+			
+			
 			}
 			//pour demontrer le lissage nous allons ajouter 3 points
 
