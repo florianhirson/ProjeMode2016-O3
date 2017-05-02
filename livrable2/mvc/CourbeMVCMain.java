@@ -263,7 +263,7 @@ public class CourbeMVCMain extends Application{
 			}
 			if(Integer.valueOf(choix) == 2){ 
 
-				vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data);
+				vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),data, null);
 			}
 			for(i = 0; i < choice.size();i++){
 
