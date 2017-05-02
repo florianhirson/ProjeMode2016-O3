@@ -29,13 +29,15 @@ public class SelectFileChooser {
 		fileChooser.setTitle("Charger un fichier CSV");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
 		File selectedFile = fileChooser.showOpenDialog(null);
-
+		if(selectedFile == null) {
+			return null;
+		}
 		return selectedFile.getAbsolutePath();
 	}
 
 	public static String showDirChooser() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File("data/"));
+		directoryChooser.setInitialDirectory(new File(""));
         File selectedDirectory = directoryChooser.showDialog(null);
 
 		return selectedDirectory.getAbsolutePath();

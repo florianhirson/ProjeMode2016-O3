@@ -41,6 +41,10 @@ Synthese des actions effectues :
     18. UML model et ajout des methodes dans control ( methodes pour les classe ModifieCourbe ; ModifieCourbeForm et CourbeController ).
     19. refonte des Tests du Livrable 1 pour inclure le singleton + ajout.
     20. Recherche sur exceptions concernant l'interface
+    21. Correction de toute l'interface (avec Rayan) + modification de CourbeController.java
+    22. Test graphique manuel.
+    23. Video
+    
                 <<<< Livrable 3 >>>>
     (à venir)
     
@@ -59,9 +63,9 @@ Avis sur le groupe :
         1. Problème de mise en main.
         2. Problème d'organisation, de temps, d'optimisation.
         3. Problème réglable mais non géré.
+        4. Certaines personne ont dépassé la DeadLine ce qui nuis au projet ;
         
-        
-    Conclusion : Bon groupe.
+    Conclusion : Moyen groupe.
     
 Fréquence de travail : 
     >3h/semaine ;
