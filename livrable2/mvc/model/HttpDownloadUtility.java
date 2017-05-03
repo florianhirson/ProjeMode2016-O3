@@ -24,8 +24,8 @@ public class HttpDownloadUtility {
     public static void downloadFile(String fileURL, String saveDir)
             throws IOException {
         URL url = new URL(fileURL);
-        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-        int responseCode = httpConn.getResponseCode();
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection(); //ouverture de la connection a partir de l'url
+        int responseCode = httpConn.getResponseCode(); //code de réponse de l'ouverture de connection
 
         // always check HTTP response code first
         if (responseCode == HttpURLConnection.HTTP_OK) {
