@@ -1,12 +1,4 @@
 package mvc.model.test;
-/*
- * @author Rayan Haddad
- * @author Florian BARBET
- * */
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

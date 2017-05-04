@@ -1,14 +1,11 @@
-import java.util.*;
-
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MenuG extends Application{
@@ -52,13 +49,13 @@ public class MenuG extends Application{
 			logistique.setMaxSize(190, 50);
 			Button mobile = new Button("Moyenne Mobile");
 			mobile.setMaxSize(190, 50);
-			Button pondere = new Button("Moyenne Mobile Pondéré");
+			Button pondere = new Button("Moyenne Mobile Pondï¿½rï¿½");
 			pondere.setMaxSize(190, 50);
-			Button saison = new Button("Saisonnalité");
+			Button saison = new Button("Saisonnalitï¿½");
 			saison.setMaxSize(190, 50);
 			Button lineaire = new Button("Tendance Lineaire");
 			lineaire.setMaxSize(190, 50);
-			Button diff = new Button("Opérateur de différenciation");
+			Button diff = new Button("Opï¿½rateur de diffï¿½renciation");
 			diff.setMaxSize(190, 50);
 			
 			logarithme.setOnAction((eventlog) ->{

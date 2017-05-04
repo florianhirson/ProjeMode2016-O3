@@ -1,13 +1,5 @@
 package mvc.model.test;
 
-/*
- * @author Rayan Haddad
- * @author Florian BARBET
- * */
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 

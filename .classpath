@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="Unused/" kind="src" path="livrable2"/>
+	<classpathentry kind="src" path="livrable3"/>
 	<classpathentry kind="src" path="livrable2/Unused"/>
-	<classpathentry excluding="livrable2/|livrable2/Unused/" kind="src" path=""/>
+	<classpathentry excluding="livrable2/Unused/|livrable3/" kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<accessrules>
 			<accessrule kind="accessible" pattern="javafx/**"/>

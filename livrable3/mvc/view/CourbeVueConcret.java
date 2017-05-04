@@ -3,7 +3,6 @@ package mvc.view;
 import java.util.Observable;
 
 import javafx.scene.chart.Axis;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import mvc.control.CourbeController;
 import mvc.model.CourbeModel;
