@@ -79,7 +79,7 @@ public class MenuProjet extends Application{
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
-
+		primaryStage.setTitle("Projet de modélisation");
 		String data = "";
 		ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
 
