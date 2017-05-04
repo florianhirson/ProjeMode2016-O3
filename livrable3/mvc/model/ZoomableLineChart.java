@@ -1,3 +1,5 @@
+package mvc.model;
+
 import java.util.Collections;
 import java.util.Random;
 
@@ -31,25 +33,25 @@ import javafx.stage.Stage;
 public class ZoomableLineChart extends Application {
 
     private static final int NUM_DATA_POINTS = 1000 ;
-    
+
 	@Override
 	public void start(Stage primaryStage) {
 		final LineChart<Number, Number> chart = createChart();
-		
+
 		final StackPane chartContainer = new StackPane();
 		chartContainer.getChildren().add(chart);
-		
+
 		final Rectangle zoomRect = new Rectangle();
 		zoomRect.setManaged(false);
 		zoomRect.setFill(Color.LIGHTSEAGREEN.deriveColor(0, 1, 1, 0.5));
 		chartContainer.getChildren().add(zoomRect);
-		
+
 		setUpZooming(zoomRect, chart);
-		
+
 		final HBox controls = new HBox(10);
 		controls.setPadding(new Insets(10));
 		controls.setAlignment(Pos.CENTER);
-		
+
 		final Button zoomButton = new Button("Zoom");
 		final Button resetButton = new Button("Reset");
 		zoomButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -67,33 +69,33 @@ public class ZoomableLineChart extends Application {
                 final NumberAxis yAxis = (NumberAxis)chart.getYAxis();
                 yAxis.setLowerBound(0);
                 yAxis.setUpperBound(1000);
-                
+
                 zoomRect.setWidth(0);
                 zoomRect.setHeight(0);
             }
         });
-		final BooleanBinding disableControls = 
+		final BooleanBinding disableControls =
 		        zoomRect.widthProperty().lessThan(5)
 		        .or(zoomRect.heightProperty().lessThan(5));
 		zoomButton.disableProperty().bind(disableControls);
 		controls.getChildren().addAll(zoomButton, resetButton);
-		
+
 		final BorderPane root = new BorderPane();
 		root.setCenter(chartContainer);
 		root.setBottom(controls);
-		
+
 		final Scene scene = new Scene(root, 600, 400);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	
+
 	private LineChart<Number, Number> createChart() {
 	    final NumberAxis xAxis = createAxis();
-	    final NumberAxis yAxis = createAxis();	    
+	    final NumberAxis yAxis = createAxis();
 	    final LineChart<Number, Number> chart = new LineChart<>(xAxis, yAxis);
 	    chart.setAnimated(false);
 	    chart.setCreateSymbols(false);
-	    chart.setData(generateChartData());	    
+	    chart.setData(generateChartData());
 	    return chart ;
 	}
 
@@ -104,7 +106,7 @@ public class ZoomableLineChart extends Application {
 	    xAxis.setUpperBound(1000);
         return xAxis;
     }
-    
+
     private ObservableList<Series<Number, Number>> generateChartData() {
         final Series<Number, Number> series = new Series<>();
         series.setName("Data");
@@ -115,7 +117,7 @@ public class ZoomableLineChart extends Application {
         }
         return FXCollections.observableArrayList(Collections.singleton(series));
     }
-    
+
     private void setUpZooming(final Rectangle rect, final Node zoomingNode) {
         final ObjectProperty<Point2D> mouseAnchor = new SimpleObjectProperty<>();
         zoomingNode.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -138,7 +140,7 @@ public class ZoomableLineChart extends Application {
             }
         });
     }
-    
+
     private void doZoom(Rectangle zoomRect, LineChart<Number, Number> chart) {
         Point2D zoomTopLeft = new Point2D(zoomRect.getX(), zoomRect.getY());
         Point2D zoomBottomRight = new Point2D(zoomRect.getX() + zoomRect.getWidth(), zoomRect.getY() + zoomRect.getHeight());
@@ -154,7 +156,8 @@ public class ZoomableLineChart extends Application {
         xAxis.setUpperBound(xAxis.getLowerBound() + zoomRect.getWidth() / xAxisScale);
         yAxis.setLowerBound(yAxis.getLowerBound() + yOffset / yAxisScale);
         yAxis.setUpperBound(yAxis.getLowerBound() - zoomRect.getHeight() / yAxisScale);
-        System.out.println(yAxis.getLowerBound() + " " + yAxis.getUpperBound());
+        System.out.println("Y compris entre "+yAxis.getLowerBound() + " et " + yAxis.getUpperBound());
+        System.out.println("X compris entre "+xAxis.getLowerBound() + " et " + xAxis.getUpperBound());
         zoomRect.setWidth(0);
         zoomRect.setHeight(0);
     }
