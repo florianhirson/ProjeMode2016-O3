@@ -22,6 +22,7 @@ public class DialogTelechargement extends Stage{
 		Stage stage = new Stage();
 		BorderPane root = new BorderPane();
 	    Scene scene = new Scene(root, 450, 150, Color.WHITE);
+	    stage.setTitle("Telechargement de fichier CSV");
 	    stage.setResizable(false);
 	    stage.setScene(scene);
 

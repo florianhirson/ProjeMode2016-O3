@@ -106,6 +106,8 @@ public class MenuProjet extends Application{
 		 * Tableaux d'aperçu
 		 */
 		Label CsvLab = new Label("Work In Progress");
+		Label lLambda = new Label("Lambda : "+lambda);
+		Label lOrdre = new Label("Ordre : "+ordre);
 
 		Label ModifLab = new Label("Work In Progress");
 
@@ -186,7 +188,7 @@ public class MenuProjet extends Application{
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
 		ajoutP.getChildren().addAll(cAjoutP,bAjoutP);
 
-		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP);
+		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,lLambda,lOrdre);
 
 		Menu menuF = new Menu("File");
 		Menu menuH = new Menu("Aide");
@@ -261,6 +263,7 @@ public class MenuProjet extends Application{
 				}
 				System.out.println(choixT);
 				lambda = model.getLambda();
+				lLambda.setText("Lambda : "+lambda);
 				System.out.println("Lambda :"+lambda);
 
 				break;
@@ -305,6 +308,7 @@ public class MenuProjet extends Application{
 
 				System.out.println(choixT);
 				ordre = model.getOrdre();
+				lOrdre.setText("Ordre : "+ordre);
 				System.out.println("Ordre :"+ordre);
 				break;
 			case "Xt-Mt":
@@ -380,6 +384,7 @@ public class MenuProjet extends Application{
 					break;
 				System.out.println(choixA);
 				lambda = InputDialogs.saisieLambda();
+				lLambda.setText("Lambda : "+lambda);
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Autocorrélation des résidus":
@@ -578,7 +583,7 @@ public class MenuProjet extends Application{
 
 		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
-			new DialogTelechargement();
+			DialogTelechargement d = new DialogTelechargement();
 
 		});
 

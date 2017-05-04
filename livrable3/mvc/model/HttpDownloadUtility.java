@@ -7,6 +7,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  * Une méthode qui télécharge un fichier à partir d'une url.
  * @author Florian Hirson
@@ -69,7 +72,21 @@ public class HttpDownloadUtility {
             inputStream.close();
 
             System.out.println("Fichier telechargé");
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Fenetre d'information");
+            alert.setHeaderText(null);
+            alert.setContentText("Le fichier a bien été téléchargé !");
+
+            alert.showAndWait();
         } else {
+        	Alert alert = new Alert(AlertType.ERROR);
+        	alert.setTitle("Fenetre d'erreur");
+        	alert.setHeaderText(null);
+        	alert.setContentText("Aucun fichier à telecharger. Le serveur a répondu avec le code HTTP: " + responseCode);
+
+        	alert.showAndWait();
+
             System.out.println("Aucun fichier à telecharger. Le serveur a répondu avec le code HTTP: " + responseCode);
         }
         httpConn.disconnect();
