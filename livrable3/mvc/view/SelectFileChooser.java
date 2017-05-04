@@ -37,63 +37,12 @@ public class SelectFileChooser {
 
 	public static String showDirChooser() {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
-		directoryChooser.setInitialDirectory(new File(""));
         File selectedDirectory = directoryChooser.showDialog(null);
 
 		return selectedDirectory.getAbsolutePath();
 	}
 
-	public static void csvDownload(String urlStr, String file)  {
-		//System.setProperty("http.proxyPort", "3128");
-		//System.setProperty("http.proxyHost", "proxy.univ-lille1.fr");
-		URL url = null;
-		try {
-			url = new URL(urlStr);
-		} catch (MalformedURLException e) {
-			error(e);
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-        ReadableByteChannel rbc = null;
-		try {
-			rbc = Channels.newChannel(url.openStream());
-		} catch (IOException e) {
-			error(e);
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-        FileOutputStream fos = null;
-		try {
-			fos = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-			error(e);
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-        try {
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-		} catch (IOException e) {
-			error(e);
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-        try {
-			fos.close();
-		} catch (IOException e) {
-			error(e);
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-        try {
-			rbc.close();
-		} catch (IOException e) {
-			error(e);
-			// TODO Auto-generated catch block
-			System.out.println(e);
-		}
-        System.out.println("Success !");
 
-	}
 
 	public static void error(Exception e) {
 		Alert alert = new Alert(AlertType.ERROR);

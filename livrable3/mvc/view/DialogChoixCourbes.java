@@ -53,11 +53,11 @@ public class DialogChoixCourbes extends Stage{
 	    column3.setHgrow(Priority.ALWAYS);
 	    gridpane.getColumnConstraints().addAll(column1, column2, column3);
 
-	    Label candidatesLbl = new Label("Candidates");
+	    Label candidatesLbl = new Label("Courbes disponibles");
 	    GridPane.setHalignment(candidatesLbl, HPos.CENTER);
 	    gridpane.add(candidatesLbl, 0, 0);
 
-	    Label selectedLbl = new Label("selected");
+	    Label selectedLbl = new Label("Choisies");
 	    gridpane.add(selectedLbl, 2, 0);
 	    GridPane.setHalignment(selectedLbl, HPos.CENTER);
 

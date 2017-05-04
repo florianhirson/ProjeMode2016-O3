@@ -38,6 +38,7 @@ import mvc.model.CourbeModel;
 import mvc.view.CourbeVue;
 import mvc.view.CourbeVueConcret;
 import mvc.view.DialogChoixCourbes;
+import mvc.view.DialogTelechargement;
 import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
 
@@ -93,18 +94,9 @@ public class MenuProjet extends Application{
 
 		Courbe<Number,Number> res = new Courbe<Number,Number>();
 
-
-
-
-
-
 		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
-
-
-
-
 
 		BorderPane root = new BorderPane(); //borderpane de la scene
 		Scene scene = new Scene(root);
@@ -586,21 +578,7 @@ public class MenuProjet extends Application{
 
 		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
-			TextInputDialog dialog = new TextInputDialog("Download");
-			dialog.setTitle("Téléchargement d'un CSV par internet");
-			dialog.setContentText("Veuillez entrer l'url : ");
-			Optional<String> result = dialog.showAndWait();
-			try {
-				result.ifPresent(url -> {
-					String fileName = url.substring(url.lastIndexOf('/') + 1);
-					SelectFileChooser.csvDownload(url, "livrable2/data/"+fileName);
-					System.out.println("Success !");
-				});
-			}
-			catch (Exception e1) {
-				System.out.println(e1);
-			}
-
+			new DialogTelechargement();
 
 		});
 
