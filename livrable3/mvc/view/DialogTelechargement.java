@@ -16,6 +16,7 @@ import mvc.model.HttpDownloadUtility;
 public class DialogTelechargement extends Stage{
 	private String sChemin = "";
 	private String sUrl = "";
+	private static String saveFilePath;
 
 	public DialogTelechargement() {
 		super();
@@ -58,7 +59,7 @@ public class DialogTelechargement extends Stage{
 	    });
 
 	    tLocation.textProperty().addListener((observable, oldValue, newValue) -> {
-	        System.out.println("tUrl Changed (newValue: " + newValue + ")");
+	        System.out.println("tLocation Changed (newValue: " + newValue + ")");
 	        sChemin = newValue;
 	    });
 
@@ -77,12 +78,27 @@ public class DialogTelechargement extends Stage{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+	    	saveFilePath=HttpDownloadUtility.getFilePath();
 	    	stage.close();
 	    });
 
 	    stage.showAndWait();
 
 
+	}
+
+	/**
+	 * @return the saveFilePath
+	 */
+	public static String getSaveFilePath() {
+		return saveFilePath;
+	}
+
+	/**
+	 * @param saveFilePath the saveFilePath to set
+	 */
+	public static void setSaveFilePath(String saveFilePath) {
+		DialogTelechargement.saveFilePath = saveFilePath;
 	}
 
 

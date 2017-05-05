@@ -1,11 +1,12 @@
 package CodesMenu;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +27,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -80,8 +80,11 @@ public class MenuProjet extends Application{
 
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Projet de modélisation");
+		String save = "";
 		String data = "";
 		ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
+
+		BufferedWriter fichier_result = null;
 
 		Courbe<Number,Number> donnee = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
@@ -482,15 +485,6 @@ public class MenuProjet extends Application{
 		//Evenement du chargement de csv en local
 		chargerCSV.setOnAction(e -> {
 			String chemin = "";
-			String chaine = "";
-			BufferedReader fichier_source = null;
-			ArrayList<String[]> tabChaine =null;
-			ArrayList<String[]> tabCh = new ArrayList<String[]>();
-			Courbe<Number,Number> c = new Courbe<Number,Number>();
-
-			int indice = 0;
-			int i,j = 0;
-			Double x,y;
 
 			try {
 				chemin = SelectFileChooser.showSingleFileChooser();
@@ -500,90 +494,13 @@ public class MenuProjet extends Application{
 				System.out.println(ex);
 				System.out.println("Test exception 1");
 			}
-
-
-
-			try {
-				System.out.println(chemin);
-				fichier_source = new BufferedReader(new FileReader(chemin));
-				//System.out.println(fichier_source);
-			} catch (FileNotFoundException e1) {
-				SelectFileChooser.error(e1);
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				 tabChaine = new ArrayList<String[]>();
-				while((chaine = fichier_source.readLine())!= null)
-				{
-					System.out.println(chaine+"");
-
-					tabChaine.add(chaine.split(";"));
-					indice++;
-				}
-			} catch (IOException e1) {
-				SelectFileChooser.error(e1);
-				e1.printStackTrace();
-			}finally{
-				try {
-					fichier_source.close();
-				} catch (IOException e1) {
-					SelectFileChooser.error(e1);
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-
-
-			for( i = 0; i < indice ; i++)
-				for( j = 0; j < tabChaine.get(i).length ; j++ )
-				{
-					System.out.println(tabChaine.get(i)[j]+"---------");
-					tabCh.add(tabChaine.get(i)[j].split(","));
-				}
-
-			try {
-				for(i = 0; i < indice ; i++)
-				{
-					x = Double.parseDouble(tabCh.get(i)[0]);
-					y = Double.parseDouble(tabCh.get(i)[1]);
-					c.addXY(x,y);
-					System.out.println("("+x+";"+y+")");
-				}
-			}
-			catch (Exception e2) {
-				System.out.println(e2);
-			}
-
-			model=CourbeModel.getInstance();
-			if(model.getIndexbyName("Base")==-1){
-				listTitle.add("Base");
-				c.setName("Base");
-			}else{
-				for(i=0; i < 50; i++){
-					if(model.getIndexbyName("Base"+i)==-1){
-						listTitle.add("Base"+i);
-						c.setName("Base"+i);
-						i=50;
-					}
-				}
-			}
-			if(!model.isSetIndex()){
-				model.setCourbes(listc);
-			}
-			model.addCourbe(c);
-			model.setIndex(model.getIndexbyName(c.getName()));
-			control = new CourbeController<Number,Number>(model);
-			System.out.println("============"+model.getCourbe(model.getIndexUse()).getName()+"=================>"+c.getName()+" : "+model.getIndexbyName(c.getName()));
-			vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),c.getName(),tabPane);
-			control.addView(vue);
-
-			listCourbe.add(c);
+			lireFichier(chemin, listTitle, tabPane, listCourbe, listc);
 		});
 
 		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
 			DialogTelechargement d = new DialogTelechargement();
+			lireFichier(d.getSaveFilePath(), listTitle, tabPane, listCourbe, listc);
 
 		});
 
@@ -591,6 +508,7 @@ public class MenuProjet extends Application{
 			String chemin = "";
 			chemin = SelectFileChooser.showDirChooser();
 			System.out.println(chemin);
+			sauvegarderCourbes(listCourbe, listTitle, save, chemin, fichier_result, donnee);
 		});
 
 		exit.setOnAction(e ->{
@@ -627,6 +545,129 @@ public class MenuProjet extends Application{
 		primaryStage.setWidth(1000);
 		primaryStage.show();
 
+	}
+
+	public void lireFichier(String chemin, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Courbe<Number, Number>> listCourbe, ArrayList<Courbe<Number, Number>> listc) {
+		String chaine = "";
+		BufferedReader fichier_source = null;
+		ArrayList<String[]> tabChaine =null;
+		ArrayList<String[]> tabCh = new ArrayList<String[]>();
+		Courbe<Number,Number> c = new Courbe<Number,Number>();
+		int indice = 0;
+		int i,j = 0;
+		Double x,y;
+		try {
+			System.out.println(chemin);
+			fichier_source = new BufferedReader(new FileReader(chemin));
+			//System.out.println(fichier_source);
+		} catch (FileNotFoundException e1) {
+			SelectFileChooser.error(e1);
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			 tabChaine = new ArrayList<String[]>();
+			while((chaine = fichier_source.readLine())!= null)
+			{
+				System.out.println(chaine+"");
+
+				tabChaine.add(chaine.split(";"));
+				indice++;
+			}
+		} catch (IOException e1) {
+			SelectFileChooser.error(e1);
+			e1.printStackTrace();
+		}finally{
+			try {
+				fichier_source.close();
+			} catch (IOException e1) {
+				SelectFileChooser.error(e1);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+
+		for( i = 0; i < indice ; i++)
+			for( j = 0; j < tabChaine.get(i).length ; j++ )
+			{
+				System.out.println(tabChaine.get(i)[j]+"---------");
+				tabCh.add(tabChaine.get(i)[j].split(","));
+			}
+
+		try {
+			for(i = 0; i < indice ; i++)
+			{
+				x = Double.parseDouble(tabCh.get(i)[0]);
+				y = Double.parseDouble(tabCh.get(i)[1]);
+				c.addXY(x,y);
+				System.out.println("("+x+";"+y+")");
+			}
+		}
+		catch (Exception e2) {
+			System.out.println(e2);
+		}
+
+		model=CourbeModel.getInstance();
+		if(model.getIndexbyName("Base")==-1){
+			listTitle.add("Base");
+			c.setName("Base");
+		}else{
+			for(i=0; i < 50; i++){
+				if(model.getIndexbyName("Base"+i)==-1){
+					listTitle.add("Base"+i);
+					c.setName("Base"+i);
+					i=50;
+				}
+			}
+		}
+		if(!model.isSetIndex()){
+			model.setCourbes(listc);
+		}
+		model.addCourbe(c);
+		model.setIndex(model.getIndexbyName(c.getName()));
+		control = new CourbeController<Number,Number>(model);
+		System.out.println("============"+model.getCourbe(model.getIndexUse()).getName()+"=================>"+c.getName()+" : "+model.getIndexbyName(c.getName()));
+		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),c.getName(),tabPane);
+		control.addView(vue);
+
+		listCourbe.add(c);
+	}
+
+	public void sauvegarderCourbes(ArrayList<Courbe<Number, Number>> listCourbe, ArrayList<String> listTitle, String save, String chemin, BufferedWriter fichier_result, Courbe<Number, Number> donnee) {
+		String crw = "";
+
+		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
+		for(int i = 0 ; i < listCourbe.size();i++){
+
+			try{
+				String title = listTitle.get(i);
+				FileWriter fileWriter = new FileWriter(chemin+"/"+title+".csv");
+
+				fileWriter.append(title);
+				save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
+				fileWriter.close();
+				fichier_result = new BufferedWriter(new FileWriter(chemin+"/"+title+".csv"));
+
+
+				donnee = listCourbe.get(i);
+				for(int j=0;j<donnee.sizeOfData();j++)
+					save += donnee.getX(j)+","+donnee.getY(j)+"\n";
+
+
+				fichier_result.write(save);
+				fichier_result.close();
+				BufferedWriter fcr = new BufferedWriter(new FileWriter(chemin+"/Save.csv"));
+				crw+=save;
+				fcr.write(crw);
+				fcr.close();
+			}catch(Exception e){
+				System.out.println("Erreur : "+e.getMessage());
+			}
+
+
+
+		}
 	}
 
 }

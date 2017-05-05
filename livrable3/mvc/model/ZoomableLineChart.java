@@ -156,6 +156,7 @@ public class ZoomableLineChart extends Application {
         xAxis.setUpperBound(xAxis.getLowerBound() + zoomRect.getWidth() / xAxisScale);
         yAxis.setLowerBound(yAxis.getLowerBound() + yOffset / yAxisScale);
         yAxis.setUpperBound(yAxis.getLowerBound() - zoomRect.getHeight() / yAxisScale);
+        System.out.println("*********************************************************************");
         System.out.println("Y compris entre "+yAxis.getLowerBound() + " et " + yAxis.getUpperBound());
         System.out.println("X compris entre "+xAxis.getLowerBound() + " et " + xAxis.getUpperBound());
         zoomRect.setWidth(0);
