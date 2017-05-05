@@ -500,15 +500,28 @@ public class MenuProjet extends Application{
 		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
 			DialogTelechargement d = new DialogTelechargement();
-			lireFichier(d.getSaveFilePath(), listTitle, tabPane, listCourbe, listc);
+			try {
+				lireFichier(d.getSaveFilePath(), listTitle, tabPane, listCourbe, listc);
+			} catch (Exception ex) {
+				System.out.println(ex);
+				System.out.println("Erreur de chemin ou annulation");
+			}
+
 
 		});
 
 		saveCourbes.setOnAction( e -> {
 			String chemin = "";
-			chemin = SelectFileChooser.showDirChooser();
-			System.out.println(chemin);
-			sauvegarderCourbes(listCourbe, listTitle, save, chemin, fichier_result, donnee);
+			try {
+				chemin = SelectFileChooser.showDirChooser();
+				System.out.println(chemin);
+				sauvegarderCourbes(listCourbe, listTitle, save, chemin, fichier_result, donnee);
+			} catch(Exception ex) {
+				System.out.println(ex);
+				System.out.println("Erreur de chemin ou annulation");
+			}
+
+
 		});
 
 		exit.setOnAction(e ->{
