@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -16,6 +18,8 @@ public class LineChartSample extends Application {
 
     @Override
     public void start(final Stage stage) {
+    	TabPane tabPane = new TabPane();
+    	Tab tab = new Tab();
 	stage.setTitle("Line Chart Sample");
 	// defining the axes
 	final NumberAxis xAxis = new NumberAxis();
@@ -50,8 +54,12 @@ public class LineChartSample extends Application {
 	// bc.getData().addAll(series1, series2, series3);
 	final StackPane pane = new StackPane();
 	pane.getChildren().add(lineChart);
-	final Scene scene = new Scene(pane, 500, 400);
-	new ZoomManager<Number, Number>(pane, lineChart, series);
+	final Scene scene = new Scene(tabPane);
+	new ZoomManager(pane, lineChart, series);
+
+	tab.setText("Blablabla");
+	tab.setContent(pane);
+    tabPane.getTabs().add(tab);
 	stage.setScene(scene);
 	stage.show();
     }
