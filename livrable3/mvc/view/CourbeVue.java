@@ -7,11 +7,13 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
 import mvc.model.Courbe;
@@ -22,7 +24,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected CourbeController<X,Y> controller ;
 	protected final Axis<X> xAxis;
 	protected final Axis<Y> yAxis;
-	protected final LineChart<X,Y> lineChart;
+	protected final LineChart<Number,Number> lineChart;
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
 
@@ -30,24 +32,23 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,Axis<X> xAx,Axis<Y> yAx,String t,TabPane tabPane){
 		super();
 		super.setTitle("Projet Modelisation");
-
 		Tab tab = new Tab();
-
 		model = mod;
 		controller = cont;
 		xAxis=xAx;
 		yAxis=yAx;
+
+		xAxis.setAutoRanging(true);
+		((NumberAxis) xAxis).setForceZeroInRange(false);
+		yAxis.setAutoRanging(true);
+		((NumberAxis) yAxis).setForceZeroInRange(false);
+
 		xAxis.setLabel("Abcisse");
 		yAxis.setLabel("Ordonnee");
-		lineChart = new LineChart<X,Y>(xAxis,yAxis);
+		lineChart = new LineChart<Number,Number>(xAxis,yAxis);
 		lineChart.setTitle(t+"");
 
-		tab.setText(t);
-		tab.setContent(lineChart);
-        tabPane.getTabs().add(tab);
 		//definition de la serie
-
-
 		series.setName(t);
 
 		// remplir la serie de donnees
@@ -59,7 +60,15 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 		model.addObserver(this);
 
+		final StackPane pane = new StackPane();
+		pane.getChildren().add(lineChart);
+		new ZoomManager(pane, lineChart, series);
+
+		tab.setText(t);
+		tab.setContent(pane);
+        tabPane.getTabs().add(tab);
 	}
+
 
 
 
@@ -89,12 +98,12 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 
 
-	public void setColorSeries( Courbe<X,Y> c,int nbCourbe, String color){
+	public void setColorSeries( Courbe<Number,Number> c,int nbCourbe, String color){
 		this.show();
 		String backgroundStyle = "-fx-background-color: "+color+",white";
 		String strokeStyle = "-fx-stroke:"+ color;
-		final ObservableList<Series<X,Y>> chart = lineChart.getData();
-		final Series<X, Y> series1;
+		final ObservableList<Series<Number,Number>> chart = lineChart.getData();
+		final Series<Number, Number> series1;
 		final Set<Node> nodes;
 		if(chart.size()!=0 ){
 			 series1 = chart.get(nbCourbe);
@@ -103,7 +112,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			series1 = null;
 		}
 
-		for (final Data<X, Y> data : series1.getData()) {
+		for (final Data<Number, Number> data : series1.getData()) {
 			data.getNode().setStyle(backgroundStyle);
 		}
 
