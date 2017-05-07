@@ -24,7 +24,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected CourbeController<X,Y> controller ;
 	protected final Axis<X> xAxis;
 	protected final Axis<Y> yAxis;
-	protected final LineChart<Number,Number> lineChart;
+	protected final LineChart<X,Y> lineChart;
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
 
@@ -45,7 +45,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 		xAxis.setLabel("Abcisse");
 		yAxis.setLabel("Ordonnee");
-		lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+		lineChart = new LineChart<X,Y>(xAxis,yAxis);
 		lineChart.setTitle(t+"");
 
 		//definition de la serie
@@ -98,12 +98,12 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 
 
-	public void setColorSeries( Courbe<Number,Number> c,int nbCourbe, String color){
+	public void setColorSeries( Courbe<X,Y> c,int nbCourbe, String color){
 		this.show();
 		String backgroundStyle = "-fx-background-color: "+color+",white";
 		String strokeStyle = "-fx-stroke:"+ color;
-		final ObservableList<Series<Number,Number>> chart = lineChart.getData();
-		final Series<Number, Number> series1;
+		final ObservableList<Series<X,Y>> chart = lineChart.getData();
+		final Series<X, Y> series1;
 		final Set<Node> nodes;
 		if(chart.size()!=0 ){
 			 series1 = chart.get(nbCourbe);
@@ -112,7 +112,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			series1 = null;
 		}
 
-		for (final Data<Number, Number> data : series1.getData()) {
+		for (final Data<X, Y> data : series1.getData()) {
 			data.getNode().setStyle(backgroundStyle);
 		}
 
