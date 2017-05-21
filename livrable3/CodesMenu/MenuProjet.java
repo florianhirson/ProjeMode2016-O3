@@ -1,12 +1,9 @@
 package CodesMenu;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -52,7 +49,7 @@ public class MenuProjet extends Application{
 
 	static double lambda = 0;
 	static int ordre = 0;
-
+	
 	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
 	@SuppressWarnings("rawtypes")
@@ -104,8 +101,8 @@ public class MenuProjet extends Application{
 		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
-
-
+		
+		
 
 
 
@@ -281,7 +278,7 @@ public class MenuProjet extends Application{
 				if(choix.isEmpty()) {
 					System.out.println("choix est vide");
 				}
-                else {
+				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
 						control.doLogistique(courbe, vueF, listCourbe, listTitle, tabPane);
@@ -303,7 +300,7 @@ public class MenuProjet extends Application{
 					}
 					System.out.println(choixT);
 				}
-
+				
 				System.out.println(choixT);
 				ordre = model.getOrdre();
 				System.out.println("Ordre :"+ordre);
@@ -424,7 +421,7 @@ public class MenuProjet extends Application{
 					}
 					System.out.println(choixT);
 				}
-
+				
 				break;
 			case "Holt-Winters":
 				d = new DialogChoixCourbes(listCourbe);
@@ -461,18 +458,6 @@ public class MenuProjet extends Application{
 			scene.getStylesheets().clear();
 			//scene.getStylesheets().add(styleBrume);
 			System.out.println("brume !");
-		});
-
-		//aide en ligne
-		aide.setOnAction(e -> {
-				try {
-
-					getHostServices().showDocument("http://www.hirsonf.fr"); //il suffit de changer l'url
-				} catch (Exception ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
-				}
-
 		});
 
 		//Evenement du chargement de csv en local
@@ -527,9 +512,9 @@ public class MenuProjet extends Application{
 					SelectFileChooser.error(e1);
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}	
 			}
-
+			
 
 			for( i = 0; i < indice ; i++)
 				for( j = 0; j < tabChaine.get(i).length ; j++ )
@@ -537,7 +522,7 @@ public class MenuProjet extends Application{
 					System.out.println(tabChaine.get(i)[j]+"---------");
 					tabCh.add(tabChaine.get(i)[j].split(","));
 				}
-
+			
 			try {
 				for(i = 0; i < indice ; i++)
 				{
@@ -565,7 +550,7 @@ public class MenuProjet extends Application{
 				}
 			}
 			if(!model.isSetIndex()){
-				model.setCourbes(listc);
+				model.setCourbes(listc);	
 			}
 			model.addCourbe(c);
 			model.setIndex(model.getIndexbyName(c.getName()));
@@ -586,7 +571,7 @@ public class MenuProjet extends Application{
 			try {
 				result.ifPresent(url -> {
 					String fileName = url.substring(url.lastIndexOf('/') + 1);
-					SelectFileChooser.csvDownload(url, "livrable2/data/"+fileName);
+					SelectFileChooser.csvDownload(url, "data/"+fileName);
 					System.out.println("Success !");
 				});
 			}
