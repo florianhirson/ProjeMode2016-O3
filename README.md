@@ -1,13 +1,12 @@
-Source informative intérressante pour le projet :
+Il reste à faire : 
 
+-saisonnalité par modèle multivarié ( il faut se renseigner dessus parce que mise à part preuve du contraire je ne me souviens plus qu'on l'ai vue en cour )
 
-
--> JavaFX Charts > Line Charts --- http://docs.oracle.com/javafx/2/charts/line-chart.htm#CIHGBCFI
 TODO list :
 
-Rayan HADDAD :
-Thomas MASTALERZ :
-Florian BARBET :
+Rayan HADDAD :Moyenne mobile pondérée d'ordre h (à valider )
+Thomas MASTALERZ :Systeme de plug-in
+Florian BARBET :Systeme de plug-in
 Florian HIRSON :
 
 
