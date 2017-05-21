@@ -5,8 +5,11 @@ Il reste à faire :
 TODO list :
 
 Rayan HADDAD :Moyenne mobile pondérée d'ordre h (à valider )
+
 Thomas MASTALERZ :Systeme de plug-in
+
 Florian BARBET :Systeme de plug-in
+
 Florian HIRSON :Faire les zoom sur la courbe
 
 
