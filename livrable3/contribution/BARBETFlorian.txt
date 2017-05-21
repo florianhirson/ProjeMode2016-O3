@@ -44,6 +44,7 @@ Synthese des actions effectues :
     21. Correction de toute l'interface (avec Rayan) + modification de CourbeController.java
     22. Test graphique manuel.
     23. Video
+    24. Mise en place de la logistique dans la partie graphique.
     
                 <<<< Livrable 3 >>>>
     (à venir)
