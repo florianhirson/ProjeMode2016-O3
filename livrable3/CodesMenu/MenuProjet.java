@@ -281,20 +281,10 @@ public class MenuProjet extends Application{
 				if(choix.isEmpty()) {
 					System.out.println("choix est vide");
 				}
-				else {
+                else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
-						model.logistique(courbeN, 0);
-						listCourbe.add(courbeN);
-						listTitle.add("Logistique");
-						courbeN.setName("Logistique");
-						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
-						control.addView(vueF);
-						vueF.addSeries(courbeN, "Yt2");
-						vueF.setTitle("Logistique");
-						//vueF.show();
-
+						control.doLogistique(courbe, vueF, listCourbe, listTitle, tabPane);
 					}
 					System.out.println(choixT);
 				}
