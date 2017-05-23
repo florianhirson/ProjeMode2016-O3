@@ -6,6 +6,7 @@ package mvc.control;
 import java.util.ArrayList;
 
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import mvc.model.Courbe;
 import mvc.model.CourbeModel;
@@ -23,20 +24,20 @@ public class CourbeController<X,Y> {
 	public CourbeController( CourbeModel<Number,Number> m) {
 		model = m;
 	}
-	
+
 
 	public void fixeCourbes(ArrayList<Courbe<Number,Number>> listcourbe){
-		
+
 		model.setCourbes(listcourbe);
-	
+
 	}
 
 	public void addView ( CourbeVue<Number,Number> view ) {
 		this.view=view ;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doMM(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doMM(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 
 		while(model.getOrdre()<=0){
@@ -52,17 +53,17 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "MM");
 		vueF.setTitle("MM");
 		model.setIndex(0);
 	}
-	
-	
-	
+
+
+
 	@SuppressWarnings("unchecked")
-	public void doSaisonResidu(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doSaisonResidu(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 
 		while(model.getOrdre()<=0){
@@ -78,18 +79,18 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "Xt-Mht");
 		vueF.setTitle("Xt-Mht");
 		model.setIndex(0);
 
 	}
-	
-	
-	
+
+
+
 	@SuppressWarnings("unchecked")
-	public void doSaison(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doSaison(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 
 		while(model.getOrdre()<=0){
@@ -105,17 +106,17 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "St");
 		vueF.setTitle("St");
 		model.setIndex(0);
 	}
-	
-	
-	
+
+
+
 	@SuppressWarnings("unchecked")
-	public void doDesaisonaliser(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doDesaisonaliser(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 
 		while(model.getOrdre()<=0){
@@ -131,17 +132,17 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "Xt-St");
 		vueF.setTitle("Xt-St");
 		model.setIndex(0);
 	}
-	
-	
-	
+
+
+
 	@SuppressWarnings("unchecked")
-	public void doLogistique(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doLogistique(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
 		model.logistique(courbeN,1);
@@ -153,17 +154,17 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT);
 		this.addView(vueF);
 		vueF.setTitle("Logistique");
 		model.setIndex(0);
-		
-		
+
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doLog(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane ){
-		
+	public void doLog(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
+
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
 		model.transfoLog(courbeN,1);
@@ -175,17 +176,17 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.setTitle("Logarithme");
 		model.setIndex(0);
-		
-	
-		
+
+
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doBoxCox(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane ){
+	public void doBoxCox(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT ){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 
 		while(model.getLambda()<0){
@@ -201,15 +202,15 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "BC");
 		vueF.setTitle("BoxCox");
 		model.setIndex(0);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doRegLin(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doRegLin(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
 		model.transfoRegLineaire(courbeN,1);
@@ -221,15 +222,15 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.setTitle("Regression Lineaire");
 		model.setIndex(0);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doLissageExp1(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
-		
+	public void doLissageExp1(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
+
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
 		while(model.getBeta()<=0 || model.getBeta()>1){
@@ -244,26 +245,26 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.setTitle("Lissage simple");
 		model.setIndex(0);
-		
+
 		Courbe<Number,Number> c = modcourbe.doLog(new Courbe<Number,Number>(),model);
 		model.addCourbe(c);
 		view.addSeries(c,"LS");
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doLissageExp2(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doLissageExp2(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
-		
+
 		while(model.getBeta()<=0 || model.getBeta()>1){
 			model.setBeta((double)InputDialogs.saisieBeta());
 		};
-		
+
 		courbeN=modcourbe.doLissageExp2(courbeN, model);
 		listCourbe.add(courbeN);
 		listTitle.add("Lissage exp double");
@@ -273,18 +274,18 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 		this.addView(vueF);
 		vueF.setTitle("Lissage double");
 		model.setIndex(0);
-		
+
 		Courbe<Number,Number> c = modcourbe.doLog(new Courbe<Number,Number>(),model);
 		model.addCourbe(c);
 		view.addSeries(c,"LD");
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void doResidu(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane){
+	public void doResidu(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Tab> listT){
 		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
 		model.setIndex(model.getIndexbyName(courbe.getName()));
 		while(model.getOrdre()<=0){
@@ -299,7 +300,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT);
 		this.addView(vueF);
 		vueF.setTitle("Residu");
 		model.setIndex(0);

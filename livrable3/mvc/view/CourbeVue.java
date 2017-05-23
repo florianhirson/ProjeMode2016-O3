@@ -1,5 +1,6 @@
 package mvc.view;
 
+import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected XYChart.Series series = new XYChart.Series();
 
 	@SuppressWarnings({"unchecked", "rawtypes" })
-	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,Axis<X> xAx,Axis<Y> yAx,String t,TabPane tabPane){
+	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,Axis<X> xAx,Axis<Y> yAx,String t,TabPane tabPane, ArrayList<Tab> listT){
 		super();
 		super.setTitle("Projet Modelisation");
 		Tab tab = new Tab();
@@ -67,6 +68,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		tab.setText(t);
 		tab.setContent(pane);
         tabPane.getTabs().add(tab);
+        listT.add(tab);
 	}
 
 

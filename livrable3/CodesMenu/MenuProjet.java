@@ -50,7 +50,7 @@ public class MenuProjet extends Application{
 
 	static double lambda = 0;
 	static int ordre = 0;
-
+	ArrayList<Tab> listT = new ArrayList<Tab>();
 	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
 	@SuppressWarnings("rawtypes")
@@ -252,7 +252,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLog(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doLog(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -267,7 +267,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doBoxCox(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doBoxCox(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -291,7 +291,7 @@ public class MenuProjet extends Application{
 						listCourbe.add(courbeN);
 						listTitle.add("Logistique");
 						courbeN.setName("Logistique");
-						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane);
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
 						control.addView(vueF);
 						vueF.addSeries(courbeN, "Yt2");
 						vueF.setTitle("Logistique");
@@ -311,7 +311,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doMM(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doMM(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -330,7 +330,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doSaisonResidu(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doSaisonResidu(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -345,7 +345,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doSaison(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doSaison(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -360,7 +360,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doDesaisonaliser(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doDesaisonaliser(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -381,7 +381,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doResidu(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doResidu(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -419,7 +419,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLissageExp1(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doLissageExp1(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -434,7 +434,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLissageExp2(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doLissageExp2(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -453,6 +453,9 @@ public class MenuProjet extends Application{
 		//reaffiche les onglets supprimés WIP
 		reafficher.setOnAction(e -> {
 			tabPane.getTabs().clear();
+			for(Tab t : listT) {
+				tabPane.getTabs().add(t);
+			}
 		});
 
 		//supprime tous les onglets et les courbes
@@ -564,6 +567,7 @@ public class MenuProjet extends Application{
 
 		Tab tab = new Tab();
 		tab.setText("Origin");
+		listT.add(tab);
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
 		xAxis.setLabel("Month");
@@ -660,7 +664,7 @@ public class MenuProjet extends Application{
 		model.setIndex(model.getIndexbyName(c.getName()));
 		control = new CourbeController<Number,Number>(model);
 		System.out.println("============"+model.getCourbe(model.getIndexUse()).getName()+"=================>"+c.getName()+" : "+model.getIndexbyName(c.getName()));
-		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),c.getName(),tabPane);
+		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),c.getName(),tabPane, listT);
 		control.addView(vue);
 
 		listCourbe.add(c);
