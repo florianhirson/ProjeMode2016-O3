@@ -458,6 +458,7 @@ public class MenuProjet extends Application{
 		//supprime tous les onglets et les courbes
 		reset.setOnAction(e -> {
 			tabPane.getTabs().clear();
+			listCourbe.clear();
 		});
 
 
