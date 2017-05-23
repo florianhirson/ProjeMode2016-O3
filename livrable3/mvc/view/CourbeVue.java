@@ -75,6 +75,12 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 
 
+
+
+
+
+
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addSeries( CourbeModel<X,Y> c, String title){
 		XYChart.Series nSeries = new XYChart.Series();

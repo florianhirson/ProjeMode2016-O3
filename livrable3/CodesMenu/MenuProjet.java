@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -30,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
@@ -57,6 +59,8 @@ public class MenuProjet extends Application{
 	static private TableView valCsv = new TableView();
 	@SuppressWarnings("rawtypes")
 	static private TableView valModif = new TableView();
+
+	LineChart lineChart;
 
 	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -568,10 +572,12 @@ public class MenuProjet extends Application{
 		Tab tab = new Tab();
 		tab.setText("Origin");
 		listT.add(tab);
-		final CategoryAxis xAxis = new CategoryAxis();
+		final NumberAxis xAxis = new NumberAxis();
 		final NumberAxis yAxis = new NumberAxis();
-		xAxis.setLabel("Month");
-		final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
+		xAxis.setLabel("Abcisse");
+		yAxis.setLabel("Ordonnee");
+
+		lineChart = new LineChart(xAxis,yAxis);
 
 		tab.setContent(lineChart);
 		tabPane.getTabs().add(tab);
@@ -584,6 +590,7 @@ public class MenuProjet extends Application{
 	}
 
 	public void lireFichier(String chemin, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Courbe<Number, Number>> listCourbe, ArrayList<Courbe<Number, Number>> listc) {
+		String name = "";
 		String chaine = "";
 		BufferedReader fichier_source = null;
 		ArrayList<String[]> tabChaine =null;
@@ -648,11 +655,13 @@ public class MenuProjet extends Application{
 		if(model.getIndexbyName("Base")==-1){
 			listTitle.add("Base");
 			c.setName("Base");
+			name = "Base";
 		}else{
 			for(i=0; i < 50; i++){
 				if(model.getIndexbyName("Base"+i)==-1){
 					listTitle.add("Base"+i);
 					c.setName("Base"+i);
+					name = "Base" + i;
 					i=50;
 				}
 			}
@@ -664,10 +673,12 @@ public class MenuProjet extends Application{
 		model.setIndex(model.getIndexbyName(c.getName()));
 		control = new CourbeController<Number,Number>(model);
 		System.out.println("============"+model.getCourbe(model.getIndexUse()).getName()+"=================>"+c.getName()+" : "+model.getIndexbyName(c.getName()));
-		vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),c.getName(),tabPane, listT);
-		control.addView(vue);
+
+		addSerie(name,c);
+
 
 		listCourbe.add(c);
+
 	}
 
 	public void sauvegarderCourbes(ArrayList<Courbe<Number, Number>> listCourbe, ArrayList<String> listTitle, String save, String chemin, BufferedWriter fichier_result, Courbe<Number, Number> donnee) {
@@ -704,6 +715,21 @@ public class MenuProjet extends Application{
 
 
 		}
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes" })
+	public void addSerie(String t, Courbe<Number,Number> c) {
+		XYChart.Series series1 = new XYChart.Series();
+        series1.setName(t);
+
+		// remplir la serie de donnees
+		for(int i = 0; i < c.sizeOfData()  ; i++)
+		{
+			series1.getData().add(new XYChart.Data(c.getX(i), c.getY(i)));
+			System.out.println("x : "+c.getX(i)+", y : "+c.getY(i));
+		}
+		lineChart.getData().add(series1);
+
 	}
 
 }
