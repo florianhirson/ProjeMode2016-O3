@@ -59,9 +59,9 @@ public class MenuProjet extends Application{
 	static private TableView valModif = new TableView();
 
 	// load the stylesheets
-	/*String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
+	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
 	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
-	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();*/
+	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();
 
 	CourbeModel<Number,Number> model; 				//	Modele MVC
 	CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
@@ -83,7 +83,6 @@ public class MenuProjet extends Application{
 		String save = "";
 		String data = "";
 		ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
-
 		BufferedWriter fichier_result = null;
 
 		Courbe<Number,Number> donnee = new Courbe<Number,Number>();
@@ -151,6 +150,7 @@ public class MenuProjet extends Application{
 		ajout.setSpacing(10);
 		ajout.setPadding(new Insets(10, 10, 10, 10));
 
+
 		TabPane tabPane = new TabPane(); //Tabpane contenant les onglets de linecharts
 
 		root.setTop(menuBar);
@@ -193,9 +193,15 @@ public class MenuProjet extends Application{
 
 		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,lLambda,lOrdre);
 
+
+
 		Menu menuF = new Menu("File");
+		Menu menuO = new Menu("Options");
 		Menu menuH = new Menu("Aide");
 		Menu menuS = new Menu("Styles");
+
+		MenuItem reafficher = new MenuItem("Réafficher les onglets");
+		MenuItem reset = new MenuItem("Supprimer tous les onglets et toutes les courbes");
 
 		MenuItem chargerCSV = new MenuItem("Charger un fichier CSV");
 		MenuItem chargerCSVInternet = new MenuItem("Charger un fichier CSV par internet");
@@ -210,9 +216,10 @@ public class MenuProjet extends Application{
 		MenuItem metroL = new MenuItem("Metro clair");
 		MenuItem brume = new MenuItem("Brume");
 
-		menuBar.getMenus().addAll(menuF,menuS,menuH);
+		menuBar.getMenus().addAll(menuF,menuO,menuS,menuH);
 		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 
+		menuO.getItems().addAll(reafficher,reset);
 		menuF.getItems().addAll(chargerCSV,chargerCSVInternet,saveCourbes);
 		menuF.getItems().add(new SeparatorMenuItem());
 		menuF.getItems().add(exit);
@@ -443,6 +450,17 @@ public class MenuProjet extends Application{
 			}
 		});
 
+		//reaffiche les onglets supprimés WIP
+		reafficher.setOnAction(e -> {
+			tabPane.getTabs().clear();
+		});
+
+		//supprime tous les onglets et les courbes
+		reset.setOnAction(e -> {
+			tabPane.getTabs().clear();
+		});
+
+
 		//css
 		vanilla.setOnAction(e -> {
 			scene.getStylesheets().clear();
@@ -452,21 +470,21 @@ public class MenuProjet extends Application{
 		metroD.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			//scene.getStylesheets().add(styleMetroD);
+			scene.getStylesheets().add(styleMetroD);
 			System.out.println("metroDark !");
 		});
 		//css
 		metroL.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			//scene.getStylesheets().add(styleMetroL);
+			scene.getStylesheets().add(styleMetroL);
 			System.out.println("metrolight !");
 		});
 		//css
 		brume.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			//scene.getStylesheets().add(styleBrume);
+			scene.getStylesheets().add(styleBrume);
 			System.out.println("brume !");
 		});
 
@@ -544,7 +562,7 @@ public class MenuProjet extends Application{
 		});
 
 		Tab tab = new Tab();
-		tab.setText("Tab 1");
+		tab.setText("Origin");
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
 		xAxis.setLabel("Month");
