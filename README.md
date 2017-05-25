@@ -10,6 +10,6 @@ Thomas MASTALERZ :Systeme de plug-in
 
 Florian BARBET :Systeme de plug-in
 
-Florian HIRSON :Faire les zoom sur la courbe
+Florian HIRSON : Zoom fini, en attente d'instructions
 
 
