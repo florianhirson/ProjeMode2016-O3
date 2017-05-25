@@ -53,7 +53,7 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT, courbe);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "MM");
 		vueF.setTitle("MM");
@@ -79,7 +79,7 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "Xt-Mht");
 		vueF.setTitle("Xt-Mht");
@@ -106,7 +106,7 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "St");
 		vueF.setTitle("St");
@@ -132,7 +132,7 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "Xt-St");
 		vueF.setTitle("Xt-St");
@@ -154,7 +154,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT, courbe);
 		this.addView(vueF);
 		vueF.setTitle("Logistique");
 		model.setIndex(0);
@@ -176,7 +176,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.setTitle("Logarithme");
 		model.setIndex(0);
@@ -202,7 +202,7 @@ public class CourbeController<X,Y> {
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.addSeries(courbeN, "BC");
 		vueF.setTitle("BoxCox");
@@ -222,7 +222,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.setTitle("Regression Lineaire");
 		model.setIndex(0);
@@ -245,7 +245,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.setTitle("Lissage simple");
 		model.setIndex(0);
@@ -274,7 +274,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT, courbe);
 		this.addView(vueF);
 		vueF.setTitle("Lissage double");
 		model.setIndex(0);
@@ -300,7 +300,7 @@ public class CourbeController<X,Y> {
 		;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>) this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT, courbe);
 		this.addView(vueF);
 		vueF.setTitle("Residu");
 		model.setIndex(0);

@@ -23,16 +23,17 @@ import mvc.model.CourbeModel;
 public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected CourbeModel<X,Y> model ;
 	protected CourbeController<X,Y> controller ;
-	protected final Axis<X> xAxis;
-	protected final Axis<Y> yAxis;
-	protected final LineChart<X,Y> lineChart;
+	protected final NumberAxis xAxis;
+	protected final NumberAxis yAxis;
+	protected final LineChart<Number,Number> lineChart;
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
 
 	@SuppressWarnings({"unchecked", "rawtypes" })
-	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,Axis<X> xAx,Axis<Y> yAx,String t,TabPane tabPane, ArrayList<Tab> listT){
+	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,NumberAxis xAx,NumberAxis yAx,String t,TabPane tabPane, ArrayList<Tab> listT,Courbe<Number, Number> courbe){
 		super();
 		super.setTitle("Projet Modelisation");
+		ArrayList<XYChart.Series> l = new ArrayList();
 		Tab tab = new Tab();
 		model = mod;
 		controller = cont;
@@ -40,30 +41,41 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		yAxis=yAx;
 
 		xAxis.setAutoRanging(true);
-		((NumberAxis) xAxis).setForceZeroInRange(false);
+		xAxis.setForceZeroInRange(false);
 		yAxis.setAutoRanging(true);
-		((NumberAxis) yAxis).setForceZeroInRange(false);
+		yAxis.setForceZeroInRange(false);
 
 		xAxis.setLabel("Abcisse");
 		yAxis.setLabel("Ordonnee");
-		lineChart = new LineChart<X,Y>(xAxis,yAxis);
+		lineChart = new LineChart<Number,Number>(xAxis,yAxis);
 		lineChart.setTitle(t+"");
 
 		//definition de la serie
 		series.setName(t);
 
-		// remplir la serie de donnees
+		// remplir la serie de donnees de la transformation
 		for(int i = 0; i < model.sizeOfCourbe()  ; i++)
 		{
 			series.getData().add(new XYChart.Data(model.getDataX(i), model.getDataY(i)));
 		}
+		l.add(series);
+
+		final XYChart.Series seriesO = new XYChart.Series();
+		seriesO.setName(courbe.getName());
+
+		// remplir la serie de donnees de la transformation
+		for(int i = 0; i < courbe.sizeOfData()  ; i++)
+		{
+			seriesO.getData().add(new XYChart.Data(courbe.getX(i), courbe.getY(i)));
+		}
+		l.add(seriesO);
 
 
 		model.addObserver(this);
 
 		final StackPane pane = new StackPane();
 		pane.getChildren().add(lineChart);
-		new ZoomManager(pane, lineChart, series);
+		new ZoomManager(pane, lineChart, l);
 
 		tab.setText(t);
 		tab.setContent(pane);
@@ -101,6 +113,8 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		for(int i = 0; i < c.sizeOfData();i++){
 			nSeries.getData().add(new XYChart.Data(c.getX(i), c.getY(i)));
 		}
+		lineChart.getData().add(nSeries);
+
 	}
 
 
@@ -110,8 +124,8 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		this.show();
 		String backgroundStyle = "-fx-background-color: "+color+",white";
 		String strokeStyle = "-fx-stroke:"+ color;
-		final ObservableList<Series<X,Y>> chart = lineChart.getData();
-		final Series<X, Y> series1;
+		final ObservableList<Series<Number,Number>> chart = lineChart.getData();
+		final Series<Number, Number> series1;
 		final Set<Node> nodes;
 		if(chart.size()!=0 ){
 			 series1 = chart.get(nbCourbe);
@@ -120,7 +134,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 			series1 = null;
 		}
 
-		for (final Data<X, Y> data : series1.getData()) {
+		for (final Data<Number, Number> data : series1.getData()) {
 			data.getNode().setStyle(backgroundStyle);
 		}
 

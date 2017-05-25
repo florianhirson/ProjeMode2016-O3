@@ -49,7 +49,7 @@ public class MenuProjet extends Application{
 	static String choixA = "";
 	static String choixP = "";
 
-
+	Tab tab = new Tab();
 	static double lambda = 0;
 	static int ordre = 0;
 	ArrayList<Tab> listT = new ArrayList<Tab>();
@@ -57,10 +57,10 @@ public class MenuProjet extends Application{
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
 	@SuppressWarnings("rawtypes")
 	static private TableView valCsv = new TableView();
-	@SuppressWarnings("rawtypes")
-	static private TableView valModif = new TableView();
+//	@SuppressWarnings("rawtypes")
+//	static private TableView valModif = new TableView();
 
-	LineChart lineChart;
+	LineChart<Number,Number> lineChart;
 
 	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -115,19 +115,19 @@ public class MenuProjet extends Application{
 		Label lLambda = new Label("Lambda : "+lambda);
 		Label lOrdre = new Label("Ordre : "+ordre);
 
-		Label ModifLab = new Label("Work In Progress");
+//		Label ModifLab = new Label("Work In Progress");
 
 		VBox valCsvLabel = new VBox();
 		VBox.setMargin(valCsvLabel, new Insets(200,0,0,0));
 		valCsvLabel.getChildren().addAll(CsvLab,valCsv);
 
-		VBox valModifLabel = new VBox();
-		VBox.setMargin(valModifLabel, new Insets(200,0,0,0));
-		valModifLabel.getChildren().addAll(ModifLab,valModif);
+//		VBox valModifLabel = new VBox();
+//		VBox.setMargin(valModifLabel, new Insets(200,0,0,0));
+//		valModifLabel.getChildren().addAll(ModifLab,valModif);
 
 		HBox table = new HBox();
 		HBox.setMargin(table, new Insets(200,0,0,0));
-		table.getChildren().addAll(valCsvLabel,valModifLabel);
+		table.getChildren().addAll(valCsvLabel);
 		table.setSpacing(200.0);
 
 		TableColumn ColX = new TableColumn("X");
@@ -137,12 +137,12 @@ public class MenuProjet extends Application{
 		valCsv.getColumns().addAll(ColX, ColY);
 		valCsv.setMaxSize(200.0, 200.0);
 
-		TableColumn ColXmodif = new TableColumn("X");
-		TableColumn ColYmodif = new TableColumn("Y");
-		ColXmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
-		ColYmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
-		valModif.getColumns().addAll(ColXmodif, ColYmodif);
-		valModif.setMaxSize(200.0, 200.0);
+//		TableColumn ColXmodif = new TableColumn("X");
+//		TableColumn ColYmodif = new TableColumn("Y");
+//		ColXmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
+//		ColYmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
+//		valModif.getColumns().addAll(ColXmodif, ColYmodif);
+//		valModif.setMaxSize(200.0, 200.0);
 
 		AnchorPane ap = new AnchorPane();
 		ap.getChildren().add(table);
@@ -290,12 +290,12 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
+						Courbe<Number,Number> courbeN=courbe;
 						model.logistique(courbeN, 0);
 						listCourbe.add(courbeN);
 						listTitle.add("Logistique");
 						courbeN.setName("Logistique");
-						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT);
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT,null);
 						control.addView(vueF);
 						vueF.addSeries(courbeN, "Yt2");
 						vueF.setTitle("Logistique");
@@ -466,6 +466,8 @@ public class MenuProjet extends Application{
 		reset.setOnAction(e -> {
 			tabPane.getTabs().clear();
 			listCourbe.clear();
+			lineChart.getData().clear();
+			tabPane.getTabs().add(tab);
 		});
 
 
@@ -569,7 +571,7 @@ public class MenuProjet extends Application{
 			info.show();
 		});
 
-		Tab tab = new Tab();
+
 		tab.setText("Origin");
 		listT.add(tab);
 		final NumberAxis xAxis = new NumberAxis();
