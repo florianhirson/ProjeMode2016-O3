@@ -71,6 +71,8 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		l.add(seriesO);
 
 
+
+
 		model.addObserver(this);
 
 		final StackPane pane = new StackPane();
