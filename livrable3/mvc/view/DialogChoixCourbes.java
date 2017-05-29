@@ -93,8 +93,7 @@ public class DialogChoixCourbes extends Stage{
 
 	    Button sendRightButton = new Button(" > ");
 	    sendRightButton.setOnAction((ActionEvent event) -> {
-	    	Courbe<Number,Number> c = candidatesListView.getSelectionModel()
-	          .getSelectedItem();
+	    	Courbe<Number,Number> c = candidatesListView.getSelectionModel().getSelectedItem();
 	      if (c != null) {
 	        candidatesListView.getSelectionModel().clearSelection();
 	        candidates.remove(c);

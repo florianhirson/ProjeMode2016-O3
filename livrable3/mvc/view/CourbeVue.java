@@ -5,6 +5,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
@@ -12,9 +13,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
 import mvc.model.Courbe;
@@ -28,7 +31,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 	protected final LineChart<Number,Number> lineChart;
 	@SuppressWarnings("rawtypes")
 	protected XYChart.Series series = new XYChart.Series();
-
+	public DialogCouleurCourbe couleurCourbe;
 	@SuppressWarnings({"unchecked", "rawtypes" })
 	public CourbeVue(CourbeModel<X,Y> mod, CourbeController<X,Y> cont,NumberAxis xAx,NumberAxis yAx,String t,TabPane tabPane, ArrayList<Tab> listT,Courbe<Number, Number> courbe){
 		super();
@@ -70,17 +73,29 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		}
 		l.add(seriesO);
 
-
+		Button couleur = new Button("Couleurs");
+		final VBox root = new VBox(10);
+		final StackPane pane = new StackPane();
+		root.getChildren().addAll(couleur,pane);
 
 
 		model.addObserver(this);
 
-		final StackPane pane = new StackPane();
+
+
+		couleur.setOnAction(e -> {
+			couleurCourbe = new DialogCouleurCourbe(lineChart.getData(), lineChart, pane);
+		});
+
+
+
+
+
 		pane.getChildren().add(lineChart);
 		new ZoomManager(pane, lineChart, l);
 
 		tab.setText(t);
-		tab.setContent(pane);
+		tab.setContent(root);
         tabPane.getTabs().add(tab);
         listT.add(tab);
 	}
