@@ -82,22 +82,23 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 		model.addObserver(this);
 
 
+		pane.getChildren().add(lineChart);
+		ZoomManager zoom = new ZoomManager(pane, lineChart, l);
+
+		tab.setText(t);
+		tab.setContent(root);
+        tabPane.getTabs().add(tab);
+        listT.add(tab);
 
 		couleur.setOnAction(e -> {
-			couleurCourbe = new DialogCouleurCourbe(lineChart.getData(), lineChart, pane);
+			couleurCourbe = new DialogCouleurCourbe(lineChart);
 		});
 
 
 
 
 
-		pane.getChildren().add(lineChart);
-		new ZoomManager(pane, lineChart, l);
 
-		tab.setText(t);
-		tab.setContent(root);
-        tabPane.getTabs().add(tab);
-        listT.add(tab);
 	}
 
 
