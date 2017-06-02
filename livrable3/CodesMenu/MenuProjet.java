@@ -1,15 +1,28 @@
 package CodesMenu;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.geometry.Pos;
+import javax.imageio.ImageIO;
+import javafx.stage.Modality;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -26,11 +39,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.event.ActionEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
 import mvc.model.Courbe;
@@ -40,6 +58,7 @@ import mvc.view.CourbeVueConcret;
 import mvc.view.DialogChoixCourbes;
 import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
+
 
 public class MenuProjet extends Application{
 	static String choixT = "";
@@ -56,6 +75,8 @@ public class MenuProjet extends Application{
 	static private TableView valCsv = new TableView();
 	@SuppressWarnings("rawtypes")
 	static private TableView valModif = new TableView();
+
+	private Button screenShot = new Button("Screenshot");
 
 	// load the stylesheets
 	/*String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -194,9 +215,9 @@ public class MenuProjet extends Application{
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
 		ajoutP.getChildren().addAll(cAjoutP,bAjoutP);
 
-		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP);
+		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,screenShot);
 
-		Menu menuF = new Menu("File");
+		Menu menuF = new Menu("Fichier");
 		Menu menuH = new Menu("Aide");
 		Menu menuS = new Menu("Styles");
 
@@ -233,6 +254,52 @@ public class MenuProjet extends Application{
 		cAjoutP.getSelectionModel() //pour récup la prevision que l'utilisateur a choisi
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixP = newValue );
+		
+		//Evenement de ScreenShot
+		screenShot.setOnAction(e -> {
+			
+			/* Attention pour linux: new File(file.toString()+"/transformation.png"); */
+			/* Attention pour windows: new File(file.toString()+"\\transformatin.png"); */
+			
+			Button ok = new Button("OK");
+			Label choix = new Label("Quel nom voulez-vous ?");
+			TextField textChoix = new TextField();
+			textChoix.setMaxWidth(150);
+			BorderPane bp = new BorderPane();
+			VBox vbox = new VBox();
+			vbox.setAlignment(Pos.CENTER);
+			vbox.setSpacing(15);
+			vbox.getChildren().addAll(choix,textChoix,ok);
+			bp.setCenter(vbox);
+			Stage choixNom = new Stage();
+			Scene sceneNom = new Scene(bp);
+			choixNom.setScene(sceneNom);
+			choixNom.setHeight(200);
+			choixNom.setWidth(500);
+			choixNom.setTitle("Choix du nom Fichier");
+			choixNom.initModality(Modality.APPLICATION_MODAL);
+		    choixNom.show();
+			
+			ok.setOnAction(el->{
+				DirectoryChooser dialog = new DirectoryChooser(); 
+				File file= dialog.showDialog(screenShot.getScene().getWindow());
+				File file2= new File(file.toString()+"/"+textChoix.getText()+".png");
+				System.out.println("file 2"+file2);
+				String chemin= file2+"";
+				System.out.println("print: "+file);
+				WritableImage writableImage = new WritableImage((int)screenShot.getScene().getWidth(), (int)screenShot.getScene().getHeight());
+				screenShot.getScene().snapshot(writableImage);
+				
+				try{
+					ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
+					System.out.println(""+file2.getAbsolutePath());
+				}catch(IOException ex){Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				choixNom.close();
+			});
+			
+			
+		});
 
 		//Evenement d'ajout de transformations
 		bAjoutT.setOnAction(e -> {
