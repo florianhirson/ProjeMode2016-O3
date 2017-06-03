@@ -14,6 +14,11 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 
+import javafx.geometry.Pos;
+import javax.imageio.ImageIO;
+import javafx.stage.Modality;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -158,7 +163,8 @@ public class MenuProjet extends Application{
 		Button bAjoutT = new Button("Ajouter"); //bouton pour ajouter une transformation
 		Button bAjoutA = new Button("Ajouter");	//bouton pour ajouter une analyse
 		Button bAjoutP = new Button("Ajouter");	//bouton pour ajouter une prevision
-
+        Button zoom = new Button("Zoom"); //bouton pour le zoom
+        
 		ajoutT.getChildren().addAll(cAjoutT,bAjoutT);
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
 		ajoutP.getChildren().addAll(cAjoutP,bAjoutP);
