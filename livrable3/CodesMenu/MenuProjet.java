@@ -55,12 +55,10 @@ public class MenuProjet extends Application{
 	ArrayList<Tab> listT = new ArrayList<Tab>();
 	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
-	@SuppressWarnings("rawtypes")
-	static private TableView valCsv = new TableView();
-//	@SuppressWarnings("rawtypes")
-//	static private TableView valModif = new TableView();
-
+	
+    private Button screenShot = new Button("Screenshot");
 	LineChart<Number,Number> lineChart;
+	
 
 	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -157,7 +155,7 @@ public class MenuProjet extends Application{
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
 		ajoutP.getChildren().addAll(cAjoutP,bAjoutP);
 
-		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,lLambda,lOrdre);
+		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,lLambda,lOrdre,screenShot);
 
 
 
@@ -203,6 +201,84 @@ public class MenuProjet extends Application{
 		cAjoutP.getSelectionModel() //pour récup la prevision que l'utilisateur a choisi
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixP = newValue );
+
+        //Evenement de ScreenShot
+		screenShot.setOnAction(e -> {
+			
+			/* Attention pour linux: new File(file.toString()+"/transformation.png"); */
+			/* Attention pour windows: new File(file.toString()+"\\transformatin.png"); */
+			
+			Button ok = new Button("OK");
+			Label choix = new Label("Quel nom voulez-vous ?");
+			TextField textChoix = new TextField();
+			textChoix.setMaxWidth(150);
+			BorderPane bp = new BorderPane();
+			VBox vbox = new VBox();
+			vbox.setAlignment(Pos.CENTER);
+			vbox.setSpacing(15);
+			vbox.getChildren().addAll(choix,textChoix,ok);
+			bp.setCenter(vbox);
+			Stage choixNom = new Stage();
+			Scene sceneNom = new Scene(bp);
+			choixNom.setScene(sceneNom);
+			choixNom.setHeight(200);
+			choixNom.setWidth(500);
+			choixNom.setTitle("Choix du nom Fichier");
+			choixNom.initModality(Modality.APPLICATION_MODAL);
+		    choixNom.show();
+			
+			ok.setOnAction(el->{
+				DirectoryChooser dialog = new DirectoryChooser(); 
+				File file= dialog.showDialog(screenShot.getScene().getWindow());
+				File file2= new File(file.toString()+"/"+textChoix.getText()+".png");
+				System.out.println("file 2"+file2);
+				String chemin= file2+"";
+				System.out.println("print: "+file);
+				WritableImage writableImage = new WritableImage((int)screenShot.getScene().getWidth(), (int)screenShot.getScene().getHeight());
+				screenShot.getScene().snapshot(writableImage);
+				
+				try{
+					ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
+					System.out.println(""+file2.getAbsolutePath());
+				}catch(IOException ex){Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				choixNom.close();
+			});
+		});
+		
+		//Evenement de zoom
+		zoom.setOnAction(e ->{
+			Button ok = new Button("OK");
+			Label choix = new Label("Choisissez les valeurs de X :");
+			TextField Xmin = new TextField();
+			TextField Xmax = new TextField();
+			Xmin.setMaxWidth(50);
+			Xmax.setMaxWidth(50);
+			BorderPane bp = new BorderPane();
+			HBox hbox = new HBox();
+			hbox.setAlignment(Pos.CENTER);
+			hbox.setSpacing(10);
+			hbox.getChildren().addAll(Xmin,Xmax);
+			VBox vbox = new VBox();
+			vbox.setAlignment(Pos.CENTER);
+			vbox.setSpacing(10);
+			vbox.getChildren().addAll(choix,hbox,ok);
+			bp.setCenter(vbox);
+			Stage choixVal = new Stage();
+			Scene sceneVal = new Scene(bp);
+			choixVal.setScene(sceneVal);
+			choixVal.setHeight(200);
+			choixVal.setWidth(500);
+			choixVal.setTitle("Choix du nom Fichier");
+			choixVal.initModality(Modality.APPLICATION_MODAL);
+		    choixVal.show();
+		    
+		    ok.setOnAction(el->{
+				
+				choixVal.close();
+			});
+		    
+		});
 
 		//Evenement d'ajout de transformations
 		bAjoutT.setOnAction(e -> {
