@@ -2,18 +2,25 @@ package CodesMenu;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
+
 
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -26,13 +33,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
 import mvc.model.Courbe;
@@ -55,10 +63,10 @@ public class MenuProjet extends Application{
 	ArrayList<Tab> listT = new ArrayList<Tab>();
 	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
-	
+
     private Button screenShot = new Button("Screenshot");
 	LineChart<Number,Number> lineChart;
-	
+
 
 	// load the stylesheets
 	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
@@ -204,10 +212,10 @@ public class MenuProjet extends Application{
 
         //Evenement de ScreenShot
 		screenShot.setOnAction(e -> {
-			
+
 			/* Attention pour linux: new File(file.toString()+"/transformation.png"); */
 			/* Attention pour windows: new File(file.toString()+"\\transformatin.png"); */
-			
+
 			Button ok = new Button("OK");
 			Label choix = new Label("Quel nom voulez-vous ?");
 			TextField textChoix = new TextField();
@@ -226,9 +234,9 @@ public class MenuProjet extends Application{
 			choixNom.setTitle("Choix du nom Fichier");
 			choixNom.initModality(Modality.APPLICATION_MODAL);
 		    choixNom.show();
-			
+
 			ok.setOnAction(el->{
-				DirectoryChooser dialog = new DirectoryChooser(); 
+				DirectoryChooser dialog = new DirectoryChooser();
 				File file= dialog.showDialog(screenShot.getScene().getWindow());
 				File file2= new File(file.toString()+"/"+textChoix.getText()+".png");
 				System.out.println("file 2"+file2);
@@ -236,7 +244,7 @@ public class MenuProjet extends Application{
 				System.out.println("print: "+file);
 				WritableImage writableImage = new WritableImage((int)screenShot.getScene().getWidth(), (int)screenShot.getScene().getHeight());
 				screenShot.getScene().snapshot(writableImage);
-				
+
 				try{
 					ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
 					System.out.println(""+file2.getAbsolutePath());
@@ -245,7 +253,7 @@ public class MenuProjet extends Application{
 				choixNom.close();
 			});
 		});
-		
+
 		//Evenement de zoom
 		zoom.setOnAction(e ->{
 			Button ok = new Button("OK");
@@ -272,12 +280,12 @@ public class MenuProjet extends Application{
 			choixVal.setTitle("Choix du nom Fichier");
 			choixVal.initModality(Modality.APPLICATION_MODAL);
 		    choixVal.show();
-		    
+
 		    ok.setOnAction(el->{
-				
+
 				choixVal.close();
 			});
-		    
+
 		});
 
 		//Evenement d'ajout de transformations
