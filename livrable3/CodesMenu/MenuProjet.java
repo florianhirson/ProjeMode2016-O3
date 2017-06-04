@@ -1,33 +1,28 @@
 package CodesMenu;
 
-import java.awt.AWTException;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.geometry.Pos;
+
 import javax.imageio.ImageIO;
-import javafx.stage.Modality;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
+
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -37,17 +32,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.event.ActionEvent;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import mvc.control.CourbeController;
@@ -56,32 +47,30 @@ import mvc.model.CourbeModel;
 import mvc.view.CourbeVue;
 import mvc.view.CourbeVueConcret;
 import mvc.view.DialogChoixCourbes;
+import mvc.view.DialogTelechargement;
 import mvc.view.InputDialogs;
 import mvc.view.SelectFileChooser;
-
 
 public class MenuProjet extends Application{
 	static String choixT = "";
 	static String choixA = "";
 	static String choixP = "";
 
-
+	Tab tab = new Tab();
 	static double lambda = 0;
 	static int ordre = 0;
-	
+	ArrayList<Tab> listT = new ArrayList<Tab>();
 	ArrayList<Courbe<Number, Number>> choix = new ArrayList<Courbe<Number, Number>>(); //Liste de courbes choisies par l'utilisateur
 	CourbeVue<Number,Number> vueF = null;	                // en preparation pour Livrable 2
-	@SuppressWarnings("rawtypes")
-	static private TableView valCsv = new TableView();
-	@SuppressWarnings("rawtypes")
-	static private TableView valModif = new TableView();
 
-	private Button screenShot = new Button("Screenshot");
+    private Button screenShot = new Button("Screenshot");
+	LineChart<Number,Number> lineChart;
+
 
 	// load the stylesheets
-	/*String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
-	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
-	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();*/
+	//String styleMetroD = getClass().getResource("styles/JMetroDarkTheme.css").toExternalForm();
+	//String styleMetroL = getClass().getResource("styles/JMetroLightTheme.css").toExternalForm();
+	//String styleBrume = getClass().getResource("styles/brume.css").toExternalForm();
 
 	CourbeModel<Number,Number> model; 				//	Modele MVC
 	CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
@@ -95,13 +84,15 @@ public class MenuProjet extends Application{
 		launch(args);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused", "static-access" })
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
-
+		primaryStage.setTitle("Projet de modélisation");
+		String save = "";
 		String data = "";
 		ArrayList<Courbe<Number,Number>> listc = new ArrayList<Courbe<Number,Number>>();
+		BufferedWriter fichier_result = null;
 
 		Courbe<Number,Number> donnee = new Courbe<Number,Number>();
 		Courbe<Number,Number> cmm = new Courbe<Number,Number>();
@@ -114,73 +105,29 @@ public class MenuProjet extends Application{
 
 		Courbe<Number,Number> res = new Courbe<Number,Number>();
 
-
-
-
-
-
 		ArrayList<String> listTitle = new ArrayList<String>();
 		ArrayList<Courbe<Number,Number>> listCourbe = new ArrayList<Courbe<Number,Number>>(); // permet d'indexer les courbes et donc de modifier la couleur d'une courbe vis�e
 		ArrayList<Integer> choice = new ArrayList<Integer>();
-		
-		
-
-
 
 		BorderPane root = new BorderPane(); //borderpane de la scene
 		Scene scene = new Scene(root);
 		MenuBar menuBar = new MenuBar(); //barre de menus
 
-		/**
-		 * Tableaux d'aperçu
-		 */
-		Label CsvLab = new Label("Work In Progress");
 
-		Label ModifLab = new Label("Work In Progress");
-
-		VBox valCsvLabel = new VBox();
-		VBox.setMargin(valCsvLabel, new Insets(200,0,0,0));
-		valCsvLabel.getChildren().addAll(CsvLab,valCsv);
-
-		VBox valModifLabel = new VBox();
-		VBox.setMargin(valModifLabel, new Insets(200,0,0,0));
-		valModifLabel.getChildren().addAll(ModifLab,valModif);
-
-		HBox table = new HBox();
-		HBox.setMargin(table, new Insets(200,0,0,0));
-		table.getChildren().addAll(valCsvLabel,valModifLabel);
-		table.setSpacing(200.0);
-
-		TableColumn ColX = new TableColumn("X");
-		TableColumn ColY = new TableColumn("Y");
-		ColX.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
-		ColY.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
-		valCsv.getColumns().addAll(ColX, ColY);
-		valCsv.setMaxSize(200.0, 200.0);
-
-		TableColumn ColXmodif = new TableColumn("X");
-		TableColumn ColYmodif = new TableColumn("Y");
-		ColXmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
-		ColYmodif.prefWidthProperty().bind(table.widthProperty().multiply(0.17));
-		valModif.getColumns().addAll(ColXmodif, ColYmodif);
-		valModif.setMaxSize(200.0, 200.0);
-
-		AnchorPane ap = new AnchorPane();
-		ap.getChildren().add(table);
-		AnchorPane.setBottomAnchor(table, 20.0);
-		AnchorPane.setLeftAnchor(table, 150.0);
+		Label lLambda = new Label("Lambda : "+lambda);
+		Label lOrdre = new Label("Ordre : "+ordre);
 
 		//Vbox contenant les choicebox d'ajout de transformation/analyse/prevision
 		VBox ajout = new VBox();
 		ajout.setSpacing(10);
 		ajout.setPadding(new Insets(10, 10, 10, 10));
 
+
 		TabPane tabPane = new TabPane(); //Tabpane contenant les onglets de linecharts
 
 		root.setTop(menuBar);
 		root.setLeft(ajout);
 		root.setCenter(tabPane);
-		root.setBottom(ap);
 
 		Label lAjouT = new Label("Ajouter une transformation : ");
 		Label lAjouA = new Label("Ajouter une analyse : ");
@@ -210,16 +157,23 @@ public class MenuProjet extends Application{
 		Button bAjoutT = new Button("Ajouter"); //bouton pour ajouter une transformation
 		Button bAjoutA = new Button("Ajouter");	//bouton pour ajouter une analyse
 		Button bAjoutP = new Button("Ajouter");	//bouton pour ajouter une prevision
+        Button zoom = new Button("Zoom"); //bouton pour le zoom
 
 		ajoutT.getChildren().addAll(cAjoutT,bAjoutT);
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
 		ajoutP.getChildren().addAll(cAjoutP,bAjoutP);
 
-		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,screenShot);
+		ajout.getChildren().addAll(lAjouT,ajoutT,lAjouA,ajoutA,lAjouP,ajoutP,lLambda,lOrdre,screenShot);
 
-		Menu menuF = new Menu("Fichier");
+
+
+		Menu menuF = new Menu("File");
+		Menu menuO = new Menu("Options");
 		Menu menuH = new Menu("Aide");
 		Menu menuS = new Menu("Styles");
+
+		MenuItem reafficher = new MenuItem("Réafficher les onglets");
+		MenuItem reset = new MenuItem("Supprimer tous les onglets et toutes les courbes");
 
 		MenuItem chargerCSV = new MenuItem("Charger un fichier CSV");
 		MenuItem chargerCSVInternet = new MenuItem("Charger un fichier CSV par internet");
@@ -234,9 +188,10 @@ public class MenuProjet extends Application{
 		MenuItem metroL = new MenuItem("Metro clair");
 		MenuItem brume = new MenuItem("Brume");
 
-		menuBar.getMenus().addAll(menuF,menuS,menuH);
+		menuBar.getMenus().addAll(menuF,menuO,menuS,menuH);
 		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
 
+		menuO.getItems().addAll(reafficher,reset);
 		menuF.getItems().addAll(chargerCSV,chargerCSVInternet,saveCourbes);
 		menuF.getItems().add(new SeparatorMenuItem());
 		menuF.getItems().add(exit);
@@ -254,34 +209,39 @@ public class MenuProjet extends Application{
 		cAjoutP.getSelectionModel() //pour récup la prevision que l'utilisateur a choisi
 		.selectedItemProperty()
 		.addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) -> choixP = newValue );
-		
-		//Evenement de ScreenShot
+
+        //Evenement de ScreenShot
 		screenShot.setOnAction(e -> {
-			
+
 			/* Attention pour linux: new File(file.toString()+"/transformation.png"); */
 			/* Attention pour windows: new File(file.toString()+"\\transformatin.png"); */
-			
+			HBox buttons = new HBox(10);
+
 			Button ok = new Button("OK");
+			Button cancel = new Button("Annuler");
+
+			buttons.getChildren().addAll(ok,cancel);
+			buttons.setAlignment(Pos.CENTER_RIGHT);
+
 			Label choix = new Label("Quel nom voulez-vous ?");
 			TextField textChoix = new TextField();
 			textChoix.setMaxWidth(150);
-			BorderPane bp = new BorderPane();
+
 			VBox vbox = new VBox();
 			vbox.setAlignment(Pos.CENTER);
 			vbox.setSpacing(15);
-			vbox.getChildren().addAll(choix,textChoix,ok);
-			bp.setCenter(vbox);
+			vbox.getChildren().addAll(choix,textChoix,buttons);
 			Stage choixNom = new Stage();
-			Scene sceneNom = new Scene(bp);
+			Scene sceneNom = new Scene(vbox);
 			choixNom.setScene(sceneNom);
 			choixNom.setHeight(200);
 			choixNom.setWidth(500);
 			choixNom.setTitle("Choix du nom Fichier");
 			choixNom.initModality(Modality.APPLICATION_MODAL);
 		    choixNom.show();
-			
+
 			ok.setOnAction(el->{
-				DirectoryChooser dialog = new DirectoryChooser(); 
+				DirectoryChooser dialog = new DirectoryChooser();
 				File file= dialog.showDialog(screenShot.getScene().getWindow());
 				File file2= new File(file.toString()+"/"+textChoix.getText()+".png");
 				System.out.println("file 2"+file2);
@@ -289,16 +249,54 @@ public class MenuProjet extends Application{
 				System.out.println("print: "+file);
 				WritableImage writableImage = new WritableImage((int)screenShot.getScene().getWidth(), (int)screenShot.getScene().getHeight());
 				screenShot.getScene().snapshot(writableImage);
-				
-				try{
-					ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
-					System.out.println(""+file2.getAbsolutePath());
-				}catch(IOException ex){Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+				if(chemin != null) {
+					try{
+						ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
+						System.out.println(""+file2.getAbsolutePath());
+					}catch(IOException ex){Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+					}
 				}
+
 				choixNom.close();
 			});
-			
-			
+
+			cancel.setOnAction(e1 -> {
+				choixNom.close();
+			});
+		});
+
+		//Evenement de zoom
+		zoom.setOnAction(e ->{
+			Button ok = new Button("OK");
+			Label choix = new Label("Choisissez les valeurs de X :");
+			TextField Xmin = new TextField();
+			TextField Xmax = new TextField();
+			Xmin.setMaxWidth(50);
+			Xmax.setMaxWidth(50);
+			BorderPane bp = new BorderPane();
+			HBox hbox = new HBox();
+			hbox.setAlignment(Pos.CENTER);
+			hbox.setSpacing(10);
+			hbox.getChildren().addAll(Xmin,Xmax);
+			VBox vbox = new VBox();
+			vbox.setAlignment(Pos.CENTER);
+			vbox.setSpacing(10);
+			vbox.getChildren().addAll(choix,hbox,ok);
+			bp.setCenter(vbox);
+			Stage choixVal = new Stage();
+			Scene sceneVal = new Scene(bp);
+			choixVal.setScene(sceneVal);
+			choixVal.setHeight(200);
+			choixVal.setWidth(500);
+			choixVal.setTitle("Choix du nom Fichier");
+			choixVal.initModality(Modality.APPLICATION_MODAL);
+		    choixVal.show();
+
+		    ok.setOnAction(el->{
+
+				choixVal.close();
+			});
+
 		});
 
 		//Evenement d'ajout de transformations
@@ -315,7 +313,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLog(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doLog(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -330,12 +328,13 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doBoxCox(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doBoxCox(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
 				System.out.println(choixT);
 				lambda = model.getLambda();
+				lLambda.setText("Lambda : "+lambda);
 				System.out.println("Lambda :"+lambda);
 
 				break;
@@ -348,7 +347,17 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLogistique(courbe, vueF, listCourbe, listTitle, tabPane);
+						Courbe<Number,Number> courbeN=courbe;
+						model.logistique(courbeN, 0);
+						listCourbe.add(courbeN);
+						listTitle.add("Logistique");
+						courbeN.setName("Logistique");
+						vueF = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane, listT,null);
+						control.addView(vueF);
+						vueF.addSeries(courbeN, "Yt2");
+						vueF.setTitle("Logistique");
+						//vueF.show();
+
 					}
 					System.out.println(choixT);
 				}
@@ -363,13 +372,14 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doMM(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doMM(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
-				
+
 				System.out.println(choixT);
 				ordre = model.getOrdre();
+				lOrdre.setText("Ordre : "+ordre);
 				System.out.println("Ordre :"+ordre);
 				break;
 			case "Xt-Mt":
@@ -381,7 +391,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doSaisonResidu(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doSaisonResidu(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -396,7 +406,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doSaison(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doSaison(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -411,7 +421,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doDesaisonaliser(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doDesaisonaliser(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -432,7 +442,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doResidu(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doResidu(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -445,6 +455,7 @@ public class MenuProjet extends Application{
 					break;
 				System.out.println(choixA);
 				lambda = InputDialogs.saisieLambda();
+				lLambda.setText("Lambda : "+lambda);
 				System.out.println("Lambda :"+lambda);
 				break;
 			case "Autocorrélation des résidus":
@@ -469,7 +480,7 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLissageExp1(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doLissageExp1(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
@@ -484,11 +495,11 @@ public class MenuProjet extends Application{
 				else {
 					System.out.println("choix n'est pas vide");
 					for(Courbe<Number,Number> courbe : choix) {
-						control.doLissageExp2(courbe, vueF, listCourbe, listTitle, tabPane);
+						control.doLissageExp2(courbe, vueF, listCourbe, listTitle, tabPane, listT);
 					}
 					System.out.println(choixT);
 				}
-				
+
 				break;
 			case "Holt-Winters":
 				d = new DialogChoixCourbes(listCourbe);
@@ -499,6 +510,23 @@ public class MenuProjet extends Application{
 				break;
 			}
 		});
+
+		//reaffiche les onglets supprimés WIP
+		reafficher.setOnAction(e -> {
+			tabPane.getTabs().clear();
+			for(Tab t : listT) {
+				tabPane.getTabs().add(t);
+			}
+		});
+
+		//supprime tous les onglets et les courbes
+		reset.setOnAction(e -> {
+			tabPane.getTabs().clear();
+			listCourbe.clear();
+			lineChart.getData().clear();
+			tabPane.getTabs().add(tab);
+		});
+
 
 		//css
 		vanilla.setOnAction(e -> {
@@ -516,29 +544,32 @@ public class MenuProjet extends Application{
 		metroL.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			//scene.getStylesheets().add(styleMetroL);
+		//	scene.getStylesheets().add(styleMetroL);
 			System.out.println("metrolight !");
 		});
 		//css
 		brume.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			//scene.getStylesheets().add(styleBrume);
+		//	scene.getStylesheets().add(styleBrume);
 			System.out.println("brume !");
+		});
+
+		//aide en ligne
+		aide.setOnAction(e -> {
+				try {
+
+					getHostServices().showDocument("http://www.hirsonf.fr"); //il suffit de changer l'url
+				} catch (Exception ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+
 		});
 
 		//Evenement du chargement de csv en local
 		chargerCSV.setOnAction(e -> {
 			String chemin = "";
-			String chaine = "";
-			BufferedReader fichier_source = null;
-			ArrayList<String[]> tabChaine =null;
-			ArrayList<String[]> tabCh = new ArrayList<String[]>();
-			Courbe<Number,Number> c = new Courbe<Number,Number>();
-
-			int indice = 0;
-			int i,j = 0;
-			Double x,y;
 
 			try {
 				chemin = SelectFileChooser.showSingleFileChooser();
@@ -548,102 +579,21 @@ public class MenuProjet extends Application{
 				System.out.println(ex);
 				System.out.println("Test exception 1");
 			}
-
-
-
-			try {
-				System.out.println(chemin);
-				fichier_source = new BufferedReader(new FileReader(chemin));
-				//System.out.println(fichier_source);
-			} catch (FileNotFoundException e1) {
-				SelectFileChooser.error(e1);
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			try {
-				 tabChaine = new ArrayList<String[]>();
-				while((chaine = fichier_source.readLine())!= null)
-				{
-					System.out.println(chaine+"");
-
-					tabChaine.add(chaine.split(";"));
-					indice++;
-				}
-			} catch (IOException e1) {
-				SelectFileChooser.error(e1);
-				e1.printStackTrace();
-			}finally{
-				try {
-					fichier_source.close();
-				} catch (IOException e1) {
-					SelectFileChooser.error(e1);
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
-			}
-			
-
-			for( i = 0; i < indice ; i++)
-				for( j = 0; j < tabChaine.get(i).length ; j++ )
-				{
-					System.out.println(tabChaine.get(i)[j]+"---------");
-					tabCh.add(tabChaine.get(i)[j].split(","));
-				}
-			
-			try {
-				for(i = 0; i < indice ; i++)
-				{
-					x = Double.parseDouble(tabCh.get(i)[0]);
-					y = Double.parseDouble(tabCh.get(i)[1]);
-					c.addXY(x,y);
-					System.out.println("("+x+";"+y+")");
-				}
-			}
-			catch (Exception e2) {
-				System.out.println(e2);
+			System.out.println("Chemin du fichier : "+chemin);
+			if(chemin != null) {
+				lireFichier(chemin, listTitle, tabPane, listCourbe, listc);
 			}
 
-			model=CourbeModel.getInstance();
-			if(model.getIndexbyName("Base")==-1){
-				listTitle.add("Base");
-				c.setName("Base");
-			}else{
-				for(i=0; i < 50; i++){
-					if(model.getIndexbyName("Base"+i)==-1){
-						listTitle.add("Base"+i);
-						c.setName("Base"+i);
-						i=50;
-					}
-				}
-			}
-			if(!model.isSetIndex()){
-				model.setCourbes(listc);	
-			}
-			model.addCourbe(c);
-			model.setIndex(model.getIndexbyName(c.getName()));
-			control = new CourbeController<Number,Number>(model);
-			System.out.println("============"+model.getCourbe(model.getIndexUse()).getName()+"=================>"+c.getName()+" : "+model.getIndexbyName(c.getName()));
-			vue = new CourbeVueConcret<Number,Number>(model,control,new NumberAxis(),new NumberAxis(),c.getName(),tabPane);
-			control.addView(vue);
-
-			listCourbe.add(c);
 		});
 
 		//Evenement du chargement de csv par internet
 		chargerCSVInternet.setOnAction(e -> {
-			TextInputDialog dialog = new TextInputDialog("Download");
-			dialog.setTitle("Téléchargement d'un CSV par internet");
-			dialog.setContentText("Veuillez entrer l'url : ");
-			Optional<String> result = dialog.showAndWait();
+			DialogTelechargement d = new DialogTelechargement();
 			try {
-				result.ifPresent(url -> {
-					String fileName = url.substring(url.lastIndexOf('/') + 1);
-					SelectFileChooser.csvDownload(url, "data/"+fileName);
-					System.out.println("Success !");
-				});
-			}
-			catch (Exception e1) {
-				System.out.println(e1);
+				lireFichier(d.getSaveFilePath(), listTitle, tabPane, listCourbe, listc);
+			} catch (Exception ex) {
+				System.out.println(ex);
+				System.out.println("Erreur de chemin ou annulation");
 			}
 
 
@@ -651,8 +601,16 @@ public class MenuProjet extends Application{
 
 		saveCourbes.setOnAction( e -> {
 			String chemin = "";
-			chemin = SelectFileChooser.showDirChooser();
-			System.out.println(chemin);
+			try {
+				chemin = SelectFileChooser.showDirChooser();
+				System.out.println(chemin);
+				sauvegarderCourbes(listCourbe, listTitle, save, chemin, fichier_result, donnee);
+			} catch(Exception ex) {
+				System.out.println(ex);
+				System.out.println("Erreur de chemin ou annulation");
+			}
+
+
 		});
 
 		exit.setOnAction(e ->{
@@ -674,12 +632,15 @@ public class MenuProjet extends Application{
 			info.show();
 		});
 
-		Tab tab = new Tab();
-		tab.setText("Tab 1");
-		final CategoryAxis xAxis = new CategoryAxis();
+
+		tab.setText("Origin");
+		listT.add(tab);
+		final NumberAxis xAxis = new NumberAxis();
 		final NumberAxis yAxis = new NumberAxis();
-		xAxis.setLabel("Month");
-		final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
+		xAxis.setLabel("Abcisse");
+		yAxis.setLabel("Ordonnee");
+
+		lineChart = new LineChart(xAxis,yAxis);
 
 		tab.setContent(lineChart);
 		tabPane.getTabs().add(tab);
@@ -688,6 +649,149 @@ public class MenuProjet extends Application{
 		primaryStage.setHeight(700);
 		primaryStage.setWidth(1000);
 		primaryStage.show();
+
+	}
+
+	public void lireFichier(String chemin, ArrayList<String> listTitle, TabPane tabPane, ArrayList<Courbe<Number, Number>> listCourbe, ArrayList<Courbe<Number, Number>> listc) {
+		String name = "";
+		String chaine = "";
+		BufferedReader fichier_source = null;
+		ArrayList<String[]> tabChaine =null;
+		ArrayList<String[]> tabCh = new ArrayList<String[]>();
+		Courbe<Number,Number> c = new Courbe<Number,Number>();
+		int indice = 0;
+		int i,j = 0;
+		Double x,y;
+		try {
+			System.out.println(chemin);
+			fichier_source = new BufferedReader(new FileReader(chemin));
+			//System.out.println(fichier_source);
+		} catch (FileNotFoundException e1) {
+			SelectFileChooser.error(e1);
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			 tabChaine = new ArrayList<String[]>();
+			while((chaine = fichier_source.readLine())!= null)
+			{
+				System.out.println(chaine+"");
+
+				tabChaine.add(chaine.split(";"));
+				indice++;
+			}
+		} catch (IOException e1) {
+			SelectFileChooser.error(e1);
+			e1.printStackTrace();
+		}finally{
+			try {
+				fichier_source.close();
+			} catch (IOException e1) {
+				SelectFileChooser.error(e1);
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+
+		for( i = 0; i < indice ; i++)
+			for( j = 0; j < tabChaine.get(i).length ; j++ )
+			{
+				System.out.println(tabChaine.get(i)[j]+"---------");
+				tabCh.add(tabChaine.get(i)[j].split(","));
+			}
+
+		try {
+			for(i = 0; i < indice ; i++)
+			{
+				x = Double.parseDouble(tabCh.get(i)[0]);
+				y = Double.parseDouble(tabCh.get(i)[1]);
+				c.addXY(x,y);
+				System.out.println("("+x+";"+y+")");
+			}
+		}
+		catch (Exception e2) {
+			System.out.println(e2);
+		}
+
+		model=CourbeModel.getInstance();
+		if(model.getIndexbyName("Base")==-1){
+			listTitle.add("Base");
+			c.setName("Base");
+			name = "Base";
+		}else{
+			for(i=0; i < 50; i++){
+				if(model.getIndexbyName("Base"+i)==-1){
+					listTitle.add("Base"+i);
+					c.setName("Base"+i);
+					name = "Base" + i;
+					i=50;
+				}
+			}
+		}
+		if(!model.isSetIndex()){
+			model.setCourbes(listc);
+		}
+		model.addCourbe(c);
+		model.setIndex(model.getIndexbyName(c.getName()));
+		control = new CourbeController<Number,Number>(model);
+		System.out.println("============"+model.getCourbe(model.getIndexUse()).getName()+"=================>"+c.getName()+" : "+model.getIndexbyName(c.getName()));
+
+		addSerie(name,c);
+
+
+		listCourbe.add(c);
+
+	}
+
+	public void sauvegarderCourbes(ArrayList<Courbe<Number, Number>> listCourbe, ArrayList<String> listTitle, String save, String chemin, BufferedWriter fichier_result, Courbe<Number, Number> donnee) {
+		String crw = "";
+
+		//for(int a = 0; a < vueF.getLC().getData().size();a++)System.out.println(" lc : "+vueF.getLC().getData().get(a));
+		for(int i = 0 ; i < listCourbe.size();i++){
+
+			try{
+				String title = listTitle.get(i);
+				FileWriter fileWriter = new FileWriter(chemin+"/"+title+".csv");
+
+				fileWriter.append(title);
+				save = title+", Ordre : , "+model.getOrdre()+", Lambda : "+model.getLambda()+"\n X , Y \n";
+				fileWriter.close();
+				fichier_result = new BufferedWriter(new FileWriter(chemin+"/"+title+".csv"));
+
+
+				donnee = listCourbe.get(i);
+				for(int j=0;j<donnee.sizeOfData();j++)
+					save += donnee.getX(j)+","+donnee.getY(j)+"\n";
+
+
+				fichier_result.write(save);
+				fichier_result.close();
+				BufferedWriter fcr = new BufferedWriter(new FileWriter(chemin+"/Save.csv"));
+				crw+=save;
+				fcr.write(crw);
+				fcr.close();
+			}catch(Exception e){
+				System.out.println("Erreur : "+e.getMessage());
+			}
+
+
+
+		}
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes" })
+	public void addSerie(String t, Courbe<Number,Number> c) {
+		XYChart.Series series1 = new XYChart.Series();
+        series1.setName(t);
+
+		// remplir la serie de donnees
+		for(int i = 0; i < c.sizeOfData()  ; i++)
+		{
+			series1.getData().add(new XYChart.Data(c.getX(i), c.getY(i)));
+			System.out.println("x : "+c.getX(i)+", y : "+c.getY(i));
+		}
+		lineChart.getData().add(series1);
 
 	}
 

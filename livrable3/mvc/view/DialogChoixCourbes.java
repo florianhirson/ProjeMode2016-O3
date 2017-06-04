@@ -21,6 +21,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mvc.model.Courbe;
 
+/**
+ * Classe qui génère la fenetre de selection d'une courbe pour une transformation,analyse/prévision
+ * @author Florian Hirson
+ *
+ */
 public class DialogChoixCourbes extends Stage{
 	private ArrayList<Courbe<Number,Number>> courbesChoisies;
 
@@ -53,11 +58,11 @@ public class DialogChoixCourbes extends Stage{
 	    column3.setHgrow(Priority.ALWAYS);
 	    gridpane.getColumnConstraints().addAll(column1, column2, column3);
 
-	    Label candidatesLbl = new Label("Candidates");
+	    Label candidatesLbl = new Label("Courbes disponibles");
 	    GridPane.setHalignment(candidatesLbl, HPos.CENTER);
 	    gridpane.add(candidatesLbl, 0, 0);
 
-	    Label selectedLbl = new Label("selected");
+	    Label selectedLbl = new Label("Choisies");
 	    gridpane.add(selectedLbl, 2, 0);
 	    GridPane.setHalignment(selectedLbl, HPos.CENTER);
 
@@ -93,8 +98,7 @@ public class DialogChoixCourbes extends Stage{
 
 	    Button sendRightButton = new Button(" > ");
 	    sendRightButton.setOnAction((ActionEvent event) -> {
-	    	Courbe<Number,Number> c = candidatesListView.getSelectionModel()
-	          .getSelectedItem();
+	    	Courbe<Number,Number> c = candidatesListView.getSelectionModel().getSelectedItem();
 	      if (c != null) {
 	        candidatesListView.getSelectionModel().clearSelection();
 	        candidates.remove(c);

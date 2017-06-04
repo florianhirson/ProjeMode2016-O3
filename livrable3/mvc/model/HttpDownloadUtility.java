@@ -7,6 +7,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 /**
  * Une méthode qui télécharge un fichier à partir d'une url.
  * @author Florian Hirson
@@ -14,6 +17,7 @@ import java.net.URL;
  */
 public class HttpDownloadUtility {
     private static final int BUFFER_SIZE = 4096;
+    private static String saveFilePath;
 
     /**
      *Télécharge un fichier à partir d'une url
@@ -54,7 +58,7 @@ public class HttpDownloadUtility {
 
             // opens input stream from the HTTP connection
             InputStream inputStream = httpConn.getInputStream();
-            String saveFilePath = saveDir + File.separator + fileName;
+            saveFilePath = saveDir + File.separator + fileName;
 
             // opens an output stream to save into file
             FileOutputStream outputStream = new FileOutputStream(saveFilePath);
@@ -69,9 +73,37 @@ public class HttpDownloadUtility {
             inputStream.close();
 
             System.out.println("Fichier telechargé");
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Fenetre d'information");
+            alert.setHeaderText(null);
+            alert.setContentText("Le fichier a bien été téléchargé !");
+
+            alert.showAndWait();
         } else {
+        	Alert alert = new Alert(AlertType.ERROR);
+        	alert.setTitle("Fenetre d'erreur");
+        	alert.setHeaderText(null);
+        	alert.setContentText("Aucun fichier à telecharger. Le serveur a répondu avec le code HTTP: " + responseCode);
+
+        	alert.showAndWait();
+
             System.out.println("Aucun fichier à telecharger. Le serveur a répondu avec le code HTTP: " + responseCode);
         }
         httpConn.disconnect();
     }
+
+	/**
+	 * @return the filePath
+	 */
+	public static String getFilePath() {
+		return saveFilePath;
+	}
+
+	/**
+	 * @param filePath the filePath to set
+	 */
+	public static void setFilePath(String filePath) {
+		HttpDownloadUtility.saveFilePath = filePath;
+	}
 }

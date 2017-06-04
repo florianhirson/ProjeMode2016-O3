@@ -1,17 +1,10 @@
 package mvc.model.test;
-/*
- * @author Rayan Haddad
- * @author Florian BARBET
- * */
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -252,7 +245,7 @@ public class CourbeModelTest {
 	@Test(expected=Error.class)
 	public void errorSingletonTest(){
 		
-		CourbeModel<Number,Number> model2 = new CourbeModel<Number,Number>();
+		CourbeModel<Number,Number> model2 = CourbeModel.getInstance();
 		assertEquals(1,model2.getNbCourbe());
 	}
 	

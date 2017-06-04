@@ -691,6 +691,43 @@ public class CourbeModel<X,Y> extends Observable {
 
 	}
 
+	/**
+	 * en gros on aura deux intervales un X et un Y
+	 * X(debut,fin)
+	 * Y(debut,fin)
+	 * 
+	 * @param xd la coordonnée X origine du zoom 
+	 * @param yd la coordonnée Y origine du zoom
+	 * @param xf la coordonnée X de fin du zoom
+	 * @param yf la coordonnée Y de fin du zoom
+	 * @param courbe la courbe sur laquel le zoom est effectif
+	 */
+	public void zoomIn(int xd,int yd,int xf,int yf,Courbe<Number,Number> courbe){
+		
+		double coordX,coordY;
+		
+		for(int i=0;i<courbeData.sizeOfData();i++){
+			if(courbeData.getX(i) instanceof Double)
+				coordX=(double)courbeData.getX(i);
+			else
+				coordX=(double)((int)courbeData.getX(i)*1.0);
+			
+			if(courbeData.getY(i) instanceof Double)	
+				coordY=(double)courbeData.getY(i);
+			else
+				coordY=(double)((int)courbeData.getY(i)*1.0);
+			
+			
+			
+			if( (coordX>xd&&coordY>yd) || (coordX<xf&&coordY<yf)){
+				courbe.addXY((int)courbeData.getX(i), (double)courbeData.getY(i));
+				System.out.println("zoom sur : ("+coordX+","+coordY+")");
+			}
+			
+		}
+		
+		
+	}
 
 }
 
