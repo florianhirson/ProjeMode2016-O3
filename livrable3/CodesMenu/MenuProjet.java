@@ -268,7 +268,7 @@ public class MenuProjet extends Application{
 		//Evenement de zoom
 		zoom.setOnAction(e ->{
 			Button ok = new Button("OK");
-			Label choix = new Label("Choisissez les valeurs de X :");
+			Label choixlab = new Label("Choisissez les valeurs de X :");
 			TextField Xmin = new TextField();
 			TextField Xmax = new TextField();
 			Xmin.setMaxWidth(50);
@@ -281,7 +281,7 @@ public class MenuProjet extends Application{
 			VBox vbox = new VBox();
 			vbox.setAlignment(Pos.CENTER);
 			vbox.setSpacing(10);
-			vbox.getChildren().addAll(choix,hbox,ok);
+			vbox.getChildren().addAll(choixlab,hbox,ok);
 			bp.setCenter(vbox);
 			Stage choixVal = new Stage();
 			Scene sceneVal = new Scene(bp);
@@ -293,9 +293,21 @@ public class MenuProjet extends Application{
 		    choixVal.show();
 
 		    ok.setOnAction(el->{
+		    	d = new DialogChoixCourbes(listCourbe);
+				choix = d.getCourbesChoisies();
+				System.out.println(choix);
+
+				if(choix.isEmpty()) {
+					System.out.println("choix est vide");
+				}
+				else {
+					System.out.println("choix n'est pas vide");
+					for(Courbe<Number,Number> courbe : choix) {
+						control.doZoom(courbe, vueF, listCourbe, listTitle, tabPane, listT,Integer.parseInt(Xmin.getText()),Integer.parseInt(Xmax.getText()) );
+					}
+					System.out.println(choixT);
+				}
 		    	
-		    	Courbe<Number,Number> myZoom = new Courbe<Number,Number>();
-				control.doZoom(myZoom, vueF, listCourbe, listTitle, tabPane, listT,Integer.parseInt(Xmin.getText()),Integer.parseInt(Xmax.getText()) );
 				choixVal.close();
 			});
 
@@ -539,7 +551,7 @@ public class MenuProjet extends Application{
 		metroD.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			//scene.getStylesheets().add(styleMetroD);
+			scene.getStylesheets().add("styles/JMetroDarkTheme.css");
 			System.out.println("metroDark !");
 		});
 		//css

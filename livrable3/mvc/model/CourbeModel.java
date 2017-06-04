@@ -179,11 +179,7 @@ public class CourbeModel<X,Y> extends Observable {
 	}
 
 
-	/**
-	 *
-	 * TODO Methode de transformation de la courbe
-	 *
-	 **/
+
 
 	/**
 	 * @author Rayan

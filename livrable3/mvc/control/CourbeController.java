@@ -315,15 +315,15 @@ public class CourbeController<X,Y> {
 		model.zoomIn(Xmin,Xmax,courbeN);
 		listCourbe.add(courbeN);
 		listTitle.add("Zoom");
-		if(model.getIndexbyName("Zoom de "+courbe.getName()+"sur ("+Xmin+","+Xmax+")")<0)
-			courbeN.setName("Zoom de "+courbe.getName()+"sur ("+Xmin+","+Xmax+")");
+		if(model.getIndexbyName("Zoom de "+courbe.getName()+" sur ("+Xmin+","+Xmax+")")<0)
+			courbeN.setName("Zoom de "+courbe.getName()+" sur ("+Xmin+","+Xmax+")");
 		else
 			;
 		model.addCourbe(courbeN);
 		model.setIndex(model.getIndexbyName(courbeN.getName()));
-		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT, courbe);
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT, courbeN);
 		this.addView(vueF);
-		vueF.addSeries(courbeN, "Zoom");
+		
 		vueF.setTitle("Zoom");
 		model.setIndex(0);
 	}

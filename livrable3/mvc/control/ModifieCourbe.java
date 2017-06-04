@@ -20,6 +20,7 @@ public interface ModifieCourbe {
 	public Courbe<Number,Number> doRegLin(Courbe<Number,Number> c,CourbeModel<Number,Number> model);
 	public Courbe<Number,Number> doLissageExp1(Courbe<Number,Number> s1,CourbeModel<Number,Number> model);
 	public Courbe<Number,Number> doLissageExp2(Courbe<Number,Number> s2,CourbeModel<Number,Number> model);
+	
 
 
 }
