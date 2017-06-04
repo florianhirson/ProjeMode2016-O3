@@ -39,8 +39,8 @@ public class SelectFileChooser {
 
 	public static void error(Exception e) {
 		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Exception Dialog");
-		alert.setHeaderText("Look, an Exception Dialog");
+		alert.setTitle("Fenetre erreur");
+		alert.setHeaderText("Erreur de chargement du fichier CSV");
 		alert.setContentText(e.getLocalizedMessage());
 
 
