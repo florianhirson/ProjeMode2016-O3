@@ -1,9 +1,13 @@
 package mvc.model.test;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+
+
 
 import mvc.model.Courbe;
 import mvc.model.CourbeModel;

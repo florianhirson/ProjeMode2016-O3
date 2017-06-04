@@ -5,9 +5,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -83,6 +81,7 @@ public abstract class CourbeVue<X,Y> extends Stage implements Observer {
 
 
 		pane.getChildren().add(lineChart);
+		@SuppressWarnings("unused")
 		ZoomManager zoom = new ZoomManager(pane, lineChart, l);
 
 		tab.setText(t);

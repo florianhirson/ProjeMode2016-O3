@@ -13,12 +13,6 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-
-import javafx.geometry.Pos;
-import javax.imageio.ImageIO;
-import javafx.stage.Modality;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -74,9 +68,9 @@ public class MenuProjet extends Application{
 
 
 	// load the stylesheets
-	String styleMetroD = getClass().getResource("/styles/JMetroDarkTheme.css").toExternalForm();
-	String styleMetroL = getClass().getResource("/styles/JMetroLightTheme.css").toExternalForm();
-	String styleBrume = getClass().getResource("/styles/brume.css").toExternalForm();
+	//String styleMetroD = getClass().getResource("styles/JMetroDarkTheme.css").toExternalForm();
+	//String styleMetroL = getClass().getResource("styles/JMetroLightTheme.css").toExternalForm();
+	//String styleBrume = getClass().getResource("styles/brume.css").toExternalForm();
 
 	CourbeModel<Number,Number> model; 				//	Modele MVC
 	CourbeVue<Number,Number> vue;	                // en preparation pour Livrable 2
@@ -90,7 +84,7 @@ public class MenuProjet extends Application{
 		launch(args);
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused", "static-access" })
 	@Override
 
 	public void start(Stage primaryStage) throws Exception {
@@ -543,21 +537,21 @@ public class MenuProjet extends Application{
 		metroD.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			scene.getStylesheets().add(styleMetroD);
+			//scene.getStylesheets().add(styleMetroD);
 			System.out.println("metroDark !");
 		});
 		//css
 		metroL.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			scene.getStylesheets().add(styleMetroL);
+		//	scene.getStylesheets().add(styleMetroL);
 			System.out.println("metrolight !");
 		});
 		//css
 		brume.setOnAction(e -> {
 			// apply stylesheet to the scene graph
 			scene.getStylesheets().clear();
-			scene.getStylesheets().add(styleBrume);
+		//	scene.getStylesheets().add(styleBrume);
 			System.out.println("brume !");
 		});
 

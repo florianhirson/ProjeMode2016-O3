@@ -1,7 +1,6 @@
 package mvc.view;
 
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -141,6 +140,7 @@ public class ZoomManager<X, Y> {
 
 	}
 
+	@SafeVarargs
 	public ZoomManager(final Pane chartParent, final XYChart<X, Y> chart, final Series<X, Y>... series) {
 		this(chartParent, chart, Arrays.asList(series));
 
@@ -201,6 +201,7 @@ public class ZoomManager<X, Y> {
 		} else if (o1 instanceof String || o2 instanceof String) {
 			doZoom(x, (String) o1, (String) o2);
 		} else {
+			@SuppressWarnings("unused")
 			final int wait = 0;
 		}
 	}
@@ -308,6 +309,7 @@ public class ZoomManager<X, Y> {
 			public void handle(final MouseEvent event) {
 				final double x = event.getX();
 				final double y = event.getY();
+				System.out.println("coordonnée mouse :("+x+","+y+")");
 				rect.setX(Math.min(x, mouseAnchor.get().getX()));
 				rect.setY(Math.min(y, mouseAnchor.get().getY()));
 				rect.setWidth(Math.abs(x - mouseAnchor.get().getX()));

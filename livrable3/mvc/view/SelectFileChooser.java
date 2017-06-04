@@ -1,15 +1,8 @@
 package mvc.view;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -25,7 +18,7 @@ public class SelectFileChooser {
 	public static String showSingleFileChooser() {
 
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File("livrable2/data/"));
+		fileChooser.setInitialDirectory(new File("data/"));
 		fileChooser.setTitle("Charger un fichier CSV");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV", "*.csv"));
 		File selectedFile = fileChooser.showOpenDialog(null);
