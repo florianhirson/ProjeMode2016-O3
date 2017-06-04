@@ -242,7 +242,7 @@ public class CourbeModelTest {
 		assertEquals(1,model2.getNbCourbe());
 	}
 	
-	@Test(expected=Error.class)
+	@Test(expected=AssertionError.class)
 	public void errorSingletonTest(){
 		
 		CourbeModel<Number,Number> model2 = CourbeModel.getInstance();
@@ -266,5 +266,13 @@ public class CourbeModelTest {
 		model.setIndex(model.getNbCourbe()+30);
 		
 		assertEquals(model.getNbCourbe()-1,model.getIndexUse());
+	}
+	
+	@Test
+	public void zoomTest(){
+		Courbe<Number,Number> c = new Courbe<Number,Number>();
+		model.zoomIn(2,7, c);
+		assertEquals(3,c.getX(0));
+		assertEquals(0.37,c.getY(0));
 	}
 }
