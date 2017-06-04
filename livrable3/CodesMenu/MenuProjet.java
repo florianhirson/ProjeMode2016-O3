@@ -221,19 +221,24 @@ public class MenuProjet extends Application{
 
 			/* Attention pour linux: new File(file.toString()+"/transformation.png"); */
 			/* Attention pour windows: new File(file.toString()+"\\transformatin.png"); */
+			HBox buttons = new HBox(10);
 
 			Button ok = new Button("OK");
+			Button cancel = new Button("Annuler");
+
+			buttons.getChildren().addAll(ok,cancel);
+			buttons.setAlignment(Pos.CENTER_RIGHT);
+
 			Label choix = new Label("Quel nom voulez-vous ?");
 			TextField textChoix = new TextField();
 			textChoix.setMaxWidth(150);
-			BorderPane bp = new BorderPane();
+
 			VBox vbox = new VBox();
 			vbox.setAlignment(Pos.CENTER);
 			vbox.setSpacing(15);
-			vbox.getChildren().addAll(choix,textChoix,ok);
-			bp.setCenter(vbox);
+			vbox.getChildren().addAll(choix,textChoix,buttons);
 			Stage choixNom = new Stage();
-			Scene sceneNom = new Scene(bp);
+			Scene sceneNom = new Scene(vbox);
 			choixNom.setScene(sceneNom);
 			choixNom.setHeight(200);
 			choixNom.setWidth(500);
@@ -250,12 +255,18 @@ public class MenuProjet extends Application{
 				System.out.println("print: "+file);
 				WritableImage writableImage = new WritableImage((int)screenShot.getScene().getWidth(), (int)screenShot.getScene().getHeight());
 				screenShot.getScene().snapshot(writableImage);
-
-				try{
-					ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
-					System.out.println(""+file2.getAbsolutePath());
-				}catch(IOException ex){Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+				if(chemin != null) {
+					try{
+						ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null),"png",file2);
+						System.out.println(""+file2.getAbsolutePath());
+					}catch(IOException ex){Logger.getLogger(Screen.class.getName()).log(Level.SEVERE, null, ex);
+					}
 				}
+
+				choixNom.close();
+			});
+
+			cancel.setOnAction(e1 -> {
 				choixNom.close();
 			});
 		});
