@@ -305,6 +305,28 @@ public class CourbeController<X,Y> {
 		vueF.setTitle("Residu");
 		model.setIndex(0);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void doZoom(Courbe<Number,Number> courbe,CourbeVue<Number,Number> vueF,ArrayList<Courbe<Number,Number>> listCourbe, ArrayList<String> listTitle, 
+			TabPane tabPane, ArrayList<Tab> listT,int Xmin,int Xmax){
+		Courbe<Number,Number> courbeN=new Courbe<Number,Number>();
+
+		model.setIndex(model.getIndexbyName(courbe.getName()));
+		model.zoomIn(Xmin,Xmax,courbeN);
+		listCourbe.add(courbeN);
+		listTitle.add("Zoom");
+		if(model.getIndexbyName("Zoom de "+courbe.getName()+"sur ("+Xmin+","+Xmax+")")<0)
+			courbeN.setName("Zoom de "+courbe.getName()+"sur ("+Xmin+","+Xmax+")");
+		else
+			;
+		model.addCourbe(courbeN);
+		model.setIndex(model.getIndexbyName(courbeN.getName()));
+		vueF = new CourbeVueConcret<Number,Number>(model,(CourbeController<Number, Number>)this,new NumberAxis(),new NumberAxis(),courbeN.getName(), tabPane,  listT, courbe);
+		this.addView(vueF);
+		vueF.addSeries(courbeN, "Zoom");
+		vueF.setTitle("Zoom");
+		model.setIndex(0);
+	}
 
 }
 

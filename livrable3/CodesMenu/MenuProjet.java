@@ -293,7 +293,9 @@ public class MenuProjet extends Application{
 		    choixVal.show();
 
 		    ok.setOnAction(el->{
-
+		    	
+		    	Courbe<Number,Number> myZoom = new Courbe<Number,Number>();
+				control.doZoom(myZoom, vueF, listCourbe, listTitle, tabPane, listT,Integer.parseInt(Xmin.getText()),Integer.parseInt(Xmax.getText()) );
 				choixVal.close();
 			});
 

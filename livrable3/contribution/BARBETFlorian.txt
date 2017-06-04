@@ -44,10 +44,13 @@ Synthese des actions effectues :
     21. Correction de toute l'interface (avec Rayan) + modification de CourbeController.java
     22. Test graphique manuel.
     23. Video
-    24. Mise en place de la logistique dans la partie graphique.
+
     
                 <<<< Livrable 3 >>>>
-    (à venir)
+    24. Mise en place de la logistique dans la partie graphique.
+    25. Mise en place de la methode zoomIn dans model.
+    26. Mise en place de la methode doZoom dans le control.
+    27. recherche pour comprendre les plug-in sans succés.
     
 Avis sur le groupe :
 
