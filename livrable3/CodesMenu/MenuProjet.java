@@ -573,7 +573,7 @@ public class MenuProjet extends Application{
 		aide.setOnAction(e -> {
 				try {
 
-					getHostServices().showDocument("http://www.hirsonf.fr"); //il suffit de changer l'url
+					getHostServices().showDocument("https://sites.google.com/view/projetffrt/"); //il suffit de changer l'url
 				} catch (Exception ex) {
 					// TODO Auto-generated catch block
 					ex.printStackTrace();
