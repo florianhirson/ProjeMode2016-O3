@@ -1,6 +1,7 @@
 package mvc.view;
 
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -24,8 +25,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Classe pour gérer le zoom sur le graphique
+ * @author Florian Hirson
+ *
+ */
 public class ZoomManager<X, Y> {
 
+	/**
+	 *Copie une collection de serie en une ObservableList
+	 * @param data Collection a copier
+	 *
+	 */
 	static <X, Y> ObservableList<XYChart.Series<X, Y>> deepCopySeries(final Collection<XYChart.Series<X, Y>> data) {
 		final ObservableList<XYChart.Series<X, Y>> backup = FXCollections.observableArrayList();
 		for (final Series<X, Y> s : data) {
@@ -34,6 +45,11 @@ public class ZoomManager<X, Y> {
 		return backup;
 	}
 
+	/**
+	 *Copie les series dd'un graphique
+	 * @param series Series a copier
+	 *
+	 */
 	static <X, Y> XYChart.Series<X, Y> deepCopySeries(final XYChart.Series<X, Y> series) {
 		final XYChart.Series<X, Y> result = new XYChart.Series<X, Y>();
 		result.setName(series.getName());
@@ -41,6 +57,11 @@ public class ZoomManager<X, Y> {
 		return result;
 	}
 
+	/**
+	 *Copie une collection de données en une ObservableList
+	 * @param data Collection a copier
+	 *
+	 */
 	static <X, Y> ObservableList<XYChart.Data<X, Y>> deepCopySeriesData(
 			final Collection<? extends XYChart.Data<X, Y>> data) {
 		final ObservableList<XYChart.Data<X, Y>> result = FXCollections.observableArrayList();
@@ -50,6 +71,11 @@ public class ZoomManager<X, Y> {
 		return result;
 	}
 
+	/**
+	 *Extrait une collection de données X en une ObservableList X
+	 * @param data Collection a extraire
+	 *
+	 */
 	static <X, Y> ObservableList<X> extractXValues(final ObservableList<Data<X, Y>> data) {
 		final ObservableList<X> result = FXCollections.observableArrayList();
 		for (final Data<X, Y> d : data) {
@@ -58,6 +84,11 @@ public class ZoomManager<X, Y> {
 		return result;
 	}
 
+	/**
+	 *Extrait une collection de données Y en une ObservableList Y
+	 * @param data Collection a extraire
+	 *
+	 */
 	static <X, Y> ObservableList<Y> extractYValues(final ObservableList<Data<X, Y>> data) {
 		final ObservableList<Y> result = FXCollections.observableArrayList();
 		for (final Data<X, Y> d : data) {
@@ -66,11 +97,22 @@ public class ZoomManager<X, Y> {
 		return result;
 	}
 
+	/**
+	 *Recupere l'object a partir de l'axe et de coordonées
+	 * @param axis Axe
+	 * @param cooridnate Coordonées de l'object à récupérer
+	 *
+	 */
 	static Object getObject(final Axis<?> axis, final double cooridnate) {
 		final Object object = axis.getValueForDisplay(cooridnate);
 		return object;
 	}
 
+	/**
+	 *Recupere le parent de la Node en paramètre
+	 * @param node Node
+	 *
+	 */
 	static Node getRootNode(final Node node) {
 		Node n = node;
 		while (n.getParent() != null) {
@@ -104,6 +146,13 @@ public class ZoomManager<X, Y> {
 
 	}
 
+	/**
+	 *Fait le zoom a partir des coordonées
+	 * @param x booleen pour savoir l'axe
+	 * @param n1 Nombre min de l'intervale
+	 * @param n2 Nombre max de l'intervale
+	 *
+	 */
 	private void doZoom(final boolean x, final Number n1, final Number n2) {
 		final double min = Math.min(n1.doubleValue(), n2.doubleValue());
 		final double max = Math.max(n1.doubleValue(), n2.doubleValue());
@@ -139,7 +188,13 @@ public class ZoomManager<X, Y> {
 		}
 
 	}
-
+	/**
+	 *Fait le zoom a partir des coordonées en verifiant le type fournit
+	 * @param x booleen pour savoir l'axe
+	 * @param o1 Objet min de l'intervale
+	 * @param o2 Objet max de l'intervale
+	 *
+	 */
 	private void doZoom(final boolean x, final Object o1, final Object o2) {
 		if (o1 instanceof Number && o2 instanceof Number) {
 			doZoom(x, (Number) o1, (Number) o2);
@@ -150,6 +205,13 @@ public class ZoomManager<X, Y> {
 		}
 	}
 
+	/**
+	 *Fait le zoom a partir des coordonées
+	 * @param x booleen pour savoir l'axe
+	 * @param o1 String min de l'intervale
+	 * @param o2 String max de l'intervale
+	 *
+	 */
 	private void doZoom(final boolean x, String s1, String s2) {
 		if (s1 == null && s2 == null) {
 			return;
@@ -191,6 +253,10 @@ public class ZoomManager<X, Y> {
 		}
 	}
 
+	/**
+	 *Rétablie les données du graphe
+	 *
+	 */
 	private synchronized void restoreData() {
 		// make a tmp variable of data, since we will modify it but need to be
 		// able to restore
@@ -199,6 +265,11 @@ public class ZoomManager<X, Y> {
 
 	}
 
+	/**
+	 * Fait le zoom
+	 *
+	 * @param rect
+	 */
 	private void setUpZooming(final Rectangle rect, final XYChart<X, Y> chart) {
 
 		setUpZoomingRectangle(rect);
@@ -206,7 +277,7 @@ public class ZoomManager<X, Y> {
 	}
 
 	/**
-	 * Displays a colored rectangle that will indicate zooming boundaries
+	 * Affiche un rectangle coloré qui indique l'intervalle du zoom
 	 *
 	 * @param rect
 	 */

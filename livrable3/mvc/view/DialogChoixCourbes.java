@@ -21,6 +21,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mvc.model.Courbe;
 
+/**
+ * Classe qui génère la fenetre de selection d'une courbe pour une transformation,analyse/prévision
+ * @author Florian Hirson
+ *
+ */
 public class DialogChoixCourbes extends Stage{
 	private ArrayList<Courbe<Number,Number>> courbesChoisies;
 

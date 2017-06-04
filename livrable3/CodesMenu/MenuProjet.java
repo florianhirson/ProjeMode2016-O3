@@ -164,7 +164,7 @@ public class MenuProjet extends Application{
 		Button bAjoutA = new Button("Ajouter");	//bouton pour ajouter une analyse
 		Button bAjoutP = new Button("Ajouter");	//bouton pour ajouter une prevision
         Button zoom = new Button("Zoom"); //bouton pour le zoom
-        
+
 		ajoutT.getChildren().addAll(cAjoutT,bAjoutT);
 		ajoutA.getChildren().addAll(cAjoutA,bAjoutA);
 		ajoutP.getChildren().addAll(cAjoutP,bAjoutP);
@@ -574,7 +574,11 @@ public class MenuProjet extends Application{
 				System.out.println(ex);
 				System.out.println("Test exception 1");
 			}
-			lireFichier(chemin, listTitle, tabPane, listCourbe, listc);
+			System.out.println("Chemin du fichier : "+chemin);
+			if(chemin != null) {
+				lireFichier(chemin, listTitle, tabPane, listCourbe, listc);
+			}
+
 		});
 
 		//Evenement du chargement de csv par internet

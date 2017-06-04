@@ -13,6 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import mvc.model.HttpDownloadUtility;
 
+/**
+ * Classe pour afficher la fenetre de telechargement d'un fichier
+ * @author Florian Hirson
+ *
+ */
 public class DialogTelechargement extends Stage{
 	private String sChemin = "";
 	private String sUrl = "";

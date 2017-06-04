@@ -11,6 +11,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * Classe pour gérer afficher la fenetre de changement de couleurs des courbes du graphe
+ * @author Florian Hirson
+ *
+ */
 public class DialogCouleurCourbe extends Stage {
 
 	private int numCourbe;
@@ -58,6 +63,12 @@ public class DialogCouleurCourbe extends Stage {
 
 	}
 
+	/**
+     *Change la couleur de la serie en parametre
+     * @param nbCourbe Indice de la courbe
+     * @param color Couleur a appliquer sur la courbe
+     * @param lineChart Graphe de la courbe
+     */
 	public void setColor( int nbCourbe, String color, LineChart<Number, Number> lineChart){
 		lineChart.setStyle("CHART_COLOR_"+ nbCourbe+": "+color+";");
 	}
