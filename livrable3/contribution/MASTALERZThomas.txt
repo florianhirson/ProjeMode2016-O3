@@ -1,8 +1,8 @@
 Contribution de MASTALERZ Thomas:
 > Debut du projet : 08/02/2016
 > Rôle : Programmeur -
->> Details : Programmation de méthode pour Livrable 2 
-- Création de la méthode régression linéaire.
+>> Details : Programmation de méthode pour Livrable 3
+- Création du site d'aide en ligne
 - étude de la programmation en utilisant JavaFx
 
     
@@ -14,8 +14,7 @@ Avis sur le groupe :
     
     Négatives :
         
-        pour ma part j'ai été embêté durant cette deuxième partie de projet car la majeure partie des choses à faire étaient pour la création de l'interface graphique en javaFx
-        que je ne maitrise pas du tout, j'ai donc laissé les autres membres du groupe géré cette partie la du projet. 
+        rien à signaler 
     
 Fréquence de travail : 
     3h/semaine ;
