@@ -51,7 +51,7 @@ public class SelectFileChooser {
 		e.printStackTrace(pw);
 		String exceptionText = sw.toString();
 
-		Label label = new Label("The exception stacktrace was:");
+		Label label = new Label("La trace de la pile d'exception était :");
 
 		TextArea textArea = new TextArea(exceptionText);
 		textArea.setEditable(false);
