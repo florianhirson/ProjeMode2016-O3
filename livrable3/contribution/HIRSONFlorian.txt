@@ -3,6 +3,14 @@ Contribution de HIRSON Florian :
 > Rôle : Programmeur -
 >> Details : 
 
+
+Livrable 3 : Ajout de fonctionnalités à l'interface graphique
+-Ajout du changement de la couleur de la courbe
+-Ajout du zoom en drag & drop
+-Correction des onglets & corrections diverses
+
+
+
 Livrable 2 : Programmation de l'interface graphique du menu
 -Creation de la méthode permettant de telecharger un fichier csv a partir d'internet
 -Creation de la methode permettant d charger un fichier csv
@@ -20,11 +28,8 @@ Livrable 1 : Programmation de méthode pour Livrable 1 et menu de chargement de 
 Avis sur le groupe :
     Positives:
     
-        Bon groupe, sérieux et travailleur. Bonne entraide.
-    
-    Négatives :
-        
-        Problème de compréhension. Réglable facilement. 
+        Bonne communication et rpartition des taches
+ 
     
 Fréquence de travail : 
     3h/semaine ;
